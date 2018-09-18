@@ -27,14 +27,20 @@ var dogImageY;
 
 // The image of a itClown face
 var itClownImage;
-// The current position of the itClown face
+// The default position of the itClown face
 var itClownImageX;
 var itClownImageY;
+
+// The dimensions of the circle shape
+var circleSize = 40;
+// The default position of the circle shape
+var circleX = 0;
+var circleY = 0;
 
 
 // preload()
 //
-// Load the three images we're using before the program starts
+// Load the four images we're using before the program starts
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
@@ -51,6 +57,8 @@ function preload() {
 function setup() {
   // Create our canvas
   createCanvas(640,640);
+  // Edit the color of the ellipse
+  fill(255, 0, 0);
 
   // Start the clown image at the centre of the canvas
   clownImageX = width/2;
@@ -64,12 +72,6 @@ function setup() {
   dogImageX = 0;
   dogImageY = height/2;
 
-  // Start the itClown image at the centre of the canvas
-  clownImageX = width/2;
-  clownImageY = height/2;
-
-
-
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
 }
@@ -79,6 +81,9 @@ function setup() {
 //
 // Moves the felt image linearly
 // Moves the clown face toward the current mouse location
+// Moves the dog image toward the right side of the canvas
+// Moves the itClown face at the current mouse location
+// Moves the circle shape slowy toward the current mouse location
 
 function draw() {
 
@@ -100,7 +105,7 @@ function draw() {
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
 
-  // Move the dog by moving from left to right across the canvas
+  // Move the dog from left to right across the canvas
   dogImageX += 1;
 
   // Display the dog image
@@ -112,5 +117,17 @@ function draw() {
 
   // Display the itClown image
   image(itClownImage,itClownImageX,itClownImageY);
+
+  // Move the circle by moving it 1/40th of its current distance from the mouse
+
+  // Calculate the distance in X and in Y
+  var xDistance = mouseX - circleX;
+  var yDistance = mouseY - circleY;
+  // Add 1/40th of the x and y distance to the circle's current (x,y) location
+  circleX = circleX + xDistance/40;
+  circleY = circleY + yDistance/40;
+
+  // Draw and display the circle
+  ellipse(circleX,circleY,circleSize,circleSize);
 
 }
