@@ -24,8 +24,12 @@ var dogImage;
 // The current position of the dog running
 var dogImageX;
 var dogImageY;
-// The current speed of the dog running across the canvas
-var speed;
+
+// The image of a itClown face
+var itClownImage;
+// The current position of the itClown face
+var itClownImageX;
+var itClownImageY;
 
 
 // preload()
@@ -36,6 +40,7 @@ function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   dogImage = loadImage("assets/images/dog.png");
+  itClownImage = loadImage("assets/images/itClown.png");
 }
 
 
@@ -59,8 +64,11 @@ function setup() {
   dogImageX = 0;
   dogImageY = height/2;
 
-  // Adjust the dog speed
-  speed = 2;
+  // Start the itClown image at the centre of the canvas
+  clownImageX = width/2;
+  clownImageY = height/2;
+
+
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -95,10 +103,14 @@ function draw() {
   // Move the dog by moving from left to right across the canvas
   dogImageX += 1;
 
-  // Add the speed to the dog
-  dogImageX += speed;
-
   // Display the dog image
   image(dogImage,dogImageX,dogImageY);
+
+  // Display the itClown following the current mouse location
+  itClownImageX = mouseX;
+  itClownImageY = mouseY;
+
+  // Display the itClown image
+  image(itClownImage,itClownImageX,itClownImageY);
 
 }
