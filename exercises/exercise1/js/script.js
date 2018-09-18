@@ -19,14 +19,23 @@ var feltTextureImage;
 var feltTextureImageX;
 var feltTextureImageY;
 
+// The image of a dog running
+var dogImage;
+// The current position of the dog running
+var dogImageX;
+var dogImageY;
+// The current speed of the dog running across the canvas
+var speed;
+
 
 // preload()
 //
-// Load the two images we're using before the program starts
+// Load the three images we're using before the program starts
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
+  dogImage = loadImage("assets/images/dog.png");
 }
 
 
@@ -45,6 +54,13 @@ function setup() {
   // Start the felt image perfectly off screen above the canvas
   feltTextureImageX = width/2;
   feltTextureImageY = 0 - feltTextureImage.height/2;
+
+  // Start the dog image at the left of the canvas
+  dogImageX = 0;
+  dogImageY = height/2;
+
+  // Adjust the dog speed
+  speed = 2;
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -75,4 +91,14 @@ function draw() {
 
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
+
+  // Move the dog by moving from left to right across the canvas
+  dogImageX += 1;
+
+  // Add the speed to the dog
+  dogImageX += speed;
+
+  // Display the dog image
+  image(dogImage,dogImageX,dogImageY);
+
 }
