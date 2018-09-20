@@ -33,12 +33,27 @@ var enemySpeedIncrease = 0.5;
 // How many dodges the player has made
 var dodges = 0;
 
+// The dodges counter text font used
+var myFont;
+
+// preload()
+//
+// Load the font we're using before the program starts
+function preload() {
+  myFont = loadFont("assets/fonts/Roboto-Regular.ttf");
+}
+
 // setup()
 //
 // Make the canvas, position the avatar and anemy
 function setup() {
   // Create our playing area
   createCanvas(500,500);
+
+  // Put the specifications for the dodges counter text
+  textSize(24);
+  textFont(myFont);
+  textAlign(CENTER);
 
   // Put the avatar in the centre
   avatarX = width/2;
@@ -59,6 +74,11 @@ function setup() {
 function draw() {
   // A pink background
   background(255,220,220);
+  // A white text color for the dodges counter
+  fill(255);
+  textFont(myFont);
+  // Display the dodges counter
+  text("Score: " + dodges, width/2, height/10);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
