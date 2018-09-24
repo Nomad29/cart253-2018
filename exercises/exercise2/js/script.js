@@ -2,20 +2,23 @@
 
 Exercise 2 - The Artful Dodger
 Pippin Barr
+(Modified by Alexandra Melançon)
 
-Starter code for exercise 2.
+Exercice 2 about a game where you are a little alien in his UFO trying to escape
+the evil humans who wants to capture you.
+Done with the Starter code for exercise 2 by Pippin Barr.
 
 *********************************************************/
 
 // The image of the player UFO
 var avatarImage;
 
-// The position and size of our avatar circle
+// The position and size of our avatar image
 var avatarX;
 var avatarY;
 var avatarSize = 80;
 
-// The speed and velocity of our avatar circle
+// The speed and velocity of our avatar image
 var avatarSpeed = 10;
 var avatarVX = 0;
 var avatarVY = 0;
@@ -40,16 +43,22 @@ var enemySpeedIncrease = 0.5;
 var dodges = 0;
 
 // The dodges counter text font used
-var myFont;
+var myFont1;
+// The motivationnal text font used
+var myFont2;
 
 // The background image of the canvas
 var backgroundImage;
 
+// Unable mouse clicking at the beginning
+var mouseIsClicked = false;
+
 // preload()
 //
-// Load the font we're using before the program starts
+// Load the fonts and images we're using before the program starts
 function preload() {
-  myFont = loadFont("assets/fonts/Bangers.ttf");
+  myFont1 = loadFont("assets/fonts/Bangers.ttf");
+  myFont2 = loadFont("assets/fonts/OpenSans-Regular.ttf");
   backgroundImage = loadImage("assets/images/canyonBackground.png");
   avatarImage = loadImage("assets/images/avatarUfo.PNG");
   enemyImage = loadImage("assets/images/enemyJet.PNG");
@@ -61,11 +70,6 @@ function preload() {
 function setup() {
   // Create our playing area
   createCanvas(500,500);
-
-  // Put the specifications for the dodges counter text
-  textSize(28);
-  textFont(myFont);
-  textAlign(CENTER);
 
   // Put the avatar in the centre
   avatarX = width/2;
@@ -88,7 +92,8 @@ function draw() {
   background(backgroundImage);
   // A white text color for the dodges counter
   fill(255);
-  textFont(myFont);
+  // Unable mouse clicking during the game
+  mouseIsClicked = false;
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -130,7 +135,10 @@ function draw() {
     // Tell the player they lost
     console.log("YOU LOSE!");
     // Display to the player that they lost
-    text("You Lose!" + dodges, width/2, height/2);
+    textFont(myFont1);
+    textAlign(CENTER);
+    text("You Lose!",width/2,height/2);
+    background(45,62,80);
     // Reset the enemy's position
     enemyX = 0;
     enemyY = random(0,height);
@@ -149,7 +157,10 @@ function draw() {
     // If they went off the screen they lose in the same way as above.
     console.log("YOU LOSE!");
     // Display to the player that they lost
-    text("You Lose!" + dodges, width/2, height/2);
+    textFont(myFont1);
+    textAlign(CENTER);
+    text("You Lose!",width/2,height/2);
+    background(45,62,80);
     enemyX = 0;
     enemyY = random(0,height);
     enemySize = 85;
@@ -175,6 +186,10 @@ function draw() {
 
   // Display the current number of successful in the console
   console.log(dodges);
+  // Put the specifications for the dodges counter text
+  textSize(28);
+  textAlign(CENTER);
+  textFont(myFont1);
   // Display the dodges counter
   text("Score: " + dodges, width/2, height/10);
 
@@ -183,5 +198,46 @@ function draw() {
 
   // Display the enemy fighter jet image
   image(enemyImage,enemyX,enemyY,enemySize,0,0);
+  
 
+  // Display an encouragement message to the player
+   fill(250,250,250);
+   if(dodges >= 5)
+   {
+     // Put the specifications for the encouragement message text
+     textSize(16);
+     textAlign(CENTER);
+     textFont(myFont2);
+     text("Keep going!",width/2,height/6.5);
+   }
+   // Display to the player that he won if he dodged 15 times
+   if (dodges >= 15)
+   {
+     // Put the specifications for color of the background
+     background(45,62,80);
+     // Put the specifications for the win message text
+     textSize(28);
+     textAlign(CENTER);
+     textFont(myFont1);
+     text("You win!",width/2, height/2);
+     textSize(16);
+     textAlign(CENTER);
+     textFont(myFont2);
+     text("Click to restart the game",width/2, height/1.8);
+     // Stops the avatar and enemy from displaying and moving
+     avatarImage.display();
+     enemyImage.display();
+     avatarSpeed = 0;
+     enemySpeed = 0;
+  }
+
+}
+
+// Give the option to restart the game by mouse cliking the screen
+function mouseClicked() {
+  if (dodges >= 15){
+       // Able mouse clicking after the game
+       mouseIsClicked = true;
+       location.reload();
+     }
 }
