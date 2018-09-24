@@ -7,27 +7,33 @@ Starter code for exercise 2.
 
 *********************************************************/
 
+// The image of the player UFO
+var avatarImage;
+
 // The position and size of our avatar circle
 var avatarX;
 var avatarY;
-var avatarSize = 50;
+var avatarSize = 80;
 
 // The speed and velocity of our avatar circle
 var avatarSpeed = 10;
 var avatarVX = 0;
 var avatarVY = 0;
 
-// The position and size of the enemy circle
+
+// The image of the enemy fighter jet
+var enemyImage;
+// The position and size of the enemy fighter jet image
 var enemyX;
 var enemyY;
-var enemySize = 50;
-// How much bigger the enemy circle gets with each successful dodge
-var enemySizeIncrease = 5;
+var enemySize = 85;
+// How much bigger the enemy fighter jet image gets with each successful dodge
+var enemySizeIncrease = 3;
 
-// The speed and velocity of our enemy circle
+// The speed and velocity of our enemy fighter jet image
 var enemySpeed = 5;
 var enemyVX = 5;
-// How much bigger the enemy circle gets with each successful dodge
+// How much bigger the enemy fighter jet image gets with each successful dodge
 var enemySpeedIncrease = 0.5;
 
 // How many dodges the player has made
@@ -36,11 +42,17 @@ var dodges = 0;
 // The dodges counter text font used
 var myFont;
 
+// The background image of the canvas
+var backgroundImage;
+
 // preload()
 //
 // Load the font we're using before the program starts
 function preload() {
-  myFont = loadFont("assets/fonts/Roboto-Regular.ttf");
+  myFont = loadFont("assets/fonts/Bangers.ttf");
+  backgroundImage = loadImage("assets/images/canyonBackground.png");
+  avatarImage = loadImage("assets/images/avatarUfo.PNG");
+  enemyImage = loadImage("assets/images/enemyJet.PNG");
 }
 
 // setup()
@@ -51,7 +63,7 @@ function setup() {
   createCanvas(500,500);
 
   // Put the specifications for the dodges counter text
-  textSize(24);
+  textSize(28);
   textFont(myFont);
   textAlign(CENTER);
 
@@ -72,13 +84,11 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-  // A pink background
-  background(255,220,220);
+  // A canyon image background
+  background(backgroundImage);
   // A white text color for the dodges counter
   fill(255);
   textFont(myFont);
-  // Display the dodges counter
-  text("Score: " + dodges, width/2, height/10);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -119,11 +129,13 @@ function draw() {
   if (dist(enemyX,enemyY,avatarX,avatarY) < enemySize/2 + avatarSize/2) {
     // Tell the player they lost
     console.log("YOU LOSE!");
+    // Display to the player that they lost
+    text("You Lose!" + dodges, width/2, height/2);
     // Reset the enemy's position
     enemyX = 0;
     enemyY = random(0,height);
     // Reset the enemy's size and speed
-    enemySize = 50;
+    enemySize = 85;
     enemySpeed = 5;
     // Reset the avatar's position
     avatarX = width/2;
@@ -136,9 +148,11 @@ function draw() {
   if (avatarX < 0 || avatarX > width || avatarY < 0 || avatarY > height) {
     // If they went off the screen they lose in the same way as above.
     console.log("YOU LOSE!");
+    // Display to the player that they lost
+    text("You Lose!" + dodges, width/2, height/2);
     enemyX = 0;
     enemyY = random(0,height);
-    enemySize = 50;
+    enemySize = 85;
     enemySpeed = 5;
     avatarX = width/2;
     avatarY = height/2;
@@ -150,7 +164,7 @@ function draw() {
     // This means the player dodged so update its dodge statistic
     dodges = dodges + 1;
     // Tell them how many dodges they have made
-    console.log(dodges + " DODGES!");
+    console.log(dodges);
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
@@ -161,15 +175,13 @@ function draw() {
 
   // Display the current number of successful in the console
   console.log(dodges);
+  // Display the dodges counter
+  text("Score: " + dodges, width/2, height/10);
 
-  // The player is black
-  fill(0);
-  // Draw the player as a circle
-  ellipse(avatarX,avatarY,avatarSize,avatarSize);
+  // Display the player as an UFO
+  image(avatarImage,avatarX,avatarY,80,80);
 
-  // The enemy is red
-  fill(255,0,0);
-  // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
+  // Display the enemy fighter jet image
+  image(enemyImage,enemyX,enemyY,enemySize,0,0);
 
 }
