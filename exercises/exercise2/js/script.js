@@ -13,16 +13,19 @@ Done with the Starter code for exercise 2 by Pippin Barr.
 // The image of the player UFO
 var avatarImage;
 
-// The position and size of our avatar image
+// The position and size of the avatar image
 var avatarX;
 var avatarY;
-var avatarSize = 80;
+var avatarSize = 85;
+// How much bigger the avatar image gets with each successful dodge
+var avatarSizeIncrease;
 
 // The speed and velocity of our avatar image
 var avatarSpeed = 10;
 var avatarVX = 0;
 var avatarVY = 0;
-
+// How much bigger the avatar image gets with each successful dodge
+var avatarSpeedIncrease;
 
 // The image of the enemy fighter jet
 var enemyImage;
@@ -31,7 +34,7 @@ var enemyX;
 var enemyY;
 var enemySize = 85;
 // How much bigger the enemy fighter jet image gets with each successful dodge
-var enemySizeIncrease = 3;
+var enemySizeIncrease = 5;
 
 // The speed and velocity of our enemy fighter jet image
 var enemySpeed = 5;
@@ -90,7 +93,7 @@ function setup() {
 function draw() {
   // A canyon image background
   background(backgroundImage);
-  // A white text color for the dodges counter
+  // A white text color
   fill(255);
   // Unable mouse clicking during the game
   mouseIsClicked = false;
@@ -134,11 +137,6 @@ function draw() {
   if (dist(enemyX,enemyY,avatarX,avatarY) < enemySize/2 + avatarSize/2) {
     // Tell the player they lost
     console.log("YOU LOSE!");
-    // Display to the player that they lost
-    textFont(myFont1);
-    textAlign(CENTER);
-    text("You Lose!",width/2,height/2);
-    background(45,62,80);
     // Reset the enemy's position
     enemyX = 0;
     enemyY = random(0,height);
@@ -156,11 +154,6 @@ function draw() {
   if (avatarX < 0 || avatarX > width || avatarY < 0 || avatarY > height) {
     // If they went off the screen they lose in the same way as above.
     console.log("YOU LOSE!");
-    // Display to the player that they lost
-    textFont(myFont1);
-    textAlign(CENTER);
-    text("You Lose!",width/2,height/2);
-    background(45,62,80);
     enemyX = 0;
     enemyY = random(0,height);
     enemySize = 85;
@@ -175,29 +168,38 @@ function draw() {
     // This means the player dodged so update its dodge statistic
     dodges = dodges + 1;
     // Tell them how many dodges they have made
-    console.log(dodges);
+    console.log(dodges + " DODGES!");
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
     // Increase the enemy's speed and size to make the game harder
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySize = enemySize + enemySizeIncrease;
+    // Randomize the player's avatar speed and size to make the game harder
+    avatarSizeIncrease = random(-10,10);
+    avatarSpeedIncrease = random(-5,5);
+    // Modify the player's avatar speed and size to make the game harder
+    avatarSpeed = avatarSpeed + avatarSpeedIncrease;
+    avatarSize = avatarSize + avatarSizeIncrease;
+    // Constrain the player's avatar speed and size to make sure the numbers are never becoming less than zero or over the limit permitted
+    avatarSpeed = constrain(avatarSpeed,1,30);
+    avatarSize = constrain(avatarSize,1,85);
   }
 
   // Display the current number of successful in the console
   console.log(dodges);
   // Put the specifications for the dodges counter text
-  textSize(28);
+  textSize(30);
   textAlign(CENTER);
   textFont(myFont1);
   // Display the dodges counter
   text("Score: " + dodges, width/2, height/10);
 
   // Display the player as an UFO
-  image(avatarImage,avatarX,avatarY,80,80);
+  image(avatarImage,avatarX,avatarY,avatarSize,avatarSize);
 
   // Display the enemy fighter jet image
-  image(enemyImage,enemyX,enemyY,enemySize,0,0);
+  image(enemyImage,enemyX,enemyY,enemySize,enemySize);
 
 
   // Display an encouragement message to the player
@@ -205,7 +207,7 @@ function draw() {
    if(dodges >= 5)
    {
      // Put the specifications for the encouragement message text
-     textSize(16);
+     textSize(18);
      textAlign(CENTER);
      textFont(myFont2);
      text("Keep going!",width/2,height/6.5);
@@ -216,11 +218,11 @@ function draw() {
      // Put the specifications for color of the background
      background(45,62,80);
      // Put the specifications for the win message text
-     textSize(28);
+     textSize(30);
      textAlign(CENTER);
      textFont(myFont1);
      text("You win!",width/2, height/2);
-     textSize(16);
+     textSize(18);
      textAlign(CENTER);
      textFont(myFont2);
      text("Click to restart the game",width/2, height/1.8);
