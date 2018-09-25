@@ -183,7 +183,7 @@ function draw() {
     avatarSize = avatarSize + avatarSizeIncrease;
     // Constrain the player's avatar speed and size to make sure the numbers are never becoming less than zero or over the limit permitted
     avatarSpeed = constrain(avatarSpeed,1,30);
-    avatarSize = constrain(avatarSize,1,85);
+    avatarSize = constrain(avatarSize,25,85);
   }
 
   // Display the current number of successful in the console
