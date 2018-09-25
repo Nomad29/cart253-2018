@@ -59,9 +59,9 @@ var mouseIsClicked = false;
 function preload() {
   myFont1 = loadFont("assets/fonts/Bangers.ttf");
   myFont2 = loadFont("assets/fonts/OpenSans-Regular.ttf");
-  backgroundImage = loadImage("assets/images/canyonBackground.png");
-  avatarImage = loadImage("assets/images/avatarUfo.PNG");
-  enemyImage = loadImage("assets/images/enemyJet.PNG");
+  backgroundImage = loadImage("assets/images/canyonbackground.png");
+  avatarImage = loadImage("assets/images/avatarufo.png");
+  enemyImage = loadImage("assets/images/enemyjet.png");
 }
 
 // setup()
@@ -198,7 +198,7 @@ function draw() {
 
   // Display the enemy fighter jet image
   image(enemyImage,enemyX,enemyY,enemySize,0,0);
-  
+
 
   // Display an encouragement message to the player
    fill(250,250,250);
