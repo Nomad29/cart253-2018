@@ -9,4 +9,117 @@ so the canvas is flush with the top left corner.
 body {
   padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+   /* This centers our sketch horizontally. */
+  justify-content: center;
+
+  /* This centers our sketch vertically. */
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+  color: #06D85F;
+  margin: 100px 0;
+}
+
+
+.image--cover {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin: 0 auto;
+	opacity: 0.85;
+	filter: alpha(opacity=85); /* For IE8 and earlier */
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 2em;
+}
+.popup .close {
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+    text-align: center;
+    transition: background-color margin-top 0.3s;
+    padding: 7px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #fb5858;
+}
+.popup .close:hover {
+  color: #fff;
+  background-color:#af3a3a;
+  margin-top:1px;
+}
+
+.button-content {
+    text-align: center;
+    width: 100%;
+	padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+  text-align: center;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+/*Let's make it appear when the page loads*/
+#popup1:target{
+    top: -100%;
+    left: -100%;
+    display:none;
+}
+
+.overlay:before {
+  content:"";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 9;
+}
+.overlay .popup {
+  background: #fff;
+    border-radius: 5px;
+    position: fixed;
+    top: 25%;
+    left: 33%;
+    padding: 30px;
+    width: 25%;
+    z-index: 10;
+    -webkit-transition: all 0.6s ease-in-out;
+    -moz-transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease-in-out;
+}
+.overlay:target .popup {
+    top: -100%;
+    left: -100%;
+}
+
+@media screen and (max-width: 1079px){
+  .overlay .popup{
+    width: 50%;
+    left: 22%;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
 }

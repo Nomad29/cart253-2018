@@ -1,10 +1,10 @@
 /******************************************************************************
-Where's Sausage Dog?
-by Pippin Barr
+Exercise 3 - Where's Sausage Dog?
+Pippin Barr
+(Modified by Alexandra Melançon)
 
-An algorithmic version of a Where's Wally searching game where you
-need to click on the sausage dog you're searching for in amongst all
-the visual noise of other animals.
+Exercice 3 is about a game where you need to find ''Charlie'' the sausage dog in the animal crowd.
+Done with the Starter code for exercise 3 by Pippin Barr.
 
 Animal images from:
 https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal-icon-set/
@@ -27,6 +27,12 @@ var decoyImage8;
 var decoyImage9;
 var decoyImage10;
 
+// The frame image
+var frameImage;
+// The position of the frame image
+var frameX;
+var frameY;
+
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
 var numDecoys = 100;
@@ -34,11 +40,19 @@ var numDecoys = 100;
 // Keep track of whether they've won
 var gameOver = false;
 
+// The titles text font used
+var myFont1;
+// The body text font used
+var myFont2;
+
 // preload()
 //
-// Loads the target and decoy images before the program starts
+// Loads the target, fonts, decoy and frame images before the program starts
 function preload() {
   targetImage = loadImage("assets/images/animals-target.png");
+
+  myFont1 = loadFont("assets/fonts/ProzaLibre-Medium.ttf");
+  myFont2 = loadFont("assets/fonts/OpenSans-Regular.ttf");
 
   decoyImage1 = loadImage("assets/images/animals-01.png");
   decoyImage2 = loadImage("assets/images/animals-02.png");
@@ -50,6 +64,8 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  frameImage = loadImage("assets/images/frame.png");
 }
 
 // setup()
@@ -58,8 +74,12 @@ function preload() {
 // of decoys in random positions, then the target
 function setup() {
   createCanvas(windowWidth,windowHeight);
-  background("#ffff00");
+  background("#ffff8c");
   imageMode(CENTER);
+
+  // Put the avatar in the centre
+  frameX = width/2;
+  frameY = height/2;
 
   // Use a for loop to draw as many decoys as we need
   for (var i = 0; i < numDecoys; i++) {
@@ -108,24 +128,47 @@ function setup() {
   targetY = random(0,height);
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
+
+  // The position of the frame image in the top right
+  var frameX = windowWidth - frameImage.width/2 - 50;
+  var frameY = frameImage.height/2;
+
+
+  // Display the frame lost image (image and text)
+
+  // Display the frame image
+  image(frameImage,frameX,frameY);
+  // Display the target image on the frame image
+  image(targetImage,frameX,frameY - 35);
+
 }
 
 function draw() {
+
   if (gameOver) {
     // Prepare our typography
-    textFont("Helvetica");
-    textSize(128);
+    textSize(100);
     textAlign(CENTER,CENTER);
     noStroke();
     fill(random(255));
+    textFont(myFont1);
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("YOU WINNED",width/2,height/2);
+    // Prepare our second typography
+    textSize(45);
+    textAlign(CENTER,CENTER);
+    noStroke();
+    fill(random(255));
+    textFont(myFont2);
+    // Tell them they won!
+    text("Press enter to play again",width/2,height/1.7);
 
     noFill();
     stroke(random(255));
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
   }
+
 }
 
 // mousePressed()
@@ -139,4 +182,22 @@ function mousePressed() {
       gameOver = true;
     }
   }
+}
+
+// keyPressed()
+//
+// Give the player the option to play again by pressing Enter
+function keyPressed() {
+       // Reloads the page if the player presses enter
+       if (keyIsDown(ENTER)) {
+      location.reload();
+     }
+}
+
+// windowResized()
+//
+// Make the screen resizable for better adaptibility
+function windowResized(){
+  location.reload();
+  resizeCanvas(windowWidth, windowHeight);
 }
