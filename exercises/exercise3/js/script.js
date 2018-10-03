@@ -140,6 +140,12 @@ function setup() {
   image(frameImage,frameX,frameY);
   // Display the target image on the frame image
   image(targetImage,frameX,frameY - 35);
+  // Display and personnalise the frame text
+  fill(51,51,51);
+  textSize(20);
+  textFont(myFont2);
+  textAlign(CENTER);
+  text("HAVE YOU SEEN ME?",frameX,frameY + 152);
 
 }
 
