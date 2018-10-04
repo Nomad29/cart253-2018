@@ -123,15 +123,25 @@ function setup() {
     }
   }
 
-  // Once we've displayed all decoys, we choose a location for the target
-  targetX = random(0,width);
-  targetY = random(0,height);
-  // And draw it (this means it will always be on top)
-  image(targetImage,targetX,targetY);
+ // Distance between target image and poster
+   var safeDistance = dist(frameX,frameY,targetX,targetY);
 
-  // The position of the frame image in the top right
-  var frameX = windowWidth - frameImage.width/2 - 50;
-  var frameY = frameImage.height/2;
+ // While loop to keep the target from overlapping over the frame lost image randomizing with loops
+ // Location of the target while under the frame lost image
+   while (safeDistance < targetImage.width/2 + frameImage.width/2 && safeDistance < targetImage.height/2 + frameImage.height/2){
+   targetX = random(0,width);
+   targetY = random(0,height);
+   }
+
+   // Once we've displayed all decoys, we choose a location for the target
+   targetX = random(0,width);
+   targetY = random(0,height);
+   // And draw it (this means it will always be on top)
+   image(targetImage,targetX,targetY);
+
+   // The position of the frame image in the top right
+   var frameX = windowWidth - frameImage.width/2 - 50;
+   var frameY = frameImage.height/2;
 
 
   // Display the frame lost image (image and text)
@@ -143,9 +153,9 @@ function setup() {
   // Display and personnalise the frame text
   fill(51,51,51);
   textSize(20);
-  textFont(myFont2);
   textAlign(CENTER);
-  text("HAVE YOU SEEN ME?",frameX,frameY + 152);
+  textFont(myFont1);
+  text("HAVE YOU SEEN ME?",frameX,frameY + 153);
 
 }
 
