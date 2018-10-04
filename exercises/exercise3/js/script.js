@@ -15,6 +15,11 @@ var targetX;
 var targetY;
 var targetImage;
 
+// Target's size
+var targetSize = 1;
+// Target's size increase
+var targetSizeIncrease = 5;
+
 // The ten decoy images
 var decoyImage1;
 var decoyImage2;
@@ -45,6 +50,13 @@ var myFont1;
 // The body text font used
 var myFont2;
 
+// Makes the target image jitter with an angle when winning
+var angle = 0.0;
+var jitter = 0.0;
+
+// Makes the speed of the moving/jumping animation possible
+var t = 0;
+
 // preload()
 //
 // Loads the target, fonts, decoy and frame images before the program starts
@@ -74,10 +86,14 @@ function preload() {
 // of decoys in random positions, then the target
 function setup() {
   createCanvas(windowWidth,windowHeight);
+  // Speed of the moving/jumping animation
+  tx = random(0,1000);
+  ty = random(0,1000);
+  // Background specifications
   background("#ffff8c");
   imageMode(CENTER);
 
-  // Put the avatar in the centre
+  // Put the frame image in the centre
   frameX = width/2;
   frameY = height/2;
 
@@ -123,22 +139,21 @@ function setup() {
     }
   }
 
- // Distance between target image and poster
-   var safeDistance = dist(frameX,frameY,targetX,targetY);
+   // Distance between target image and frame image
+   d = dist(frameX,frameY,targetX,targetY);
 
- // While loop to keep the target from overlapping over the frame lost image randomizing with loops
- // Location of the target while under the frame lost image
-   while (safeDistance < targetImage.width/2 + frameImage.width/2 && safeDistance < targetImage.height/2 + frameImage.height/2){
+   // While loop to keep the target from overlapping over the frame lost image randomizing with loops
+   while (d < frameImage.width/2 && d < frameImage.height/2){
    targetX = random(0,width);
    targetY = random(0,height);
-   }
+  }
 
    // Once we've displayed all decoys, we choose a location for the target
    targetX = random(0,width);
    targetY = random(0,height);
+
    // And draw it (this means it will always be on top)
    image(targetImage,targetX,targetY);
-
    // The position of the frame image in the top right
    var frameX = windowWidth - frameImage.width/2 - 50;
    var frameY = frameImage.height/2;
@@ -161,28 +176,62 @@ function setup() {
 
 function draw() {
 
+
   if (gameOver) {
-    // Prepare our typography
+
+    // Background color
+    background("#ffff8c");
+
+    // Typography informations
     textSize(100);
     textAlign(CENTER,CENTER);
     noStroke();
     fill(random(255));
     textFont(myFont1);
     // Tell them they won!
-    text("YOU WINNED",width/2,height/2);
+    text("YOU WON!",width/2,height/2);
     // Prepare our second typography
-    textSize(45);
+    textSize(40);
     textAlign(CENTER,CENTER);
     noStroke();
     fill(random(255));
     textFont(myFont2);
-    // Tell them they won!
-    text("Press enter to play again",width/2,height/1.7);
+    // Tell them a short description for playing again
+    text("Press ENTER to play again",width/2,height/1.7);
 
+    // Increase the target image size
+    targetSize += targetSizeIncrease;
+    // Moves to the target image location
+    translate(targetX, targetY);
+    // Give the time for the jitter animation for the target rotation
+    if (second() % 2 == 0) {
+    jitter = random(-0.1, 0.1);
+    }
+    // Increase the angle value using the most recent jitter value
+    angle = angle + jitter;
+    // Use cosine to get a smooth CW and CCW motion when not jittering
+    var c = cos(angle);
+    // Apply the final rotation
+    rotate(c);
+    // Displays the target image over the game screen
+    image(targetImage,0,0,targetImage.width + targetSize,targetImage.height + targetSize);
+
+    // Makes the target image big or small within a limited range
+    if (targetSize <= -25 || targetSize >= 250) {
+     targetSizeIncrease = -targetSizeIncrease;
+    }
+    // Makes the target image moving/jumping
+    targetX = width * noise(t);
+    targetY = height * noise(t);
+    // The speed of the moving/jumping animation
+    t += 0.01;
+
+    // Displays the target image on the game over screen
     noFill();
     stroke(random(255));
     strokeWeight(10);
-    ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    ellipse(0,0,targetImage.width + targetSize, targetImage.height + targetSize);
+
   }
 
 }
