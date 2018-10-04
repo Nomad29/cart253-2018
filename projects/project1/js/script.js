@@ -20,6 +20,8 @@ var playerRadius = 25;
 var playerVX = 0;
 var playerVY = 0;
 var playerMaxSpeed = 2;
+// Player boost when holding SHIFT
+var playerSpeedBoost = 5;
 // Player health
 var playerHealth;
 var playerMaxHealth = 255;
@@ -130,6 +132,23 @@ function handleInput() {
   else {
     playerVY = 0;
   }
+
+  // Give boost to the player when holding SHIFT for UP and DOWN arrows
+  if (keyIsDown(SHIFT) && keyIsDown(UP_ARROW)) {
+    playerVY = -playerSpeedBoost;
+  }
+  else if (keyIsDown(SHIFT) && keyIsDown(DOWN_ARROW)) {
+    playerVY = +playerSpeedBoost;
+  }
+
+  // Give boost to the player when holding SHIFT for LEFT and RIGHT arrows
+  if (keyIsDown(SHIFT) && keyIsDown(LEFT_ARROW)) {
+    playerVX = -playerSpeedBoost;
+  }
+  else if (keyIsDown(SHIFT) && keyIsDown(RIGHT_ARROW)) {
+    playerVX = +playerSpeedBoost;
+  }
+
 }
 
 // movePlayer()
@@ -169,6 +188,11 @@ function updateHealth() {
     // If so, the game is over
     gameOver = true;
   }
+  // Reduce player health quicker when holding SHIFT for boost
+  if (keyIsDown(SHIFT)) {
+  playerHealth = constrain(playerHealth - 1,0,playerMaxHealth);
+  }
+
 }
 
 // checkEating()
@@ -208,9 +232,9 @@ function movePrey() {
 
   // Give 0.01 to the Perlin noise movements
   t = t + 0.05;
-  // Set velocity based on random values to get a new direction
+  // Set velocity based on noise values to get a new direction
   // and speed of movement
-  // Use map() to convert from the 0-1 range of the random() function
+  // Use map() to convert from the 0-1 range of the noise() function
   // to the appropriate range of velocities for the prey
   preyVX = map(noise(t),0,1,-preyMaxSpeed,preyMaxSpeed);
   preyVY = map(noise(t),0,1,-preyMaxSpeed,preyMaxSpeed);
