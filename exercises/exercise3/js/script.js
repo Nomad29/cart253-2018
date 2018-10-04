@@ -37,6 +37,7 @@ var frameImage;
 // The position of the frame image
 var frameX;
 var frameY;
+var frameSize = 1;
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
@@ -86,9 +87,7 @@ function preload() {
 // of decoys in random positions, then the target
 function setup() {
   createCanvas(windowWidth,windowHeight);
-  // Speed of the moving/jumping animation
-  tx = random(0,1000);
-  ty = random(0,1000);
+
   // Background specifications
   background("#ffff8c");
   imageMode(CENTER);
@@ -108,7 +107,7 @@ function setup() {
     // images, each with a 10% chance of being shown
     // We'll talk more about this nice quality of random soon enough
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y * 2);
     }
     else if (r < 0.2) {
       image(decoyImage2,x,y);
@@ -123,34 +122,33 @@ function setup() {
       image(decoyImage5,x,y);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y * 1.5);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y,200,200);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8,x,y,200,200);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9,x,y,170,170);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10,x,y,120,120);
     }
-  }
-
-   // Distance between target image and frame image
-   d = dist(frameX,frameY,targetX,targetY);
-
-   // While loop to keep the target from overlapping over the frame lost image randomizing with loops
-   while (d < frameImage.width/2 && d < frameImage.height/2){
-   targetX = random(0,width);
-   targetY = random(0,height);
   }
 
    // Once we've displayed all decoys, we choose a location for the target
    targetX = random(0,width);
    targetY = random(0,height);
+
+   // Distance between target image and frame image
+   var d = dist(frameX,frameY,targetX,targetY < frameSize/2 + targetSize/2);
+   // While loop to keep the target from overlapping over the frame lost image randomizing with loops
+   while (d < frameImage.width/2 && d < frameImage.height/2) {
+   targetX = random(0,width);
+   targetY = random(0,height);
+  }
 
    // And draw it (this means it will always be on top)
    image(targetImage,targetX,targetY);
@@ -199,6 +197,7 @@ function draw() {
     // Tell them a short description for playing again
     text("Press ENTER to play again",width/2,height/1.7);
 
+
     // Increase the target image size
     targetSize += targetSizeIncrease;
     // Moves to the target image location
@@ -233,6 +232,8 @@ function draw() {
     ellipse(0,0,targetImage.width + targetSize, targetImage.height + targetSize);
 
   }
+
+
 
 }
 
