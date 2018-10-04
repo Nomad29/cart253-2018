@@ -38,6 +38,8 @@ var preyHealth;
 var preyMaxHealth = 100;
 // Prey fill color
 var preyFill = 200;
+// Prey Perlin noise base value
+var t;
 
 // Amount of health obtained per frame of "eating" the prey
 var eatHealth = 10;
@@ -49,7 +51,7 @@ var preyEaten = 0;
 // Sets up the basic elements of the game
 function setup() {
   createCanvas(500,500);
-
+  t = 0;
   noStroke();
 
   setupPrey();
@@ -197,19 +199,21 @@ function checkEating() {
 
 // movePrey()
 //
-// Moves the prey based on random velocity changes
+// Moves the prey based on Perlin noise velocity changes
 function movePrey() {
-  // Change the prey's velocity at random intervals
-  // random() will be < 0.05 5% of the time, so the prey
-  // will change direction on 5% of frames
-  if (random() < 0.05) {
-    // Set velocity based on random values to get a new direction
-    // and speed of movement
-    // Use map() to convert from the 0-1 range of the random() function
-    // to the appropriate range of velocities for the prey
-    preyVX = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-    preyVY = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-  }
+
+  // Allows the prey to move according to Perlin noise movements
+  var x = width * noise(t);
+  var y = height * noise(t+5);
+
+  // Give 0.01 to the Perlin noise movements
+  t = t + 0.05;
+  // Set velocity based on random values to get a new direction
+  // and speed of movement
+  // Use map() to convert from the 0-1 range of the random() function
+  // to the appropriate range of velocities for the prey
+  preyVX = map(noise(t),0,1,-preyMaxSpeed,preyMaxSpeed);
+  preyVY = map(noise(t),0,1,-preyMaxSpeed,preyMaxSpeed);
 
   // Update prey position based on velocity
   preyX += preyVX;
@@ -235,8 +239,13 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  fill(preyFill,preyHealth);
-  ellipse(preyX,preyY,preyRadius*2);
+
+// Defines the shapes and others visuals specfications of the prey
+noStroke();
+fill(preyFill,preyHealth);
+ellipse(preyX,preyY,preyRadius*2);
+
+
 }
 
 // drawPlayer()
