@@ -1,12 +1,10 @@
 /******************************************************
 
-Game - Chaser
-Pippin Barr
+Project 1 - Game Chaser
+(Modified by Alexandra Melançon)
 
-A simple game of cat and mouse.
-
-Physics-based movement, keyboard controls, health/stamina,
-sprinting, random movement, screen wrap.
+Project 1 is about a simple game of cat and mouse with Physics-based movement,
+keyboard controls, health/stamina,sprinting, random movement, screen wrap.
 
 ******************************************************/
 
@@ -16,7 +14,7 @@ var gameOver = false;
 // Player position, size, velocity
 var playerX;
 var playerY;
-var playerRadius = 25;
+var playerRadius = 40;
 var playerVX = 0;
 var playerVY = 0;
 var playerMaxSpeed = 2;
@@ -26,12 +24,18 @@ var playerSpeedBoost = 5;
 var playerHealth;
 var playerMaxHealth = 255;
 // Player fill color
-var playerFill = 50;
+var playerFill = 50 + playerAvatarTleft && playerAvatarTright;
+// Player avatar for left and right
+var playerAvatar;
+var playerAvatarRight;
+// Player avatar images when losing health
+var playerAvatarTleft;
+var playerAvatarTright;
 
 // Prey position, size, velocity
 var preyX;
 var preyY;
-var preyRadius = 25;
+var preyRadius = 12.5;
 var preyVX;
 var preyVY;
 var preyMaxSpeed = 4;
@@ -42,17 +46,33 @@ var preyMaxHealth = 100;
 var preyFill = 200;
 // Prey Perlin noise base value
 var t;
+// Prey images
+var preyImage;
+var preyImageBlur;
 
 // Amount of health obtained per frame of "eating" the prey
 var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
 
+// preload()
+//
+// Loads the target, fonts, decoy and frame images before the program starts
+function preload() {
+  playerAvatar = loadImage("assets/images/tails-left.png");
+  playerAvatarRight = loadImage("assets/images/tails-right.png");
+  playerAvatarTleft = loadImage("assets/images/tails-left-tired.png");
+  playerAvatarTright = loadImage("assets/images/tails-right-tired.png");
+
+  preyImage = loadImage("assets/images/ring.png");
+  preyImageBlur = loadImage("assets/images/ring-blur.png");
+}
+
 // setup()
 //
 // Sets up the basic elements of the game
 function setup() {
-  createCanvas(500,500);
+  var canvas = createCanvas(500,500);
   t = 0;
   noStroke();
 
@@ -89,10 +109,9 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   background(100,100,200);
+  frameRate(60);
 
   if (!gameOver) {
-    handleInput();
-
     movePlayer();
     movePrey();
 
@@ -101,55 +120,14 @@ function draw() {
 
     drawPrey();
     drawPlayer();
+
+    handleInput();
   }
   else {
     showGameOver();
   }
 }
 
-// handleInput()
-//
-// Checks arrow keys and adjusts player velocity accordingly
-function handleInput() {
-  // Check for horizontal movement
-  if (keyIsDown(LEFT_ARROW)) {
-    playerVX = -playerMaxSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
-    playerVX = playerMaxSpeed;
-  }
-  else {
-    playerVX = 0;
-  }
-
-  // Check for vertical movement
-  if (keyIsDown(UP_ARROW)) {
-    playerVY = -playerMaxSpeed;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
-    playerVY = playerMaxSpeed;
-  }
-  else {
-    playerVY = 0;
-  }
-
-  // Give boost to the player when holding SHIFT for UP and DOWN arrows
-  if (keyIsDown(SHIFT) && keyIsDown(UP_ARROW)) {
-    playerVY = -playerSpeedBoost;
-  }
-  else if (keyIsDown(SHIFT) && keyIsDown(DOWN_ARROW)) {
-    playerVY = +playerSpeedBoost;
-  }
-
-  // Give boost to the player when holding SHIFT for LEFT and RIGHT arrows
-  if (keyIsDown(SHIFT) && keyIsDown(LEFT_ARROW)) {
-    playerVX = -playerSpeedBoost;
-  }
-  else if (keyIsDown(SHIFT) && keyIsDown(RIGHT_ARROW)) {
-    playerVX = +playerSpeedBoost;
-  }
-
-}
 
 // movePlayer()
 //
@@ -190,7 +168,7 @@ function updateHealth() {
   }
   // Reduce player health quicker when holding SHIFT for boost
   if (keyIsDown(SHIFT)) {
-  playerHealth = constrain(playerHealth - 1,0,playerMaxHealth);
+  playerHealth = constrain(playerHealth - 0.8,0,playerMaxHealth);
   }
 
 }
@@ -211,8 +189,8 @@ function checkEating() {
     // Check if the prey died
     if (preyHealth === 0) {
       // Move the "new" prey to a random position
-      preyX = random(0,width);
-      preyY = random(0,height);
+      preyX = random(0,500);
+      preyY = random(0,500);
       // Give it full health
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
@@ -221,17 +199,39 @@ function checkEating() {
   }
 }
 
+// drawPrey()
+//
+// Draw the prey as an ellipse with alpha based on health
+function drawPrey() {
+
+  // Gives the prey a colorful shading with the help of the Perlin noise
+  // Allows the prey to move according to Perlin noise movements
+  preyX = width * noise(t+5);
+  preyY * noise(t);
+  var r = 455 * noise(t+10);
+  var g = 455 * noise(t+15);
+  var b = 455 * noise(t+20);
+
+  // Defines the shapes and others visuals specfications of the prey
+  noStroke();
+  tint(r,g,b,preyFill,preyHealth);
+  image(preyImage,preyX,preyY,preyRadius*2);
+
+  if (playerHealth < 100) {
+    frameRate(40);
+    image(preyImageBlur,preyX,preyY,preyRadius*2.3);
+  }
+
+}
+
 // movePrey()
 //
 // Moves the prey based on Perlin noise velocity changes
 function movePrey() {
 
-  // Allows the prey to move according to Perlin noise movements
-  var x = width * noise(t);
-  var y = height * noise(t+5);
-
   // Give 0.01 to the Perlin noise movements
-  t = t + 0.05;
+  t = t + 0.01;
+
   // Set velocity based on noise values to get a new direction
   // and speed of movement
   // Use map() to convert from the 0-1 range of the noise() function
@@ -259,25 +259,71 @@ function movePrey() {
   }
 }
 
-// drawPrey()
-//
-// Draw the prey as an ellipse with alpha based on health
-function drawPrey() {
-
-// Defines the shapes and others visuals specfications of the prey
-noStroke();
-fill(preyFill,preyHealth);
-ellipse(preyX,preyY,preyRadius*2);
-
-
-}
 
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
+
+  noTint();
   fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  image(playerAvatar,playerX,playerY,playerRadius*2);
+
+}
+
+
+// handleInput()
+//
+// Checks arrow keys and adjusts player velocity accordingly
+function handleInput() {
+  // Check for horizontal movement
+  if (keyIsDown(LEFT_ARROW)) {
+    playerVX = -playerMaxSpeed;
+    image(playerAvatar,playerX,playerY,playerRadius*2);
+  }
+  else if (keyIsDown(RIGHT_ARROW)) {
+    playerVX = playerMaxSpeed;
+    image(playerAvatarRight,playerX,playerY,playerRadius*2);
+  }
+  else {
+    playerVX = 0;
+  }
+
+  // Change the player avatar when losing health
+  if ((playerHealth < 100) && (keyIsDown(RIGHT_ARROW))) {
+    image(playerAvatarTright,playerX,playerY,playerRadius*2.1);
+  }
+  else if (playerHealth < 100) {
+    image(playerAvatarTleft,playerX,playerY,playerRadius*2.1);
+  }
+
+  // Check for vertical movement
+  if (keyIsDown(UP_ARROW)) {
+    playerVY = -playerMaxSpeed;
+  }
+  else if (keyIsDown(DOWN_ARROW)) {
+    playerVY = playerMaxSpeed;
+  }
+  else {
+    playerVY = 0;
+  }
+
+  // Give boost to the player when holding SHIFT for UP and DOWN arrows
+  if (keyIsDown(SHIFT) && keyIsDown(UP_ARROW)) {
+    playerVY = -playerSpeedBoost;
+  }
+  else if (keyIsDown(SHIFT) && keyIsDown(DOWN_ARROW)) {
+    playerVY = +playerSpeedBoost;
+  }
+
+  // Give boost to the player when holding SHIFT for LEFT and RIGHT arrows
+  if (keyIsDown(SHIFT) && keyIsDown(LEFT_ARROW)) {
+    playerVX = -playerSpeedBoost;
+  }
+  else if (keyIsDown(SHIFT) && keyIsDown(RIGHT_ARROW)) {
+    playerVX = +playerSpeedBoost;
+  }
+
 }
 
 // showGameOver()
