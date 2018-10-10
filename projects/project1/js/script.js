@@ -28,7 +28,7 @@ var playerFill = 50 + playerAvatarTleft && playerAvatarTright;
 // Player avatar for left and right
 var playerAvatar;
 var playerAvatarRight;
-// Player avatar images when losing health
+// Player avatar images (tired) when losing health
 var playerAvatarTleft;
 var playerAvatarTright;
 
@@ -44,7 +44,7 @@ var preyHealth;
 var preyMaxHealth = 100;
 // Prey fill color
 var preyFill = 200;
-// Prey Perlin noise base value
+// Prey Perlin noise
 var t;
 // Prey images
 var preyImage;
@@ -73,6 +73,7 @@ function preload() {
 // Sets up the basic elements of the game
 function setup() {
   var canvas = createCanvas(500,500);
+  // Prey Perlin noise base value
   t = 0;
   noStroke();
 
@@ -217,6 +218,7 @@ function drawPrey() {
   tint(r,g,b,preyFill,preyHealth);
   image(preyImage,preyX,preyY,preyRadius*2);
 
+// If the player lose health the prey image becomes blurry
   if (playerHealth < 100) {
     frameRate(40);
     image(preyImageBlur,preyX,preyY,preyRadius*2.3);
@@ -229,7 +231,7 @@ function drawPrey() {
 // Moves the prey based on Perlin noise velocity changes
 function movePrey() {
 
-  // Give 0.01 to the Perlin noise movements
+  // Give 0.01 to the default Perlin noise movements and speed
   t = t + 0.01;
 
   // Set velocity based on noise values to get a new direction
@@ -257,6 +259,19 @@ function movePrey() {
   else if (preyY > height) {
     preyY -= height;
   }
+
+// Give more erratically fast movements with Perlin noise to the prey
+  if (preyEaten >= 15)
+  {
+    // Give 0.013 to the Perlin noise movements
+    t = t + 0.013;
+  }
+  else if (preyEaten >= 30)
+  {
+    // Give 0.016 to the Perlin noise movements
+    t = t + 0.016;
+  }
+
 }
 
 
@@ -267,6 +282,7 @@ function drawPlayer() {
 
   noTint();
   fill(playerFill,playerHealth);
+  // Player default avatar
   image(playerAvatar,playerX,playerY,playerRadius*2);
 
 }
@@ -276,13 +292,16 @@ function drawPlayer() {
 //
 // Checks arrow keys and adjusts player velocity accordingly
 function handleInput() {
+  
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
+    // Player default avatar
     image(playerAvatar,playerX,playerY,playerRadius*2);
   }
   else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
+    // Player default avatar, but facing right instead
     image(playerAvatarRight,playerX,playerY,playerRadius*2);
   }
   else {
@@ -291,9 +310,11 @@ function handleInput() {
 
   // Change the player avatar when losing health
   if ((playerHealth < 100) && (keyIsDown(RIGHT_ARROW))) {
+    // Player default avatar, but facing right instead and tired after losing health
     image(playerAvatarTright,playerX,playerY,playerRadius*2.1);
   }
   else if (playerHealth < 100) {
+    // Player default avatar, but tired after losing health
     image(playerAvatarTleft,playerX,playerY,playerRadius*2.1);
   }
 
