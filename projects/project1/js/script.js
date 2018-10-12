@@ -8,6 +8,7 @@ keyboard controls, health/stamina,sprinting, random movement, screen wrap.
 
 ******************************************************/
 
+
 // Help for calling the sketch inside the index.html
 var canvas;
 
