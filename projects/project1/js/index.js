@@ -5,30 +5,6 @@ const App = {
 
   animate: function () {
 	 
-    // From Modernizr
-    function whichTransitionEvent () {
-      let t;
-      const el = document.createElement( 'fake' );
-      const transitions = {
-        'transition': 'transitionend',
-        'OTransition': 'oTransitionEnd',
-        'MozTransition': 'transitionend',
-        'WebkitTransition': 'webkitTransitionEnd'
-      };
-
-      for ( t in transitions ) {
-        if ( el.style[ t ] !== undefined ) {
-          return transitions[ t ];
-        }
-      }
-    }
-
-    // Play Sound
-    function playSound () {
-      console.log( 'Play sound!' );
-      audio.currentTime = 0;
-      audio.play();
-    }
 
     const audio = document.querySelector( `#title` );
     const btnON = document.querySelector( `.btn-on` );
@@ -54,7 +30,7 @@ const App = {
 	  copyrights.classList.add( 'copyrights-hide' );
 	  bg.classList.add( 'bg-hide' );
 	  game.classList.remove( 'myContainer-hide' );
-
+      audio.pause();
       // Power Led
       power.classList.add( 'power-on' );
     };
