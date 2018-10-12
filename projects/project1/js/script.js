@@ -8,8 +8,15 @@ keyboard controls, health/stamina,sprinting, random movement, screen wrap.
 
 ******************************************************/
 
+// Let the game only resume when the player have exit the title screen
+var drawThings = false;
+var numClicks = 0;
+
 // Track whether the game is over
 var gameOver = false;
+
+// Let the player avatar turn right
+var right = false;
 
 // Player position, size, velocity
 var playerX;
@@ -24,7 +31,7 @@ var playerSpeedBoost = 5;
 var playerHealth;
 var playerMaxHealth = 255;
 // Player fill color
-var playerFill = 50 + playerAvatarTleft && playerAvatarTright;
+var playerFill = 50;
 // Player avatar for left and right
 var playerAvatar;
 var playerAvatarRight;
@@ -54,51 +61,74 @@ var preyImageBlur;
 var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
+var preyScore = 0;
+
+// Game sounds
+var gameSound;
+var gameOverSound;
+
+// Help for calling the sketch inside the index.html
+var canvas;
 
 // preload()
 //
 // Loads the target, fonts, decoy and frame images before the program starts
 function preload() {
+  // Loads the player avatars
   playerAvatar = loadImage("assets/images/tails-left.png");
   playerAvatarRight = loadImage("assets/images/tails-right.png");
   playerAvatarTleft = loadImage("assets/images/tails-left-tired.png");
   playerAvatarTright = loadImage("assets/images/tails-right-tired.png");
-
+  // Loads the prey avatars
   preyImage = loadImage("assets/images/ring.png");
   preyImageBlur = loadImage("assets/images/ring-blur.png");
+  // Loads the backgrounds images
+  backgroundImage = loadImage("assets/images/2.jpg");
+  backgroundSecondImage = loadImage("assets/images/1.jpg");
+  // Load the sounds
+  gameSound = new Audio("assets/sounds/sonic-playsong.mp3");
+  gameOverSound = new Audio("assets/sounds/sonic-actclear.mp3");
 }
 
 // setup()
 //
 // Sets up the basic elements of the game
 function setup() {
-  var canvas = createCanvas(500,500);
+
+  var canvas = createCanvas(490,490);
+  // Calls the sketch inside the index.html with the myContainer id
+  canvas.parent('myContainer');
   // Prey Perlin noise base value
   t = 0;
   noStroke();
 
   setupPrey();
   setupPlayer();
+
 }
 
 // setupPrey()
 //
 // Initialises prey's position, velocity, and health
 function setupPrey() {
+
   preyX = width/5;
   preyY = height/2;
   preyVX = -preyMaxSpeed;
   preyVY = preyMaxSpeed;
   preyHealth = preyMaxHealth;
+
 }
 
 // setupPlayer()
 //
 // Initialises player position and health
 function setupPlayer() {
+
   playerX = 4*width/5;
   playerY = height/2;
   playerHealth = playerMaxHealth;
+
 }
 
 // draw()
@@ -109,7 +139,19 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100,100,200);
+
+  // Start the stopwatch for time score
+  startTime = second();
+  // Calculate the total score
+  totalScore = preyEaten + preyScore + startTime;
+// Let the game only resume when the player have exit the title screen
+  if (drawThings) {
+
+  // Display the game background
+  background(backgroundImage);
+  // Play the in game sound
+  gameSound.play();
+  // Give a normal pace animation to the game
   frameRate(60);
 
   if (!gameOver) {
@@ -120,13 +162,23 @@ function draw() {
     checkEating();
 
     drawPrey();
-    drawPlayer();
 
     handleInput();
   }
   else {
     showGameOver();
   }
+
+// Let the player avatar turn right
+  if (!right) {
+    drawPlayer();
+  }
+  else {
+    drawPlayerRight();
+  }
+
+ }
+
 }
 
 
@@ -135,6 +187,7 @@ function draw() {
 // Updates player position based on velocity,
 // wraps around the edges.
 function movePlayer() {
+
   // Update position
   playerX += playerVX;
   playerY += playerVY;
@@ -153,6 +206,7 @@ function movePlayer() {
   else if (playerY > height) {
     playerY -= height;
   }
+
 }
 
 // updateHealth()
@@ -190,12 +244,13 @@ function checkEating() {
     // Check if the prey died
     if (preyHealth === 0) {
       // Move the "new" prey to a random position
-      preyX = random(0,500);
-      preyY = random(0,500);
+      preyX = random(0,490);
+      preyY = random(0,490);
       // Give it full health
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten++;
+      preyScore = preyEaten * 5;
     }
   }
 }
@@ -260,7 +315,7 @@ function movePrey() {
     preyY -= height;
   }
 
-// Give more erratically fast movements with Perlin noise to the prey
+// Give more erratically fast movements with Perlin noise to the prey the more the player eats
   if (preyEaten >= 15)
   {
     // Give 0.013 to the Perlin noise movements
@@ -274,7 +329,6 @@ function movePrey() {
 
 }
 
-
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha based on health
@@ -285,6 +339,30 @@ function drawPlayer() {
   // Player default avatar
   image(playerAvatar,playerX,playerY,playerRadius*2);
 
+  // Change the default player avatar when losing health
+  if (playerHealth < 100) {
+    // Player default avatar, but tired after losing health
+    image(playerAvatarTleft,playerX,playerY,playerRadius*2.1);
+  }
+
+}
+
+// drawPlayer to the right()
+//
+// Draw the player as an ellipse with alpha based on health
+function drawPlayerRight() {
+
+  noTint();
+  fill(playerFill,playerHealth);
+  // Player default avatar, but facing right
+  image(playerAvatarRight,playerX,playerY,playerRadius*2);
+
+  // Change the player avatar (facing right) when losing health
+  if (playerHealth < 100) {
+    // Player default avatar, but facing right instead and looking tired after losing health
+      image(playerAvatarTright,playerX,playerY,playerRadius*2.1);
+  }
+
 }
 
 
@@ -292,30 +370,20 @@ function drawPlayer() {
 //
 // Checks arrow keys and adjusts player velocity accordingly
 function handleInput() {
-  
-  // Check for horizontal movement
-  if (keyIsDown(LEFT_ARROW)) {
-    playerVX = -playerMaxSpeed;
-    // Player default avatar
-    image(playerAvatar,playerX,playerY,playerRadius*2);
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
-    playerVX = playerMaxSpeed;
-    // Player default avatar, but facing right instead
-    image(playerAvatarRight,playerX,playerY,playerRadius*2);
-  }
-  else {
-    playerVX = 0;
-  }
 
-  // Change the player avatar when losing health
-  if ((playerHealth < 100) && (keyIsDown(RIGHT_ARROW))) {
-    // Player default avatar, but facing right instead and tired after losing health
-    image(playerAvatarTright,playerX,playerY,playerRadius*2.1);
-  }
-  else if (playerHealth < 100) {
-    // Player default avatar, but tired after losing health
-    image(playerAvatarTleft,playerX,playerY,playerRadius*2.1);
+   // Check for horizontal movement
+    if (keyIsDown(LEFT_ARROW)) {
+      playerVX = -playerMaxSpeed;
+      // Keep the player avatar facing right hidden
+      right = false;
+    }
+    else if (keyIsDown(RIGHT_ARROW)) {
+      playerVX = playerMaxSpeed;
+      // Unhide the player avatar facing right and hide the default player avatar
+      right = true;
+    }
+    else {
+      playerVX = 0;
   }
 
   // Check for vertical movement
@@ -347,15 +415,60 @@ function handleInput() {
 
 }
 
+
 // showGameOver()
 //
 // Display text about the game being over!
 function showGameOver() {
+  // Display the game over background
+  background(backgroundSecondImage);
+  // Pause the game sound
+  gameSound.pause();
+  // Play the game over sound
+  gameOverSound.play();
+  // Text specifications for the game over menu
   textSize(32);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER);
   fill(0);
-  var gameOverText = "GAME OVER\n";
-  gameOverText += "You ate " + preyEaten + " prey\n";
-  gameOverText += "before you died."
-  text(gameOverText,width/2,height/2);
+  var gameOverText = "RESULT\n";
+  text(gameOverText,width/2,height/5);
+
+  textSize(26);
+  textAlign(CENTER);
+  fill(0);
+  var gameOverText2 = " \n";
+  gameOverText2 += "Score: " + preyScore + " \n";
+  gameOverText2 += "Rings: " + preyEaten + " \n";
+  gameOverText2 += "Time: " + startTime + " \n\n";
+  gameOverText2 += "Total score: " + totalScore + " \n\n";
+  gameOverText2 += "Click to continue";
+  text(gameOverText2,width/2,height/3);
+
+  // Hide the player avatar and game background
+  playerAvatar.display();
+  playerAvatarRight.display();
+  playerAvatarTleft.display();
+  playerAvatarTright.display();
+  backgroundImage.display();
+}
+
+// Let the game only resume when the player have exit the title screen
+function onPClick() {
+  numClicks++; // Add 1 to numClicks
+}
+
+function mouseClicked() {
+
+  if (numClicks < 1) {
+   drawThings = true;
+  }
+
+  else if (numClicks > 2) {
+   drawThings = false;
+  }
+
+  if ((!gameOver) && (numClicks > 2)) {
+       location.reload();
+     }
+
 }

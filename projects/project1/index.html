@@ -3,9 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+	<title>CART253 (Pr1): The Better Chaser</title>
+	<meta name="description" content="Project 1 for CART253 class, by Alexandra Melançon. (Credits to Jorge Baumann, on CodePen, for the CSS GameBoy.)">
 
     <!-- CSS stylesheet(s) -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Space+Mono:700" rel="stylesheet">
 
     <!-- Library script(s) -->
     <script src="js/libraries/p5.min.js"></script>
@@ -16,6 +19,44 @@
 
   <body>
     <!-- HTML would go here if needed. -->
+
+    <audio id="title" src="assets/sounds/sonic-titletheme.mp3"></audio>
+	
+	<div class="gameboy">
+  <div class="screen-cont">
+    <div class="power"></div>
+    <div class="screen">
+    <div class="header">DOT MATRIX WITH STEREO SOUND</div>
+	<div class="btn-on one"><input type="button" value="CLICK HERE"/></div>
+	<div class="logo">
+	    <img src="assets/images/logo.png">
+	</div>
+		<div class="copyrights">
+        Original Game by © SEGA
+		<br>
+        © Program by Alexandra Melançon 2018
+		</div>
+	<div class="bg">
+		<img src="assets/images/bg-menu.png">
+	</div>	
+        <div id="myContainer"></div>
+    </div>
+  </div>
+  <div class="controls-cont">
+    <div class="btn-direction">
+      <div class="vertical"></div>
+      <div class="horizontal"></div>
+    </div>
+    <div class="btn-AB"></div>
+    <div class="btn-start-select"></div>
+  </div>
+  <div class="speakers"></div>
+  <div class="on-off">< off-on ></div>
+  <div class="phones">phones</div>
+</div>
+
+ <script  src="js/index.js"></script>
+
   </body>
 
 </html>
