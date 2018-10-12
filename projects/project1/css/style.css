@@ -78,7 +78,6 @@ body {
 		opacity: 1;
 	}					
 }
-
 .one{
     animation: twinkle 1.5s ease-in-out infinite; 
 }
@@ -89,7 +88,7 @@ body {
     position: absolute;
 	z-index: 9;
     width: 100%;
-    top: 15%;
+    top: 20%;
 }
 .logo-hide {
   display: none;
@@ -110,7 +109,7 @@ body {
     text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
     letter-spacing: 3px;
 	cursor: default;
-    bottom: 25px;
+    bottom: 30px;
 }
 .copyrights-hide {
   display: none;

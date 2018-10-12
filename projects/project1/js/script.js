@@ -8,6 +8,9 @@ keyboard controls, health/stamina,sprinting, random movement, screen wrap.
 
 ******************************************************/
 
+// Help for calling the sketch inside the index.html
+var canvas;
+
 // Let the game only resume when the player have exit the title screen
 var drawThings = false;
 var numClicks = 0;
@@ -29,7 +32,7 @@ var playerMaxSpeed = 2;
 var playerSpeedBoost = 5;
 // Player health
 var playerHealth;
-var playerMaxHealth = 255;
+var playerMaxHealth = 300;
 // Player fill color
 var playerFill = 50;
 // Player avatar for left and right
@@ -67,9 +70,6 @@ var preyScore = 0;
 var gameSound;
 var gameOverSound;
 
-// Help for calling the sketch inside the index.html
-var canvas;
-
 // preload()
 //
 // Loads the target, fonts, decoy and frame images before the program starts
@@ -79,15 +79,19 @@ function preload() {
   playerAvatarRight = loadImage("assets/images/tails-right.png");
   playerAvatarTleft = loadImage("assets/images/tails-left-tired.png");
   playerAvatarTright = loadImage("assets/images/tails-right-tired.png");
+  playerHeart = loadImage("assets/images/health.png");
   // Loads the prey avatars
   preyImage = loadImage("assets/images/ring.png");
   preyImageBlur = loadImage("assets/images/ring-blur.png");
   // Loads the backgrounds images
   backgroundImage = loadImage("assets/images/2.jpg");
-  backgroundSecondImage = loadImage("assets/images/1.jpg");
+  backgroundSecondImage = loadImage("assets/images/3.jpg");
   // Load the sounds
   gameSound = new Audio("assets/sounds/sonic-playsong.mp3");
-  gameOverSound = new Audio("assets/sounds/sonic-actclear.mp3");
+  gameOverSound = new Audio("assets/sounds/sonic-actclear.wav");
+  // Load fonts
+  myFont1 = loadFont("assets/fonts/SpaceMono-Bold.ttf");
+  myFont2 = loadFont("assets/fonts/Montserrat-Regular.ttf");
 }
 
 // setup()
@@ -144,6 +148,7 @@ function draw() {
   startTime = second();
   // Calculate the total score
   totalScore = preyEaten + preyScore + startTime;
+
 // Let the game only resume when the player have exit the title screen
   if (drawThings) {
 
@@ -151,6 +156,19 @@ function draw() {
   background(backgroundImage);
   // Play the in game sound
   gameSound.play();
+  image(preyImage,380,45);
+  textSize(30);
+  textAlign(RIGHT);
+  textFont(myFont2);
+  stroke(250);
+  strokeWeight(1);
+  fill(250);
+  // Display the dodges counter
+  text(preyEaten, width/2 + 200, height/7.3);
+  //Heart
+  tint(playerHealth);
+  image(playerHeart,36,40);
+
   // Give a normal pace animation to the game
   frameRate(60);
 
@@ -416,42 +434,6 @@ function handleInput() {
 }
 
 
-// showGameOver()
-//
-// Display text about the game being over!
-function showGameOver() {
-  // Display the game over background
-  background(backgroundSecondImage);
-  // Pause the game sound
-  gameSound.pause();
-  // Play the game over sound
-  gameOverSound.play();
-  // Text specifications for the game over menu
-  textSize(32);
-  textAlign(CENTER);
-  fill(0);
-  var gameOverText = "RESULT\n";
-  text(gameOverText,width/2,height/5);
-
-  textSize(26);
-  textAlign(CENTER);
-  fill(0);
-  var gameOverText2 = " \n";
-  gameOverText2 += "Score: " + preyScore + " \n";
-  gameOverText2 += "Rings: " + preyEaten + " \n";
-  gameOverText2 += "Time: " + startTime + " \n\n";
-  gameOverText2 += "Total score: " + totalScore + " \n\n";
-  gameOverText2 += "Click to continue";
-  text(gameOverText2,width/2,height/3);
-
-  // Hide the player avatar and game background
-  playerAvatar.display();
-  playerAvatarRight.display();
-  playerAvatarTleft.display();
-  playerAvatarTright.display();
-  backgroundImage.display();
-}
-
 // Let the game only resume when the player have exit the title screen
 function onPClick() {
   numClicks++; // Add 1 to numClicks
@@ -467,8 +449,56 @@ function mouseClicked() {
    drawThings = false;
   }
 
-  if ((!gameOver) && (numClicks > 2)) {
+}
+
+// showGameOver()
+//
+// Display text about the game being over!
+function showGameOver() {
+  noTint();
+  // Display the game over background
+  background(backgroundSecondImage);
+  // Pause the game sound
+  gameSound.pause();
+  // Play the game over sound
+  gameOverSound.play();
+  // Text specifications for the game over menu
+  textSize(32);
+  textAlign(RIGHT);
+  textFont(myFont1);
+  stroke("#0c6bcd");
+  strokeWeight(3);
+  fill(250);
+  var gameOverText = totalScore;
+  text(gameOverText,width/2 + 160,height/5.3);
+
+  textSize(26);
+  textAlign(RIGHT);
+  textFont(myFont2);
+  textLeading(62);
+  stroke("#0c6bcd");
+  strokeWeight(3.5);
+  fill(250);
+  var gameOverText2 = "";
+  gameOverText2 += preyScore + "\n";
+  gameOverText2 += preyEaten + "\n";
+  gameOverText2 += "";
+  gameOverText2 += startTime;
+  text(gameOverText2,width/2 + 190,height/2.8);
+
+  // Hide the player avatar and game background
+  playerAvatar.display();
+  playerAvatarRight.display();
+  playerAvatarTleft.display();
+  playerAvatarTright.display();
+  backgroundImage.display();
+
+}
+
+// Give the option to restart the game by mouse cliking the screen
+function keyPressed() {
+  if ((gameOver) && (keyCode == ENTER)) {
+       // Able mouse clicking after the game
        location.reload();
      }
-
 }
