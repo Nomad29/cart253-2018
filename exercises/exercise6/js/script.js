@@ -50,7 +50,7 @@ function draw() {
   rightPaddle.update();
 
   /////////////// FIXED
-  if (ball.isOffTheScreen()) {
+  if (ball.isOffScreen()) {
     reset();
   }
 
