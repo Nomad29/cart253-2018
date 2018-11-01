@@ -30,7 +30,8 @@ function setup() {
   // Keycodes 83 and 87 are W and S respectively
   //////////////// FIXED
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
-
+//////////////// FIXED
+}
 
 // draw()
 //
@@ -46,6 +47,7 @@ function draw() {
   ball.update();
   leftPaddle.update();
   rightPaddle.update();
+
   /////////////// FIXED
   if (ball.isOffTheScreen()) {
     reset();
