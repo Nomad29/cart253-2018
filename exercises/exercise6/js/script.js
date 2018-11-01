@@ -10,7 +10,8 @@
 // Written with JavaScript OOP.
 
 // Variable to contain the objects representing our ball and paddles
-var bal;
+//////////////// FIXED
+var ball;
 var leftPaddle;
 var rightPaddle;
 
@@ -41,11 +42,12 @@ function draw() {
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
-  ball.update;
+  //////////////// FIXED
+  ball.update();
   leftPaddle.update();
   rightPaddle.update();
-
-  if (ball.isOffTheScreen())
+  /////////////// FIXED
+  if (ball.isOffTheScreen()) {
     reset();
   }
 
