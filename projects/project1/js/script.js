@@ -8,7 +8,6 @@ keyboard controls, health/stamina,sprinting, random movement, screen wrap.
 
 ******************************************************/
 
-
 // Help for calling the sketch inside the index.html
 var canvas;
 
@@ -71,7 +70,10 @@ var preyScore = 0;
 var gameSound;
 var gameOverSound;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b69aa424691b24018daa661765f7e7e863936f18
 // preload()
 //
 // Loads the target, fonts, decoy and frame images before the program starts
@@ -165,9 +167,15 @@ function draw() {
   stroke(250);
   strokeWeight(1);
   fill(250);
+<<<<<<< HEAD
   // Display the number of rings eaten
   text(preyEaten, width/2 + 200, height/7.3);
   // Display the health of the player in real-time
+=======
+  // Display the dodges counter
+  text(preyEaten, width/2 + 200, height/7.3);
+  //Heart
+>>>>>>> b69aa424691b24018daa661765f7e7e863936f18
   tint(playerHealth);
   image(playerHeart,36,40);
 
@@ -429,6 +437,23 @@ function handleInput() {
   }
   else if (keyIsDown(SHIFT) && keyIsDown(RIGHT_ARROW)) {
     playerVX = +playerSpeedBoost;
+  }
+
+}
+
+// Let the game only resume when the player have exit the title screen
+function onPClick() {
+  numClicks++; // Add 1 to numClicks
+}
+
+function mouseClicked() {
+
+  if (numClicks < 1) {
+   drawThings = true;
+  }
+
+  else if (numClicks > 2) {
+   drawThings = false;
   }
 
 }
