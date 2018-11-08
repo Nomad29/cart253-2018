@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+	<title>CART253 (Prj2): The Better Pong</title>
+	<meta name="description" content="Project 2 for CART253 class, by Alexandra Melançon.">
 
     <!-- CSS stylesheet(s) -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
     <!-- Library script(s) -->
     <script src="js/libraries/p5.min.js"></script>
+	<script src="js/libraries/p5.dom.js"></script>
 
     <!-- My script(s) -->
     <script src="js/Ball.js"></script>
@@ -18,6 +21,21 @@
 
   <body>
     <!-- HTML would go here if needed. -->
+	<div style="width: 100%;">
+	<div id="title1"></div>
+	<div id="circle1"></div>
+	<div class="line-border"></div>
+	<div style="width: 75%; display: inline-flex;padding-top: 14px;padding-left: 14px;"><div id="hits1"></div><div id="total1"></div></div>
+	<div id="message1"></div>
+	</div>
+	<div id="game-container"></div>
+	<div style="width: 100%;">
+    <div id="title2"></div>
+    <div id="circle2"></div>
+    <div class="line-border" style="float: right;"></div>
+	<div style="width: 75%; display: inline-flex;padding-top: 14px;padding-right: 14px;float: right;"><div id="total2"></div><div id="hits2"></div></div>
+	<div id="message2"></div>
+	</div>
   </body>
 
 </html>

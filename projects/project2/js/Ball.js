@@ -54,7 +54,7 @@ Ball.prototype.isOffScreen = function () {
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
   fill(255);
-  rect(this.x,this.y,this.size,this.size);
+  ellipse(this.x,this.y,this.size,this.size);
 }
 
 // handleCollision(paddle)
@@ -71,6 +71,7 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+      beepSound.play();
     }
   }
 }
