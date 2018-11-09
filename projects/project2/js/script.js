@@ -23,6 +23,7 @@ var lines1Div, lines2Div;
 var yesDiv, noDiv;
 var playerLeftScore, playerRightScore;
 var totalLeftPaddle = 0;
+var message1, message2, message3, message4;
 // Variables to contain the DIV ID's in the HTML page
 var canvas, title1, title2, circle1, circle2, hits1, hits2, message1, message2,
 total1, total2, winner, congrats, playAgain;
@@ -73,6 +74,21 @@ function setup() {
   noDiv.hide();
   endDiv = select("#end-game");
   endDiv.hide();
+
+  // Create the players messages
+  message1 = createP('KEEP GOING: DO IT!');
+  message1.parent('message1');
+  message2 = createP('YOU ARE THE LEAD!');
+  message2.parent('message2');
+  message3 = createP('KEEP GOING: DO IT!');
+  message3.parent('message3');
+  message4 = createP('YOU ARE THE LEAD!');
+  message4.parent('message4');
+  message1.hide();
+  message2.hide();
+  message3.hide();
+  message4.hide();
+
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,15,5);
   // Create the right paddle with UP and DOWN as controls
@@ -164,6 +180,24 @@ function draw() {
     rightPaddle.rightScore();
    }
 
+
+   if (leftPaddle.score >= rightPaddle.score + 1) {
+     message4.show();
+     message3.hide();
+   }
+   else if (leftPaddle.score <= rightPaddle.score + 1) {
+     message4.hide();
+     message3.show();
+   }
+   if (rightPaddle.score >= leftPaddle.score + 1) {
+     message2.show();
+     message1.hide();
+   }
+   else if (rightPaddle.score <= leftPaddle.score + 1) {
+      message2.hide();
+      message1.show();
+    }
+
    // Score of 11 points to win the game
    if (leftPaddle.score === 10 || rightPaddle.score === 10) {
     gameScreen=2;
@@ -246,11 +280,6 @@ function startGame() {
   hits1.parent('hits1');
   hits2 = createP('TOTAL SCORE');
   hits2.parent('hits2');
-  // Create the players messages
-  message1 = createP('KEEP GOING: DO IT!');
-  message1.parent('message1');
-  message2 = createP('YOU ARE THE LEAD!');
-  message2.parent('message2');
   // Undo the noLoop() in the title screen function
   loop();
 }

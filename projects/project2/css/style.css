@@ -153,6 +153,7 @@ div {
   text-align: right;
   line-height: 30px;
   float: left;
+  margin-top: -6px;
 }
 
 #hits2 {
@@ -181,6 +182,7 @@ div {
   text-align: center;
   float: left;
   line-height:60px;
+  margin-top: -5px;
 }
 
 #total2 {
@@ -207,7 +209,7 @@ div {
   width: 75%;
   font-weight: 300;
   text-align: right;
-  margin-top: -14px;
+  margin-top: -16px;
 }
 
 #message2 {
@@ -219,9 +221,37 @@ div {
   font-size: 14px;
   width: 75%;
   font-weight: 300;
+  text-align: right;
+  float: left;
+  margin-top: -34px;
+}
+
+#message3 {
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  letter-spacing: 6px;
+  font-size: 14px;
+  width: 75%;
+  font-weight: 300;
   text-align: left;
   float: right;
   margin-top: -14px;
+}
+
+#message4 {
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  letter-spacing: 6px;
+  font-size: 14px;
+  width: 75%;
+  font-weight: 300;
+  text-align: left;
+  float: right;
+  margin-top: -16px;
 }
 
 #yes a {
