@@ -18,12 +18,15 @@ var gameScreen = 0;
 // Variables for making possible to display or hide the content from the title Screen
 // and the game screen
 var gameDiv;
+var endDiv;
 var lines1Div, lines2Div;
 var yesDiv, noDiv;
-
+var playerLeftScore, playerRightScore;
+var totalLeftPaddle = 0;
 // Variables to contain the DIV ID's in the HTML page
-var canvas, title1, title2, circle1, circle2, hits1, hits2, message1, message2, total1, total2;
-// Variable the sounds
+var canvas, title1, title2, circle1, circle2, hits1, hits2, message1, message2,
+total1, total2, winner, congrats, playAgain;
+// Variables for the sounds
 var beepSound;
 var failSound;
 // Variable to contain the objects representing our ball and paddles
@@ -68,13 +71,15 @@ function setup() {
   yesDiv.hide();
   noDiv = select("#no");
   noDiv.hide();
+  endDiv = select("#end-game");
+  endDiv.hide();
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,15,5);
   // Create the right paddle with UP and DOWN as controls
-  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
+  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW,0);
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
-  leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
+  leftPaddle = new Paddle(0,height/2,10,60,10,83,87,0);
 }
 
 // draw()
@@ -82,25 +87,28 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-
+  // Title Screen()
+  //
+  // Code for the title screen
   if (gameScreen == 0) {
-    // Code for the title screen
     // Display the title text 'Ping Pong'
     textSize(46);
     textFont(myFont1);
     fill(255);
     textAlign(CENTER);
+    stroke(255);
+    strokeWeight(0.7);
     text("P I N G   P O N G", width/2, height/5.5);
     // Display the text 'Start the game'
-    textSize(18);
+    textSize(16);
     textFont(myFont2);
     fill(255);
     textAlign(CENTER);
     text("S T A R T   T H E   G A M E", width/2, height/3.2);
     // Display the text 'Click anywhere'
-    textSize(14);
+    textSize(12);
     textFont(myFont2);
-    fill(200);
+    fill(137);
     textAlign(CENTER);
     text("( C L I C K   A N Y W H E R E )", width/2, height/2.7);
      // Display the paddles image logo
@@ -109,8 +117,10 @@ function draw() {
     noLoop();
   }
 
+  // Game Screen()
+  //
+  // Code for the game screen
   else if (gameScreen == 1) {
-   // Code for the game screen
    // Display the background
    background(backgroundImage);
    leftPaddle.handleInput();
@@ -121,9 +131,20 @@ function draw() {
    rightPaddle.update();
 
    if (ball.isOffScreen()) {
-     ball.reset();
-    // Play the sound of the player failing
-     failSound.play();
+       // Checks if left or right has won points
+       // Player 1 points
+       if (ball.x + ball.size < 0) {
+         leftPaddle.score++;
+       }
+
+       // Player 2 points
+       if (ball.x > width) {
+         rightPaddle.score++;
+       }
+       // Reset the ball after a fail
+       ball.reset();
+       // Play the sound of failing
+       failSound.play();
    }
 
    ball.handleCollision(leftPaddle);
@@ -132,33 +153,56 @@ function draw() {
    ball.display();
    leftPaddle.display();
    rightPaddle.display();
+
+   // Displaying the score of Player 1
+   if (leftPaddle.score >= 0) {
+    leftPaddle.leftScore();
+   }
+
+   // Display the score of Player 2
+   if (rightPaddle.score >= 0) {
+    rightPaddle.rightScore();
+   }
+
+   // Score of 11 points to win the game
+   if (leftPaddle.score === 10 || rightPaddle.score === 10) {
+    gameScreen=2;
+   }
+
+
   }
 
+  // Game-Over Screen()
+  //
+  // Code for the game over screen
   else if (gameScreen == 2) {
-   // Code for the game over screen
-   // Display the title text 'Ping Pong'
-   textSize(46);
-   textFont(myFont1);
-   fill(255);
-   textAlign(CENTER);
-   text("P L A Y E R   " + "?" + "   W I N S", width/2, height/5.5);
-   // Display the text 'Start the game'
-   textSize(18);
-   textFont(myFont2);
-   fill(255);
-   textAlign(CENTER);
-   text("C O N G R A T U L A T I O N !", width/2, height/3.2);
-   // Display the paddles image logo
-   image(gameOverImage,width/2.3, height/1.9);
-   // Display the text 'Click anywhere'
-   textSize(14);
-   textFont(myFont2);
-   fill(255);
-   textAlign(CENTER);
-   text("P L A Y   A G A I N  ?", width/2, height/1.3);
+    // Let the DIVs for the game to disapears while the DIVs for the game-over screen to show up
+    lines1Div.show();
+    lines2Div.show();
+    yesDiv.show();
+    noDiv.show();
+    gameDiv.hide();
+    endDiv.show();
 
-   yesDiv.show();
-   noDiv.show();
+    if (leftPaddle.score === 10) {
+      // Display the title text 'PLAYER 2 WINS'
+      winner = createP('PLAYER ' + '2' + ' WINS');
+      winner.parent('winner');
+     }
+
+     if (rightPaddle.score === 10) {
+      // Display the title text 'PLAYER 1 WINS'
+      winner = createP('PLAYER ' + '1' + ' WINS');
+      winner.parent('winner');
+     }
+
+   // Display the text 'CONGRATULATION'
+   congrats = createP('CONGRATULATION!');
+   congrats.parent('congrats');
+   // Display the text 'PLAY AGAIN'
+   playAgain = createP('PLAY AGAIN?');
+   playAgain.parent('playAgain');
+
    // Let the text smooth and undisturbed by antialiasing create by draw()
    noLoop();
   }
@@ -191,26 +235,17 @@ function startGame() {
   lines2Div.hide();
   yesDiv.hide();
   noDiv.hide();
+  endDiv.hide();
   // Create the player titles
   title1 = createP('PLAYER 1');
   title1.parent('title1');
   title2 = createP('PLAYER 2');
   title2.parent('title2');
-  // Create the players score circle
-  circle1 = createP('??');
-  circle1.parent('circle1');
-  circle2 = createP('??');
-  circle2.parent('circle2');
   // Create the players total hits word
-  hits1 = createP('TOTAL HITS');
+  hits1 = createP('TOTAL SCORE');
   hits1.parent('hits1');
-  hits2 = createP('TOTAL HITS');
+  hits2 = createP('TOTAL SCORE');
   hits2.parent('hits2');
-  // Create the players total hits number
-  total1 = createP('??');
-  total1.parent('total1');
-  total2 = createP('??');
-  total2.parent('total2');
   // Create the players messages
   message1 = createP('KEEP GOING: DO IT!');
   message1.parent('message1');
