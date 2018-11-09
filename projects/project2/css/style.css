@@ -23,12 +23,19 @@ body {
   background-image: -webkit-radial-gradient(left top, ellipse farthest-corner, rgba(103,176,255,1) 0%, rgba(10,79,156,1) 70%);
   background-image: radial-gradient(ellipse farthest-corner at left top, rgba(103,176,255,1) 0%, rgba(10,79,156,1) 70%);
   display: flex;
-
+  position: relative;
   /* This centers our sketch horizontally. */
   justify-content: center;
-
   /* This centers our sketch vertically. */
   align-items: center;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;    
+  box-sizing: border-box;
 }
 
 p {
@@ -36,10 +43,36 @@ p {
   padding: 2%;
 }
 
+div {
+   display: inline-block;
+}
+
+#title-lines1 {
+    border-style: solid;
+    border-color: #729ecd;
+    border-width: 1px;
+    background: #729ecd;
+    height: 20%;
+    top: 0px;
+	position: absolute;
+}
+
+#title-lines2 {
+    border-style: solid;
+    border-color: #729ecd;
+    border-width: 1px;
+    background: #729ecd;
+    height: 20%;
+    bottom: 0px;
+    position: absolute;
+}
+
 #game-container {
     border-style: solid;
     border-color: white;
 	border-width: 5px;
+    width: 660px;
+    height: 410px;
 }
 
 #title1 {
@@ -67,7 +100,7 @@ p {
 #circle1 {
   width: 150px;
   height: 150px;
-  line-height: 150px;
+  line-height: 75px;
   border-radius: 50%; /* the magic */
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -85,7 +118,7 @@ p {
 #circle2 {
   width: 150px;
   height: 150px;
-  line-height: 150px;
+  line-height: 75px;
   border-radius: 50%; /* the magic */
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;

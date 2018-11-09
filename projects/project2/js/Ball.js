@@ -71,6 +71,7 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+      // Play the beep sound when the ball collides with the paddles
       beepSound.play();
     }
   }
