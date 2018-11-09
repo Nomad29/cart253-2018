@@ -15,10 +15,13 @@
 // 2: Game-over Screen
 // Variable for making possible to show the title, the game and the game-over screen
 var gameScreen = 0;
+// Variables for making possible to display or hide the content from the title Screen
+// and the game screen
 var gameDiv;
 var lines1Div, lines2Div;
+var yesDiv, noDiv;
 
-// Variable to contain the DIV ID's in the HTML page
+// Variables to contain the DIV ID's in the HTML page
 var canvas, title1, title2, circle1, circle2, hits1, hits2, message1, message2, total1, total2;
 // Variable the sounds
 var beepSound;
@@ -36,6 +39,7 @@ function preload() {
   backgroundImage = loadImage("assets/images/game-background.png");
   // Loads content images
   titleImage = loadImage("assets/images/title-paddles.png");
+  gameOverImage = loadImage("assets/images/gameover-paddles.png");
   // Load fonts
   myFont1 = loadFont("assets/fonts/Roboto-Regular.ttf");
   myFont2 = loadFont("assets/fonts/Raleway-ExtraLight.ttf");
@@ -49,12 +53,21 @@ function preload() {
 // Creates the ball and paddles
 function setup() {
   createCanvas(650, 400);
+  // Let the DIVs for the title screen to show up while the DIV for the game screen disapears
+  // Selects the DIV ID named 'start-game'
   gameDiv = select("#start-game");
   gameDiv.hide();
+  // Selects the DIV ID named 'title-lines1'
   lines1Div = select("#title-lines1");
   lines1Div.show();
+  // Selects the DIV ID named 'title-lines2'
   lines2Div = select("#title-lines2");
   lines2Div.show();
+  // Selects the DIV IDs named 'yes' and 'no'
+  yesDiv = select("#yes");
+  yesDiv.hide();
+  noDiv = select("#no");
+  noDiv.hide();
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,15,5);
   // Create the right paddle with UP and DOWN as controls
@@ -71,29 +84,35 @@ function setup() {
 function draw() {
 
   if (gameScreen == 0) {
-    // codes of title screen
+    // Code for the title screen
+    // Display the title text 'Ping Pong'
     textSize(46);
     textFont(myFont1);
     fill(255);
     textAlign(CENTER);
     text("P I N G   P O N G", width/2, height/5.5);
+    // Display the text 'Start the game'
     textSize(18);
     textFont(myFont2);
     fill(255);
     textAlign(CENTER);
     text("S T A R T   T H E   G A M E", width/2, height/3.2);
+    // Display the text 'Click anywhere'
     textSize(14);
     textFont(myFont2);
     fill(200);
     textAlign(CENTER);
     text("( C L I C K   A N Y W H E R E )", width/2, height/2.7);
-    image(titleImage,width/3.4, height/2);
+     // Display the paddles image logo
+    image(titleImage,width/3.4, height/2.1);
+    // Let the text smooth and undisturbed by antialiasing create by draw()
     noLoop();
   }
+
   else if (gameScreen == 1) {
+   // Code for the game screen
    // Display the background
    background(backgroundImage);
-   // codes of game screen
    leftPaddle.handleInput();
    rightPaddle.handleInput();
 
@@ -114,8 +133,34 @@ function draw() {
    leftPaddle.display();
    rightPaddle.display();
   }
+
   else if (gameScreen == 2) {
-    gameOverScreen();
+   // Code for the game over screen
+   // Display the title text 'Ping Pong'
+   textSize(46);
+   textFont(myFont1);
+   fill(255);
+   textAlign(CENTER);
+   text("P L A Y E R   " + "?" + "   W I N S", width/2, height/5.5);
+   // Display the text 'Start the game'
+   textSize(18);
+   textFont(myFont2);
+   fill(255);
+   textAlign(CENTER);
+   text("C O N G R A T U L A T I O N !", width/2, height/3.2);
+   // Display the paddles image logo
+   image(gameOverImage,width/2.3, height/1.9);
+   // Display the text 'Click anywhere'
+   textSize(14);
+   textFont(myFont2);
+   fill(255);
+   textAlign(CENTER);
+   text("P L A Y   A G A I N  ?", width/2, height/1.3);
+
+   yesDiv.show();
+   noDiv.show();
+   // Let the text smooth and undisturbed by antialiasing create by draw()
+   noLoop();
   }
 
 }
@@ -123,7 +168,7 @@ function draw() {
 // mouseClicked()
 //
 // For the game to be able to start.
-function mouseClicked() {
+function mousePressed() {
   // If the user is on the title screen and click, the game will start
   if (gameScreen==0) {
     startGame();
@@ -140,9 +185,12 @@ function startGame() {
   canvas.parent('game-container');
   // Erase the default black stroke of the paddles and the ball
   noStroke();
+  // Let the DIV for the game to show up while the DIVs for the title screen disapears
   gameDiv.show();
   lines1Div.hide();
   lines2Div.hide();
+  yesDiv.hide();
+  noDiv.hide();
   // Create the player titles
   title1 = createP('PLAYER 1');
   title1.parent('title1');
@@ -168,5 +216,6 @@ function startGame() {
   message1.parent('message1');
   message2 = createP('YOU ARE THE LEAD!');
   message2.parent('message2');
+  // Undo the noLoop() in the title screen function
   loop();
 }

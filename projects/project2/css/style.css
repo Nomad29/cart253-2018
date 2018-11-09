@@ -221,3 +221,19 @@ div {
   float: right;
   margin-top: -14px;
 }
+
+#yes a {
+    color: #ff3b3d;
+    font-family: Roboto;
+    text-decoration: none;
+    letter-spacing: 5px;
+    font-size: 16px;
+}
+
+#no a {
+    color: #6acaff;
+    font-family: Roboto;
+    text-decoration: none;
+    letter-spacing: 5px;
+    font-size: 16px;
+}
