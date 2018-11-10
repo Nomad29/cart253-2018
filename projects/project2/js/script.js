@@ -19,6 +19,10 @@ var gameScreen = 0;
 var ball;
 var leftPaddle;
 var rightPaddle;
+// Variable for the spiky ball
+var spikyImage;
+// Variable for the star bonus
+var starImage;
 // Variables for making possible to display or hide the content from the title Screen
 // and the game screen
 var gameDiv;
@@ -38,7 +42,6 @@ var beepSound;
 var failSound;
 // Variables for the images
 var titleImage;
-var spikyImage;
 
 // preload()
 //
@@ -50,6 +53,7 @@ function preload() {
   titleImage = loadImage("assets/images/title-paddles.png");
   // Loads title content images
   spikyImage = loadImage("assets/images/spiky-ball.png");
+  starImage = loadImage("assets/images/star-bonus.png");
   // Load fonts
   myFont1 = loadFont("assets/fonts/Roboto-Regular.ttf");
   myFont2 = loadFont("assets/fonts/Raleway-ExtraLight.ttf");
@@ -107,14 +111,16 @@ function setup() {
   circle4Div.hide();
 
   // Create a ball
-  ball = new Ball(width/2,height/2,5,5,15,5);
+  ball = new Ball(width / 2, height / 2, 5, 5, 15, 5);
   // Create the right paddle with UP and DOWN as controls
-  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW,0);
+  rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, 0);
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
-  leftPaddle = new Paddle(0,height/2,10,60,10,83,87,0);
+  leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, 0);
   // Create a spiky ball to avoid
-  spikyball = new Badball(width/2,height/2,5,5,15,5);
+  spikyball = new Badball(width / 2, height / 2, 5, 5, 25, 5);
+  // Create a bonus star to gain speed for the ball
+  starbonus = new Starbonus(width / 2, height / 2, 5, 5, 60, 5);
 }
 
 // draw()
@@ -133,21 +139,21 @@ function draw() {
     textAlign(CENTER);
     stroke(255);
     strokeWeight(0.7);
-    text("P I N G   P O N G", width/2, height/5.5);
+    text("P I N G   P O N G", width / 2, height / 5.5);
     // Display the text 'Start the game'
     textSize(16);
     textFont(myFont2);
     fill(255);
     textAlign(CENTER);
-    text("S T A R T   T H E   G A M E", width/2, height/3.2);
+    text("S T A R T   T H E   G A M E", width / 2, height / 3.2);
     // Display the text 'Click anywhere'
     textSize(12);
     textFont(myFont2);
     fill(137);
     textAlign(CENTER);
-    text("( C L I C K   A N Y W H E R E )", width/2, height/2.7);
-     // Display the paddles image logo
-    image(titleImage,width/3.4, height/2.1);
+    text("( C L I C K   A N Y W H E R E )", width / 2, height / 2.7);
+    // Display the paddles image logo
+    image(titleImage, width / 3.4, height / 2.1);
     // Let the text smooth and undisturbed by antialiasing create by draw()
     noLoop();
   }
@@ -156,93 +162,100 @@ function draw() {
   //
   // Code for the game screen
   else if (gameScreen == 1) {
-   // Display the background
-   background(backgroundImage);
+    // Display the background
+    background(backgroundImage);
 
-   if (ball.isOffScreen()) {
-       // Checks if left or right has won points
-       // Player 1 points
-       if (ball.x + ball.size < 0) {
-         leftPaddle.score++;
-       }
+    if (ball.isOffScreen()) {
+      // Checks if left or right has won points
+      // Player 1 points
+      if (ball.x + ball.size < 0) {
+        leftPaddle.score++;
+      }
 
-       // Player 2 points
-       if (ball.x > width) {
-         rightPaddle.score++;
-       }
-       // Reset the ball after a fail
-       ball.reset();
-       // Play the sound of failing
-       failSound.play();
-   }
+      // Player 2 points
+      if (ball.x > width) {
+        rightPaddle.score++;
+      }
+      // Reset the ball after a fail
+      ball.reset();
+      // Play the sound of failing
+      failSound.play();
+    }
 
-   // If off screen the spiky ball will reset
-   if (spikyball.isOffScreen()) {
-       // Reset the ball after a fail
-       spikyball.reset();
-   }
+    // If off screen the spiky ball will reset
+    if (spikyball.isOffScreen()) {
+      // Reset the ball after a fail
+      spikyball.reset();
+    }
 
-   leftPaddle.handleInput();
-   rightPaddle.handleInput();
+    // If off screen the bonus star will reset
+    if (starbonus.isOffScreen()) {
+      // Reset the ball after a fail
+      starbonus.reset();
+    }
 
-   ball.update();
-   spikyball.update();
-   leftPaddle.update();
-   rightPaddle.update();
+    leftPaddle.handleInput();
+    rightPaddle.handleInput();
 
-   ball.handleCollision(leftPaddle);
-   ball.handleCollision(rightPaddle);
-   spikyball.handleCollision(leftPaddle);
-   spikyball.handleCollision(rightPaddle);
+    ball.update();
+    spikyball.update();
+    starbonus.update();
+    leftPaddle.update();
+    rightPaddle.update();
 
-   ball.display();
-   leftPaddle.display();
-   rightPaddle.display();
-   spikyball.display(spikyImage);
+    ball.handleCollision(leftPaddle);
+    ball.handleCollision(rightPaddle);
+    spikyball.handleCollision(leftPaddle);
+    spikyball.handleCollision(rightPaddle);
+    starbonus.handleCollision(ball);
 
-   // Displaying the score of Player 1
-   if (leftPaddle.score >= 0) {
-    leftPaddle.leftScore();
-   }
+    ball.display();
+    leftPaddle.display();
+    rightPaddle.display();
+    spikyball.display(spikyImage);
+    starbonus.display(starImage);
 
-   // Display the score of Player 2
-   if (rightPaddle.score >= 0) {
-    rightPaddle.rightScore();
-   }
+    // Displaying the score of Player 1
+    if (leftPaddle.score >= 0) {
+      leftPaddle.leftScore();
+    }
 
-   // Makes possible to display the circle scores and encouragement messages
-   // to players
-   // Section for the left paddle player
-   if (leftPaddle.score >= rightPaddle.score + 1) {
-     message4.show();
-     message3.hide();
-     circle4Div.show();
-     circle3Div.hide();
-   }
-   else if (leftPaddle.score <= rightPaddle.score + 1) {
-     message4.hide();
-     message3.show();
-     circle4Div.hide();
-     circle3Div.show();
-   }
-   // Section for the right paddle player
-   if (rightPaddle.score >= leftPaddle.score + 1) {
-     message2.show();
-     message1.hide();
-     circle2Div.show();
-     circle1Div.hide();
-   }
-   else if (rightPaddle.score <= leftPaddle.score + 1) {
+    // Display the score of Player 2
+    if (rightPaddle.score >= 0) {
+      rightPaddle.rightScore();
+    }
+
+    // Makes possible to display the circle scores and encouragement messages
+    // to players
+    // Section for the left paddle player
+    if (leftPaddle.score >= rightPaddle.score + 1) {
+      message4.show();
+      message3.hide();
+      circle4Div.show();
+      circle3Div.hide();
+    } else if (leftPaddle.score <= rightPaddle.score + 1) {
+      message4.hide();
+      message3.show();
+      circle4Div.hide();
+      circle3Div.show();
+    }
+    // Section for the right paddle player
+    if (rightPaddle.score >= leftPaddle.score + 1) {
+      message2.show();
+      message1.hide();
+      circle2Div.show();
+      circle1Div.hide();
+    } else if (rightPaddle.score <= leftPaddle.score + 1) {
       message2.hide();
       message1.show();
       circle2Div.hide();
       circle1Div.show();
     }
 
-   // Score of 10 points to win the game
-   if (leftPaddle.score === 10 || rightPaddle.score === 10) {
-    gameScreen=2;
-   }
+    // Score of 10 points to win the game
+    if (leftPaddle.score === 10 || rightPaddle.score === 10) {
+      gameScreen = 2;
+    }
 
   }
 
@@ -262,23 +275,23 @@ function draw() {
       // Display the title text 'PLAYER 2 WINS'
       winner = createP('PLAYER ' + '2' + ' WINS');
       winner.parent('winner');
-     }
+    }
 
-     if (rightPaddle.score === 10) {
+    if (rightPaddle.score === 10) {
       // Display the title text 'PLAYER 1 WINS'
       winner = createP('PLAYER ' + '1' + ' WINS');
       winner.parent('winner');
-     }
+    }
 
-   // Display the text 'CONGRATULATION'
-   congrats = createP('CONGRATULATION!');
-   congrats.parent('congrats');
-   // Display the text 'PLAY AGAIN'
-   playAgain = createP('PLAY AGAIN?');
-   playAgain.parent('playAgain');
+    // Display the text 'CONGRATULATION'
+    congrats = createP('CONGRATULATION!');
+    congrats.parent('congrats');
+    // Display the text 'PLAY AGAIN'
+    playAgain = createP('PLAY AGAIN?');
+    playAgain.parent('playAgain');
 
-   // Let the text smooth and undisturbed by antialiasing create by draw()
-   noLoop();
+    // Let the text smooth and undisturbed by antialiasing create by draw()
+    noLoop();
   }
 
 }
@@ -289,7 +302,7 @@ function draw() {
 // For the game to be able to start.
 function mousePressed() {
   // If the user is on the title screen and click, the game will start
-  if (gameScreen==0) {
+  if (gameScreen == 0) {
     startGame();
   }
 }
@@ -299,7 +312,7 @@ function mousePressed() {
 //
 // This method sets the necessary variables to start the game
 function startGame() {
-  gameScreen=1;
+  gameScreen = 1;
   var canvas = createCanvas(650, 400);
   // Loads the backgrounds to the DIV ID named game-container in the HTML page
   canvas.parent('game-container');

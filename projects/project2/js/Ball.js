@@ -1,4 +1,4 @@
-// Ball and Badball
+// Ball, Badball and Starbonus
 //
 // A class to define how a ball behaves. Including bouncing on the top
 // and bottom edges of the canvas, going off the left and right sides,
@@ -7,7 +7,7 @@
 // Ball constructor
 //
 // Sets the properties with the provided arguments
-function Ball(x,y,vx,vy,size,speed) {
+function Ball(x, y, vx, vy, size, speed) {
   this.x = x;
   this.y = y;
   this.vx = vx = 4.5;
@@ -19,12 +19,24 @@ function Ball(x,y,vx,vy,size,speed) {
 // Badball constructor
 //
 // Sets the properties with the provided arguments
-function Badball(x,y,vx,vy,size,speed) {
-  this.x = x;
-  this.y = y;
+function Badball(x, y, vx, vy, size, speed) {
+  this.x = random(162, 325);
+  this.y = random(100, 300);
   this.vx = vx = 2;
   this.vy = vy = 2;
-  this.size = size *1.5;
+  this.size = size;
+  this.speed = speed;
+}
+
+// Starbonus constructor
+//
+// Sets the properties with the provided arguments
+function Starbonus(x, y, vx, vy, size, speed) {
+  this.x = random(10, 640);
+  this.y = random(10, 390);
+  this.vx = vx = 2;
+  this.vy = vy = 2;
+  this.size = size;
   this.speed = speed;
 }
 
@@ -33,13 +45,13 @@ function Badball(x,y,vx,vy,size,speed) {
 // Moves according to velocity, constrains y to be on screen,
 // checks for bouncing on upper or lower edgs, checks for going
 // off left or right side.
-Ball.prototype.update = function () {
+Ball.prototype.update = function() {
   // Update position with velocity
   this.x += this.vx;
   this.y += this.vy;
 
   // Constrain y position to be on screen
-  this.y = constrain(this.y,0,height-this.size);
+  this.y = constrain(this.y, 0, height - this.size);
 
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
@@ -50,14 +62,31 @@ Ball.prototype.update = function () {
 // update() Badball
 //
 // Move the Badball the same as the Ball, but it's constrain in the game screen
-Badball.prototype.update = function()  {
+Badball.prototype.update = function() {
   // Update position with velocity
   this.x -= this.vx;
   this.y -= this.vy;
 
+  // Constrain y position to be on screen
+  this.y = constrain(this.y, 0, height - this.size);
+  this.x = constrain(this.x, 0, width - this.size);
+
+  // Check for touching upper or lower edge and reverse velocity if so
+  if (this.y === 0 || this.y + this.size === height) {
+    this.vy = -this.vy;
+  }
+}
+
+// update() Starbonus
+//
+// Move the Starbonus the same as the Ball, but it's constrain in the game screen
+Starbonus.prototype.update = function() {
+  // Update position with velocity
+  this.x -= this.vx;
+  this.y += this.vy;
+
   // Constrain y and x position to be on screen
-  this.y = constrain(this.y,0,height-this.size);
-  this.x = constrain(this.x,0,width-this.size);
+  this.y = constrain(this.y, 0, height - this.size);
 
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
@@ -69,12 +98,11 @@ Badball.prototype.update = function()  {
 //
 // Checks if the ball has moved off the screen and, if so, returns true.
 // Otherwise it returns false.
-Ball.prototype.isOffScreen = function () {
+Ball.prototype.isOffScreen = function() {
   // Check for going off screen and reset if so
   if (this.x + this.size < 0 || this.x > width) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -83,12 +111,24 @@ Ball.prototype.isOffScreen = function () {
 //
 // Checks if the spikyball has moved off the screen and, if so, returns true.
 // Otherwise it returns false.
-Badball.prototype.isOffScreen = function () {
+Badball.prototype.isOffScreen = function() {
   // Check for going off screen and reset if so
   if (this.x + this.size < 0 || this.x > width) {
     return true;
+  } else {
+    return false;
   }
-  else {
+}
+
+// isOffScreen() Starbonus
+//
+// Checks if the spikyball has moved off the screen and, if so, returns true.
+// Otherwise it returns false.
+Starbonus.prototype.isOffScreen = function() {
+  // Check for going off screen and reset if so
+  if (this.x + this.size < 0 || this.x > width) {
+    return true;
+  } else {
     return false;
   }
 }
@@ -96,16 +136,23 @@ Badball.prototype.isOffScreen = function () {
 // display() Ball
 //
 // Draw the ball as an ellipse on the screen
-Ball.prototype.display = function () {
+Ball.prototype.display = function() {
   fill(255);
-  ellipse(this.x,this.y,this.size,this.size);
+  ellipse(this.x, this.y, this.size, this.size);
 }
 
 // display() Badball
 //
 // Display the Badball as a spiky ball the players need to avoid
 Badball.prototype.display = function(spikyImage) {
-  image(spikyImage,this.x,this.y,this.size,this.size);
+  image(spikyImage, this.x, this.y, this.size, this.size);
+}
+
+// display() Starbonus
+//
+// Display the Starbonus as a spiky ball the players need to avoid
+Starbonus.prototype.display = function(starImage) {
+  image(starImage, this.x, this.y, this.size, this.size);
 }
 
 // handleCollision(paddle) Ball
@@ -147,18 +194,41 @@ Badball.prototype.handleCollision = function(paddle) {
   }
 }
 
+// handleCollision(ball) Starbonus
+//
+// Check if the Starbonus overlaps the paddle passed as an argument
+// If a player's paddle touch the Starbonus, he will get slow and the Starbonus will reset
+Starbonus.prototype.handleCollision = function(ball) {
+  // Check if the star bonus overlaps the ball on x axis
+  if (this.x + this.size > ball.x && this.x < ball.x) {
+    // Check if the star bonus overlaps the ball on y axis
+    if (this.y + this.size > ball.y && this.y < ball.y) {
+      // Make the star bonus faster
+      ball.vx += 0.5;
+    }
+  }
+}
+
 // reset() Ball
 //
 // Set position back to the middle of the screen
-Ball.prototype.reset = function () {
-  this.x = width/2;
-  this.y = height/2;
+Ball.prototype.reset = function() {
+  this.x = width / 2;
+  this.y = height / 2;
 }
 
 // reset() Badball
 //
 // Set the position back to some random place in the game screen
 Badball.prototype.reset = function() {
-  this.x = random(162,325);
-  this.y = random(100,300);
+  this.x = random(162, 325);
+  this.y = random(100, 300);
+}
+
+// reset() Starbonus
+//
+// Set the position back to some random place in the game screen
+Starbonus.prototype.reset = function() {
+  this.x = random(10, 640);
+  this.y = random(10, 390);
 }
