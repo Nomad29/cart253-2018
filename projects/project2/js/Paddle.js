@@ -54,14 +54,14 @@ Paddle.prototype.display = function() {
 
 Paddle.prototype.leftScore = function () {
   // Create the player score in the score circle
-  document.getElementById("circle2").textContent = leftPaddle.score;
+  document.getElementById("circle4").textContent = leftPaddle.score;
+  document.getElementById("circle3").textContent = leftPaddle.score;
   document.getElementById("total2").textContent = leftPaddle.score * 3;
-
 }
 
 Paddle.prototype.rightScore = function () {
   // Create the player score in the score circle
+  document.getElementById("circle2").textContent = rightPaddle.score;
   document.getElementById("circle1").textContent = rightPaddle.score;
   document.getElementById("total1").textContent = rightPaddle.score * 3;
-
 }

@@ -22,11 +22,11 @@ var endDiv;
 var lines1Div, lines2Div;
 var yesDiv, noDiv;
 var playerLeftScore, playerRightScore;
-var totalLeftPaddle = 0;
-var message1, message2, message3, message4;
+// Variables for making possible to display or hide the different encouragement
+// messages shown to the players
+var message1, message2, message3, message4, circle1Div, circle2Div, circle3Div, circle4Div;
 // Variables to contain the DIV ID's in the HTML page
-var canvas, title1, title2, circle1, circle2, hits1, hits2, message1, message2,
-total1, total2, winner, congrats, playAgain;
+var canvas, title1, title2, hits1, hits2, total1, total2, winner, congrats, playAgain;
 // Variables for the sounds
 var beepSound;
 var failSound;
@@ -88,6 +88,16 @@ function setup() {
   message2.hide();
   message3.hide();
   message4.hide();
+
+  // Create the players score circle
+  circle1Div = select("#circle1");
+  circle1Div.hide();
+  circle2Div = select("#circle2");
+  circle2Div.hide();
+  circle3Div = select("#circle3");
+  circle3Div.hide();
+  circle4Div = select("#circle4");
+  circle4Div.hide();
 
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,15,5);
@@ -184,18 +194,26 @@ function draw() {
    if (leftPaddle.score >= rightPaddle.score + 1) {
      message4.show();
      message3.hide();
+     circle4Div.show();
+     circle3Div.hide();
    }
    else if (leftPaddle.score <= rightPaddle.score + 1) {
      message4.hide();
      message3.show();
+     circle4Div.hide();
+     circle3Div.show();
    }
    if (rightPaddle.score >= leftPaddle.score + 1) {
      message2.show();
      message1.hide();
+     circle2Div.show();
+     circle1Div.hide();
    }
    else if (rightPaddle.score <= leftPaddle.score + 1) {
       message2.hide();
       message1.show();
+      circle2Div.hide();
+      circle1Div.show();
     }
 
    // Score of 11 points to win the game

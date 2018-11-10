@@ -106,6 +106,24 @@ div {
   -webkit-border-radius: 50%;
   font-family: 'Roboto', sans-serif;
   text-align: center;
+  color: white;
+  font-size: 36px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0 auto 40px;
+  border: 3px solid white;
+  text-align:center;  
+}
+
+#circle2 {
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  border-radius: 50%; /* the magic */
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
   color: #337ac8;
   font-size: 36px;
   text-transform: uppercase;
@@ -115,7 +133,25 @@ div {
   text-align:center;  
 }
 
-#circle2 {
+#circle3 {
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  border-radius: 50%; /* the magic */
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  color: white;
+  font-size: 36px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0 auto 40px;
+  border: 3px solid white;
+  text-align:center;  
+}
+
+#circle4 {
   width: 150px;
   height: 150px;
   line-height: 150px;
