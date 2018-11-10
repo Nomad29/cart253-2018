@@ -52,6 +52,16 @@ Paddle.prototype.display = function() {
   rect(this.x,this.y,this.w,this.h);
 }
 
+// slowy()
+//
+// Draw the function for rendering the players slow when touching the spiky ball
+Paddle.prototype.slowy = function() {
+  this.speed -= 2;
+}
+
+// LeftScore()
+//
+// Draw the function rendering the score for the left paddle player
 Paddle.prototype.leftScore = function () {
   // Create the player score in the score circle
   document.getElementById("circle4").textContent = leftPaddle.score;
@@ -59,6 +69,9 @@ Paddle.prototype.leftScore = function () {
   document.getElementById("total2").textContent = leftPaddle.score * 3;
 }
 
+// rightScore()
+//
+// Draw the function rendering the score for the right paddle player
 Paddle.prototype.rightScore = function () {
   // Create the player score in the score circle
   document.getElementById("circle2").textContent = rightPaddle.score;

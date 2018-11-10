@@ -15,6 +15,10 @@
 // 2: Game-over Screen
 // Variable for making possible to show the title, the game and the game-over screen
 var gameScreen = 0;
+// Variable to contain the objects representing our ball and paddles
+var ball;
+var leftPaddle;
+var rightPaddle;
 // Variables for making possible to display or hide the content from the title Screen
 // and the game screen
 var gameDiv;
@@ -24,16 +28,17 @@ var yesDiv, noDiv;
 var playerLeftScore, playerRightScore;
 // Variables for making possible to display or hide the different encouragement
 // messages shown to the players
-var message1, message2, message3, message4, circle1Div, circle2Div, circle3Div, circle4Div;
+var message1, message2, message3, message4;
+// Variables for making possible to display or hide the score circles of the players
+var circle1Div, circle2Div, circle3Div, circle4Div;
 // Variables to contain the DIV ID's in the HTML page
 var canvas, title1, title2, hits1, hits2, total1, total2, winner, congrats, playAgain;
 // Variables for the sounds
 var beepSound;
 var failSound;
-// Variable to contain the objects representing our ball and paddles
-var ball;
-var leftPaddle;
-var rightPaddle;
+// Variables for the images
+var titleImage;
+var spikyImage;
 
 // preload()
 //
@@ -41,9 +46,10 @@ var rightPaddle;
 function preload() {
   // Loads the backgrounds images
   backgroundImage = loadImage("assets/images/game-background.png");
-  // Loads content images
+  // Loads title content images
   titleImage = loadImage("assets/images/title-paddles.png");
-  gameOverImage = loadImage("assets/images/gameover-paddles.png");
+  // Loads title content images
+  spikyImage = loadImage("assets/images/spiky-ball.png");
   // Load fonts
   myFont1 = loadFont("assets/fonts/Roboto-Regular.ttf");
   myFont2 = loadFont("assets/fonts/Raleway-ExtraLight.ttf");
@@ -84,6 +90,7 @@ function setup() {
   message3.parent('message3');
   message4 = createP('YOU ARE THE LEAD!');
   message4.parent('message4');
+  // Hide them until call in Draw (game screen)
   message1.hide();
   message2.hide();
   message3.hide();
@@ -106,6 +113,8 @@ function setup() {
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87,0);
+  // Create a spiky ball to avoid
+  spikyball = new Badball(width/2,height/2,5,5,15,5);
 }
 
 // draw()
@@ -149,12 +158,6 @@ function draw() {
   else if (gameScreen == 1) {
    // Display the background
    background(backgroundImage);
-   leftPaddle.handleInput();
-   rightPaddle.handleInput();
-
-   ball.update();
-   leftPaddle.update();
-   rightPaddle.update();
 
    if (ball.isOffScreen()) {
        // Checks if left or right has won points
@@ -173,12 +176,29 @@ function draw() {
        failSound.play();
    }
 
+   // If off screen the spiky ball will reset
+   if (spikyball.isOffScreen()) {
+       // Reset the ball after a fail
+       spikyball.reset();
+   }
+
+   leftPaddle.handleInput();
+   rightPaddle.handleInput();
+
+   ball.update();
+   spikyball.update();
+   leftPaddle.update();
+   rightPaddle.update();
+
    ball.handleCollision(leftPaddle);
    ball.handleCollision(rightPaddle);
+   spikyball.handleCollision(leftPaddle);
+   spikyball.handleCollision(rightPaddle);
 
    ball.display();
    leftPaddle.display();
    rightPaddle.display();
+   spikyball.display(spikyImage);
 
    // Displaying the score of Player 1
    if (leftPaddle.score >= 0) {
@@ -190,7 +210,9 @@ function draw() {
     rightPaddle.rightScore();
    }
 
-
+   // Makes possible to display the circle scores and encouragement messages
+   // to players
+   // Section for the left paddle player
    if (leftPaddle.score >= rightPaddle.score + 1) {
      message4.show();
      message3.hide();
@@ -203,6 +225,7 @@ function draw() {
      circle4Div.hide();
      circle3Div.show();
    }
+   // Section for the right paddle player
    if (rightPaddle.score >= leftPaddle.score + 1) {
      message2.show();
      message1.hide();
@@ -216,11 +239,10 @@ function draw() {
       circle1Div.show();
     }
 
-   // Score of 11 points to win the game
+   // Score of 10 points to win the game
    if (leftPaddle.score === 10 || rightPaddle.score === 10) {
     gameScreen=2;
    }
-
 
   }
 
@@ -261,6 +283,7 @@ function draw() {
 
 }
 
+
 // mouseClicked()
 //
 // For the game to be able to start.
@@ -270,6 +293,7 @@ function mousePressed() {
     startGame();
   }
 }
+
 
 // startGame()
 //
