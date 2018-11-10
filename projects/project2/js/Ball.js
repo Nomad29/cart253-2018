@@ -52,10 +52,10 @@ Ball.prototype.update = function () {
 // Move the Badball the same as the Ball, but it's constrain in the game screen
 Badball.prototype.update = function()  {
   // Update position with velocity
-  this.x += this.vx;
-  this.y += this.vy;
+  this.x -= this.vx;
+  this.y -= this.vy;
 
-  // Constrain y position to be on screen
+  // Constrain y and x position to be on screen
   this.y = constrain(this.y,0,height-this.size);
   this.x = constrain(this.x,0,width-this.size);
 
@@ -140,10 +140,9 @@ Badball.prototype.handleCollision = function(paddle) {
       // If so, move ball back to previous position (by subtracting current velocity)
       this.x -= this.vx;
       this.y -= this.vy;
-      paddle.slowy();
-      this.reset();
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+      paddle.slowy();
     }
   }
 }

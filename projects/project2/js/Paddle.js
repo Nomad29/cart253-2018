@@ -56,7 +56,7 @@ Paddle.prototype.display = function() {
 //
 // Draw the function for rendering the players slow when touching the spiky ball
 Paddle.prototype.slowy = function() {
-  this.speed -= 2;
+  this.speed -= 1;
 }
 
 // LeftScore()
