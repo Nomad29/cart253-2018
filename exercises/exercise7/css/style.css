@@ -1,0 +1,45 @@
+/*********************************************
+
+Here is a description of any special CSS used.
+In this case it's just padding and margin to 0
+so the canvas is flush with the top left corner.
+
+**********************************************/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  margin: 0;
+  background-color: #f6f6f6;
+  display: flex;
+  position: relative;
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+  /* This centers our sketch vertically. */
+  align-items: center;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;    
+  box-sizing: border-box;
+}
+
+p {
+  position: unset !important;
+  padding: 2%;
+}
+
+div {
+   display: inline-block;
+}
+
+
+#game-container {
+  height: 100%;
+  width: 100%;
+}
+
