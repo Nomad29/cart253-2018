@@ -41,5 +41,19 @@ div {
 #game-container {
   height: 100%;
   width: 100%;
+  position: absolute;
 }
 
+
+#title-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+
+#sun {
+  height: 50%;
+  width: 50%;
+  position: absolute;
+}
