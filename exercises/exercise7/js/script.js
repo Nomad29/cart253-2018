@@ -83,8 +83,8 @@ function preload() {
   noMusicIconImage = loadImage("assets/images/nomusic-icon.png");
   // Load fonts
   myFont1 = loadFont("assets/fonts/bernadette.ttf");
-  myFont2 = loadFont("assets/fonts/Poppins-Light.ttf");
-  myFont3 = loadFont("assets/fonts/Poppins-Regular.ttf");
+  myFont2 = loadFont("assets/fonts/Poppins-Regular.ttf");
+  myFont3 = loadFont("assets/fonts/Poppins-Light.ttf");
   // Load soundtrack
   themeSound = new Audio("assets/sounds/forest-songs.wav");
 }
@@ -109,22 +109,23 @@ function setup() {
 // and displays everything.
 function draw() {
 
-  themeSound.play();
-
   switch (gameScreen) {
     case 0:
       // Title screen
       titleScreen();
+      themeSound.play();
       break;
 
     case 1:
       // Game screen
       startGame();
+      themeSound.play();
       break;
 
     case 2:
       // End screen
       endGame();
+      themeSound.play();
       break;
   }
 
@@ -159,6 +160,20 @@ function startGame() {
   background(0);
   // Erase the default black stroke
   noStroke();
+  // Display the text 'Coming soon'
+  textSize(56);
+  textFont(myFont1);
+  fill(255);
+  textAlign(CENTER);
+  stroke(255);
+  strokeWeight(0.7);
+  text("Coming soon", width / 2, height / 2);
+  // Display the text 'In exercise 8'
+  textSize(20);
+  textFont(myFont2);
+  fill(250);
+  textAlign(CENTER);
+  text("In exercise 8...", width / 1.82, height / 1.88);
 }
 
 

@@ -66,7 +66,7 @@ Sun.prototype.display = function() {
   // Adds gradient color 2
   this.gradient.addColorStop(0, this.sun2);
   // Adds gradient color 1
-  this.gradient.addColorStop(0.8, this.sun1);
+  this.gradient.addColorStop(0.35, this.sun1);
   // Allow to unify the radial gradient with the animations
   this.sunGradient.fillStyle = this.gradient;
   // Creates the animation pace
