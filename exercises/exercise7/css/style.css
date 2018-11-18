@@ -28,6 +28,11 @@ html, body {
   box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "bernadette";
+    src:url("fonts/bernadette.ttf");
+}
+
 p {
   position: unset !important;
   padding: 2%;
@@ -37,6 +42,16 @@ div {
    display: inline-block;
 }
 
+
+.logo img {
+    height: 50px;
+    width: auto;
+	background-size:contain;
+	position:fixed;
+	top:50px;
+	left:50px;
+	z-index:2;
+}
 
 #game-container {
   height: 100%;
@@ -49,11 +64,58 @@ div {
   height: 100%;
   width: 100%;
   position: absolute;
+  align-items: center;
+  display:flex;
 }
 
-
-#sun {
-  height: 50%;
-  width: 50%;
+.title {
+  width: 70%;
+  left:15%;
+  height:100%;
+  display: inline-flex;
+  margin: 0;
+  align-items: center;
   position: absolute;
 }
+
+.title div {
+  width: auto;
+  height:auto;
+  flex-grow: 1;
+  text-align:right;
+  margin: 4%;
+}
+
+.title-name {
+  color: orange;
+  font-size:3em;
+  font-family: "bernadette";
+  line-height:1em;
+}
+
+.title-sub {
+  color: #383838;
+  font-size:1.45em;
+  font-family: 'Poppins', sans-serif;
+}
+
+.title-line {
+  width: 95% !important;
+  height: 2px !important;
+  background-color: orange;
+  float:left;
+}
+
+.title-text {
+  width: 90%;
+  color: #383838;
+  font-size:1em;
+  font-family: 'Poppins', sans-serif;
+  font-weight:300;
+}
+
+.witch img {
+  height: 500px;
+  width: auto;
+}
+

@@ -18,10 +18,8 @@ var canvas;
 var titleCanvas;
 var gameCanvas;
 
-// Variable for the logo
-var logoImage;
-// Variable for the witch
-var witchImage;
+// Variable for the title screen content
+var title;
 // Variable for the plus icon
 var plusIconImage;
 // Variable for the music icon
@@ -30,8 +28,6 @@ var musicIconImage;
 var noMusicIconImage;
 // Variable for the soundtrack
 var themeSound;
-// Variables for the images
-var witchImage;
 
 // Variable for the sun object
 var sun;
@@ -76,8 +72,6 @@ var sunGradientAnim;
 // Loads the target, fonts, decoy and frame images before the program starts
 function preload() {
   // Loads title content images
-  logoImage = loadImage("assets/images/logo.png");
-  witchImage = loadImage("assets/images/witch.png");
   plusIconImage = loadImage("assets/images/plus-icon.png");
   musicIconImage = loadImage("assets/images/music-icon.png");
   noMusicIconImage = loadImage("assets/images/nomusic-icon.png");
@@ -101,6 +95,9 @@ function setup() {
   noStroke();
   // Creates the sun graphics
   sun = new Sun(width / 2, height / 2, mouseX, mouseY);
+  // Selects the DIV ID named 'witch'
+  title = select("#title-container");
+  title.show();
 }
 
 // draw()
@@ -109,26 +106,24 @@ function setup() {
 // and displays everything.
 function draw() {
 
+  themeSound.play();
+
   switch (gameScreen) {
     case 0:
       // Title screen
       titleScreen();
-      themeSound.play();
       break;
 
     case 1:
       // Game screen
       startGame();
-      themeSound.play();
       break;
 
     case 2:
       // End screen
       endGame();
-      themeSound.play();
       break;
   }
-
 }
 
 // titleScreen()
@@ -156,6 +151,8 @@ function startGame() {
   gameCanvas = createCanvas(windowWidth, windowHeight);
   // Loads the backgrounds to the DIV ID named game-container in the HTML page
   gameCanvas.parent('game-container');
+  // Hides the witch DIV ID image
+  title.hide();
   // A black background color in the wait of developping the game screen in Exercice 8
   background(0);
   // Erase the default black stroke
@@ -173,7 +170,14 @@ function startGame() {
   textFont(myFont2);
   fill(250);
   textAlign(CENTER);
-  text("In exercise 8...", width / 1.82, height / 1.88);
+  text("In exercise 8...", width / 1.79, height / 1.88);
+}
+
+// endGame()
+//
+// This method sets the necessary variables to end the game
+function endGame() {
+  // To fill in for exercise 8
 }
 
 
@@ -190,5 +194,4 @@ function mousePressed() {
   else if (gameScreen = 1) {
     startGame();
   }
-
 }

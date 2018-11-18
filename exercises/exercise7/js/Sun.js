@@ -7,14 +7,12 @@
 //
 // Sets the properties with the provided arguments
 function Sun() {
-  this.sunGraphics = createGraphics(400, 400);
-  this.sunGraphics.parent('sun');
   // Sets the sun gradient animation
   this.sunGradient = canvas.drawingContext;
   // Number of vertex in the sun circle
   this.sunVertexResolution = 260;
   // Size of the sun
-  this.sunRadius = 800;
+  this.sunRadius = 850;
   // Sun animation base time
   this.sunTime = 0;
   // Fastness of the sun animation
@@ -49,10 +47,8 @@ function Sun() {
 //
 // Draw the sun as a graphic element on the screen
 Sun.prototype.display = function() {
-  // A paper white background color
-  background(245);
   // Center the sun in the canvas
-  translate(width / 2, height / 2);
+  translate(width / 1.6, height / 1.7);
   // Sun wobbly noise number of details
   noiseDetail(5);
 
@@ -60,7 +56,7 @@ Sun.prototype.display = function() {
   this.gradX = -mouseX / 4 - width / 2;
   this.gradY = -mouseY / 4 - height / 2;
   // Creates the radial gradient
-  this.gradient = this.sunGradient.createRadialGradient(0, 0, 150, this.gradX, this.gradY, 0);
+  this.gradient = this.sunGradient.createRadialGradient(0, 0, 200, this.gradX, this.gradY, 0);
   // Allow to animated the radial gradiant with rotation
   rotate(map(sin(this.sunGradientAnim), -1, 1, -PI / 4, PI / 4));
   // Adds gradient color 2
