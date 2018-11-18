@@ -138,9 +138,20 @@ div {
 .title-text {
   width: 90%;
   color: #383838;
-  font-size:1em;
+  font-size:0.87em;
   font-family: 'Poppins', sans-serif;
   font-weight:300;
+}
+
+.title-button {
+  padding-top: 12px;
+  padding-right: 30px;
+  padding-bottom: 12px;
+  padding-left: 30px;
+  border: 1.5px solid #7e7e7e;
+  color: #7e7e7e;
+  font-size:0.87em;
+  font-family: 'Poppins', sans-serif;
 }
 
 .witch img {

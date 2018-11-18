@@ -12,6 +12,7 @@ const App = {
 	
 	// window.onload
     window.onload = function() {
+     audio.loop = true;
 	 audio.play();
     };
 

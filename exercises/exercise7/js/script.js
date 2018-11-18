@@ -12,6 +12,7 @@
 // Variable for making possible to show the title screen, then the game screen
 var gameScreen = 0;
 
+// Variable for the P5.js sketch canvas
 var canvas;
 
 // Variable to contain the DIV IDs in the HTML page
@@ -89,7 +90,7 @@ function setup() {
   title.show();
   // Selects the DIV named 'music'
   music = select("#music");
-    // Selects the DIV named 'nomusic'
+  // Selects the DIV named 'nomusic'
   nomusic = select("#nomusic");
   // Show or hide the default icon
   music.show();
@@ -103,7 +104,7 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-
+  // Let the user switch between the title screen, the game screen and the end game screen.
   switch (gameScreen) {
     case 0:
       // Title screen
@@ -137,7 +138,6 @@ function titleScreen() {
   // Display the sun object
   sun.display();
 }
-
 
 // startGame()
 //
@@ -176,21 +176,25 @@ function endGame() {
   // To fill in for exercise 8
 }
 
+// changeIcon()
+//
 // Changes the music icon when clicked
 var changeIcon = function() {
   music.hide();
   nomusic.show();
 }
 
+// keyPressed()
+//
 // Give the option to restart the game by mouse cliking the screen
 function keyPressed() {
-     // If the user is on the title screen and click, the title screen will clear
-     if ((gameScreen = 0) && (keyCode == ENTER)) {
-       // Remove whole sketch on mouse press
-       remove();
-     }
-     // If the user is on the game screen, the startGame function will appear
-     else if ((gameScreen = 1) && (keyCode == ENTER)) {
-       startGame();
-     }
+  // If the user is on the title screen and click, the title screen will clear
+  if ((gameScreen = 0) && (keyCode == ENTER)) {
+    // Remove whole sketch on mouse press
+    remove();
+  }
+  // If the user is on the game screen, the startGame function will appear
+  else if ((gameScreen = 1) && (keyCode == ENTER)) {
+    startGame();
+  }
 }
