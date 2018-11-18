@@ -43,6 +43,15 @@ div {
 }
 
 
+button {
+    opacity: 0;
+    width: 35px;
+    position: absolute;
+    height: 35px;
+    left: 0;
+}
+
+
 .logo img {
     height: 50px;
     width: auto;
@@ -53,10 +62,38 @@ div {
 	z-index:2;
 }
 
+#more {
+	position:fixed;
+	top:50px;
+	right:50px;
+	z-index:2;
+}
+
+#more img, #music img, #nomusic img {
+    height: 35px;
+    width: auto;
+	background-size:contain;
+}
+
+#music {
+	position:fixed;
+	top:50px;
+	right:100px;
+	z-index:2;
+}
+
+#nomusic {
+	position:fixed;
+	top:50px;
+	right:100px;
+	z-index:2;
+}
+
 #game-container {
   height: 100%;
   width: 100%;
   position: absolute;
+  z-index:1;
 }
 
 
@@ -66,6 +103,7 @@ div {
   position: absolute;
   align-items: center;
   display:flex;
+  z-index:1;
 }
 
 .title {

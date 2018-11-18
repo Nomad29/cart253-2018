@@ -20,12 +20,9 @@ var gameCanvas;
 
 // Variable for the title screen content
 var title;
-// Variable for the plus icon
-var plusIconImage;
 // Variable for the music icon
-var musicIconImage;
-// Variable for the no music icon
-var noMusicIconImage;
+var music;
+var nomusic;
 // Variable for the soundtrack
 var themeSound;
 
@@ -71,10 +68,6 @@ var sunGradientAnim;
 //
 // Loads the target, fonts, decoy and frame images before the program starts
 function preload() {
-  // Loads title content images
-  plusIconImage = loadImage("assets/images/plus-icon.png");
-  musicIconImage = loadImage("assets/images/music-icon.png");
-  noMusicIconImage = loadImage("assets/images/nomusic-icon.png");
   // Load fonts
   myFont1 = loadFont("assets/fonts/bernadette.ttf");
   myFont2 = loadFont("assets/fonts/Poppins-Regular.ttf");
@@ -98,6 +91,10 @@ function setup() {
   // Selects the DIV ID named 'witch'
   title = select("#title-container");
   title.show();
+  // Selects the DIV named 'music'
+  music = select("#music");
+  nomusic = select("#nomusic");
+  nomusic.hide();
 }
 
 // draw()
@@ -131,7 +128,7 @@ function draw() {
 // This method sets the necessary variables to start the game
 function titleScreen() {
   // Creates the title canvas to windows size
-  titleCanvas = createCanvas(windowWidth, windowHeight);
+  titleCanvas = createCanvas(width, height);
   // Loads the backgrounds to the DIV ID named title-container in the HTML page
   titleCanvas.parent('title-container');
   // A paper white background color
@@ -148,7 +145,7 @@ function titleScreen() {
 // This method sets the necessary variables to start the game
 function startGame() {
   // Creates the game canvas to windows size
-  gameCanvas = createCanvas(windowWidth, windowHeight);
+  gameCanvas = createCanvas(width, height);
   // Loads the backgrounds to the DIV ID named game-container in the HTML page
   gameCanvas.parent('game-container');
   // Hides the witch DIV ID image
@@ -194,4 +191,5 @@ function mousePressed() {
   else if (gameScreen = 1) {
     startGame();
   }
+
 }
