@@ -42,16 +42,6 @@ div {
    display: inline-block;
 }
 
-
-button {
-    opacity: 0;
-    width: 35px;
-    position: absolute;
-    height: 35px;
-    left: 0;
-}
-
-
 .logo img {
     height: 50px;
     width: auto;
@@ -73,6 +63,7 @@ button {
     height: 35px;
     width: auto;
 	background-size:contain;
+	cursor: pointer;
 }
 
 #music {

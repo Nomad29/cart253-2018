@@ -11,7 +11,6 @@
     <!-- Library script(s) -->
     <script src="js/libraries/p5.min.js"></script>
 	<script src="js/libraries/p5.dom.js"></script>
-    <script src="js/libraries/p5.sound.min.js"></script>
     <!-- My script(s) -->
     <script src="js/script.js"></script>
 	<script src="js/Sun.js"></script>
@@ -20,11 +19,15 @@
   <body>
 
     <!-- HTML would go here if needed. -->
+	<audio id="theme"><source src="assets/sounds/forest-songs.wav" type="audio/wav" /></audio>
+	
     <div class="logo"><a href="index.html"><img src="assets/images/p5js-logo.svg" alt="Logo"></a></div>
 	
 	<div id="more"><a href="https://www.alexandramelancon.com/cart/index.html#tab3" target="blank"><img src="assets/images/plus-icon.png" alt="More"></a></div>
-	<div id="nomusic"><img src="assets/images/nomusic-icon.png" alt="Music"></div>
+	<div id="audio">
     <div id="music"><img src="assets/images/music-icon.png" alt="Music"></div>
+	<div id="nomusic"><img src="assets/images/nomusic-icon.png" alt="Music"></div>
+	</div>
 	
 	<div id="title-container">
 	   <div class="title">
@@ -42,6 +45,8 @@
 	   </div>
 	</div>
 	<div id="game-container"></div>
+	
+	<script src="js/music.js"></script>
 	
   </body>
 

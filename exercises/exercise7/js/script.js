@@ -23,8 +23,6 @@ var title;
 // Variable for the music icon
 var music;
 var nomusic;
-// Variable for the soundtrack
-var themeSound;
 
 // Variable for the sun object
 var sun;
@@ -72,8 +70,6 @@ function preload() {
   myFont1 = loadFont("assets/fonts/bernadette.ttf");
   myFont2 = loadFont("assets/fonts/Poppins-Regular.ttf");
   myFont3 = loadFont("assets/fonts/Poppins-Light.ttf");
-  // Load soundtrack
-  themeSound = new Audio("assets/sounds/forest-songs.wav");
 }
 
 // setup()
@@ -93,8 +89,13 @@ function setup() {
   title.show();
   // Selects the DIV named 'music'
   music = select("#music");
+    // Selects the DIV named 'nomusic'
   nomusic = select("#nomusic");
+  // Show or hide the default icon
+  music.show();
   nomusic.hide();
+  // Give music and nomusic to change when clicked
+  music.mousePressed(changeIcon);
 }
 
 // draw()
@@ -102,8 +103,6 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-
-  themeSound.play();
 
   switch (gameScreen) {
     case 0:
@@ -177,19 +176,21 @@ function endGame() {
   // To fill in for exercise 8
 }
 
+// Changes the music icon when clicked
+var changeIcon = function() {
+  music.hide();
+  nomusic.show();
+}
 
-// mouseClicked()
-//
-// For the game to be able to start.
-function mousePressed() {
-  // If the user is on the title screen and click, the title screen will clear
-  if (gameScreen = 0) {
-    // Remove whole sketch on mouse press
-    remove();
-  }
-  // If the user is on the game screen, the startGame function will appear
-  else if (gameScreen = 1) {
-    startGame();
-  }
-
+// Give the option to restart the game by mouse cliking the screen
+function keyPressed() {
+     // If the user is on the title screen and click, the title screen will clear
+     if ((gameScreen = 0) && (keyCode == ENTER)) {
+       // Remove whole sketch on mouse press
+       remove();
+     }
+     // If the user is on the game screen, the startGame function will appear
+     else if ((gameScreen = 1) && (keyCode == ENTER)) {
+       startGame();
+     }
 }
