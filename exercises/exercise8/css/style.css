@@ -1,0 +1,161 @@
+/*********************************************
+
+Here is a description of any special CSS used.
+In this case it's just padding and margin to 0
+so the canvas is flush with the top left corner.
+
+**********************************************/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  margin: 0;
+  background-color: #f6f6f6;
+  display: flex;
+  position: relative;
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+  /* This centers our sketch vertically. */
+  align-items: center;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;    
+  box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "bernadette";
+    src:url("fonts/bernadette.ttf");
+}
+
+p {
+  position: unset !important;
+  padding: 2%;
+}
+
+div {
+   display: inline-block;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+	background-size:contain;
+	position:fixed;
+	top:50px;
+	left:50px;
+	z-index:2;
+}
+
+#more {
+	position:fixed;
+	top:50px;
+	right:50px;
+	z-index:2;
+}
+
+#more img, #music img, #nomusic img {
+    height: 35px;
+    width: auto;
+	background-size:contain;
+	cursor: pointer;
+}
+
+#music {
+	position:fixed;
+	top:50px;
+	right:100px;
+	z-index:2;
+}
+
+#nomusic {
+	position:fixed;
+	top:50px;
+	right:100px;
+	z-index:2;
+}
+
+#game-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index:1;
+}
+
+
+#title-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  align-items: center;
+  display:flex;
+  z-index:1;
+}
+
+.title {
+  width: 70%;
+  left:15%;
+  height:100%;
+  display: inline-flex;
+  margin: 0;
+  align-items: center;
+  position: absolute;
+}
+
+.title div {
+  width: auto;
+  height:auto;
+  flex-grow: 1;
+  text-align:right;
+  margin: 4%;
+}
+
+.title-name {
+  color: orange;
+  font-size:3em;
+  font-family: "bernadette";
+  line-height:1em;
+}
+
+.title-sub {
+  color: #383838;
+  font-size:1.45em;
+  font-family: 'Poppins', sans-serif;
+}
+
+.title-line {
+  width: 95% !important;
+  height: 2px !important;
+  background-color: orange;
+  float:left;
+}
+
+.title-text {
+  width: 90%;
+  color: #383838;
+  font-size:0.87em;
+  font-family: 'Poppins', sans-serif;
+  font-weight:300;
+}
+
+.title-button {
+  padding-top: 12px;
+  padding-right: 30px;
+  padding-bottom: 12px;
+  padding-left: 30px;
+  border: 1.5px solid #7e7e7e;
+  color: #7e7e7e;
+  font-size:0.87em;
+  font-family: 'Poppins', sans-serif;
+}
+
+.witch img {
+  height: 500px;
+  width: auto;
+}
+
