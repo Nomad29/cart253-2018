@@ -5,6 +5,8 @@
 // where you choose your own fate.
 //
 // Written with JavaScript P5.js and P5.DOM.js.
+// Credits to Peter Hofmann, on OpenProcessing.org for helping me with creating
+// noise with the sun object.
 
 // 0: Title Screen
 // 1: Game Screen
