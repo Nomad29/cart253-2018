@@ -5,6 +5,8 @@
 // where you choose your own fate.
 //
 // Written with JavaScript P5.js and P5.DOM.js.
+// Credits to Peter Hofmann, on OpenProcessing.org for helping me with creating
+// noise with the sun object.
 
 // 0: Title Screen
 // 1: Game Screen
@@ -17,7 +19,6 @@ var canvas;
 
 // Variable to contain the DIV IDs in the HTML page
 var titleCanvas;
-var gameCanvas;
 
 // Variable for the title screen content
 var title;
@@ -62,6 +63,20 @@ var sunGradient;
 // Sun variable for allowing the gradient to animate
 var sunGradientAnim;
 
+// Variable for the game content
+var game;
+// Variable for making possible to show multiple game content
+var scenario = 0;
+// Variables for the differents game scenarios
+var prologue;
+var slide1;
+var slide2;
+// Variables for the game content
+var text1;
+var title1;
+var img = [];
+var input, button;
+var nextButton;
 
 // preload()
 //
@@ -85,6 +100,7 @@ function setup() {
   noStroke();
   // Creates the sun graphics
   sun = new Sun(width / 2, height / 2, mouseX, mouseY);
+  game = new Game(width / 2, height / 2, mouseX, mouseY);
   // Selects the DIV ID named 'witch'
   title = select("#title-container");
   title.show();
@@ -97,6 +113,27 @@ function setup() {
   nomusic.hide();
   // Give music and nomusic to change when clicked
   music.mousePressed(changeIcon);
+
+  // Creates the images placed in the game content
+  // Loads the game content images
+  for (var i=1; i<4; i++) {
+    img[i] = createImg("assets/images/"+i+".png");
+    img[i].parent('game-images');
+  }
+  // Creates and selects the DIV named 'game-text' for placing the game content text
+  text1 = createP("Today is finally the time you have been waiting for, young wizard, your new master is waiting for you at the main district in the capital. What was his name again? Please type in the name below.");
+  text1.parent('game-text');
+  // Creates and selects the DIV named 'game-title' for placing the game content title
+  title1 = createP("Prologue");
+  title1.parent('game-title');
+  // Creates and selects the DIV named 'game-input' for placing in the game
+  input = createInput();
+  input.parent('game-input');
+  // Creates and selects the DIV named 'game-button' for placing in the game
+  button = createButton('submit');
+  button.parent('game-buttonBox');
+  button.position(input.x + input.width);
+  button.mousePressed(nextButton);
 }
 
 // draw()
@@ -137,36 +174,22 @@ function titleScreen() {
   noStroke();
   // Display the sun object
   sun.display();
+  // Hide the game content
+  img[1].hide();
+  img[2].hide();
+  img[3].hide();
 }
 
 // startGame()
 //
 // This method sets the necessary variables to start the game
 function startGame() {
-  // Creates the game canvas to windows size
-  gameCanvas = createCanvas(width, height);
-  // Loads the backgrounds to the DIV ID named game-container in the HTML page
-  gameCanvas.parent('game-container');
+  // A paper white background color
+  background(245);
   // Hides the witch DIV ID image
   title.hide();
-  // A black background color in the wait of developping the game screen in Exercice 8
-  background(0);
-  // Erase the default black stroke
-  noStroke();
-  // Display the text 'Coming soon'
-  textSize(56);
-  textFont(myFont1);
-  fill(255);
-  textAlign(CENTER);
-  stroke(255);
-  strokeWeight(0.7);
-  text("Coming soon", width / 2, height / 2);
-  // Display the text 'In exercise 8'
-  textSize(20);
-  textFont(myFont2);
-  fill(250);
-  textAlign(CENTER);
-  text("In exercise 8...", width / 1.79, height / 1.88);
+  // Display the game
+  game.display();
 }
 
 // endGame()
@@ -182,6 +205,16 @@ function endGame() {
 var changeIcon = function() {
   music.hide();
   nomusic.show();
+}
+
+// nextButton()
+//
+// Changes the different scenarios and content in-game
+var nextButton = function() {
+  // Get the game to the next scenario page
+  scenario = scenario + 1;
+  // Get the images for the scenario pages
+  var i = i + 1;
 }
 
 // keyPressed()

@@ -49,14 +49,14 @@ div {
 	position:fixed;
 	top:50px;
 	left:50px;
-	z-index:2;
+	z-index:3;
 }
 
 #more {
 	position:fixed;
 	top:50px;
 	right:50px;
-	z-index:2;
+	z-index:3;
 }
 
 #more img, #music img, #nomusic img {
@@ -70,21 +70,20 @@ div {
 	position:fixed;
 	top:50px;
 	right:100px;
-	z-index:2;
+	z-index:3;
 }
 
 #nomusic {
 	position:fixed;
 	top:50px;
 	right:100px;
-	z-index:2;
+	z-index:3;
 }
 
 #game-container {
   height: 100%;
   width: 100%;
-  position: absolute;
-  z-index:1;
+  position:absolute;
 }
 
 
@@ -94,7 +93,7 @@ div {
   position: absolute;
   align-items: center;
   display:flex;
-  z-index:1;
+  z-index:2;
 }
 
 .title {
@@ -158,4 +157,96 @@ div {
   height: 500px;
   width: auto;
 }
+
+
+#game-content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  margin: auto;
+  top: 0;
+  left: 0;
+  display: flex;
+  bottom: 0;
+  right: 0;
+  flex-flow: row wrap;
+}
+
+#game-images {
+  height: 100%;
+  width: 61.5%;
+}
+
+#game-images img {
+  height:100%;
+  width:100%;
+  background-image: cover;
+}
+
+
+#game-images canvas {
+  height: 100%;
+  width: 100%;
+  display:inline-block !important;
+  top:0;
+}
+
+#game-text {
+  height: auto;
+  width: 100%;
+  display: inline-block !important;
+}
+
+
+#game-title {
+  height: auto;
+  width: 100%;
+  display: inline-block !important;
+}
+
+
+.text-content {
+  max-height: 900px;
+  width: 38.5%;
+  padding-top: 15%;
+  min-height: 300px;
+  word-wrap: break-word;
+  overflow: auto;
+  background: #f6f6f6;
+  z-index: 1;
+}
+
+.text-content div p {
+  width:80%;
+  height:80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#game-input {
+  height: auto;
+  width: 100%;
+  display: inline !important;
+}
+
+#game-input input {
+  width: 60%;
+  margin-left: 12%;
+}
+
+#game-buttonBox {
+  height: auto;
+  display: inline-block !important;
+}
+
+#game-buttonBox button {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative !important;
+}
+
+
+
 
