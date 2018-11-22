@@ -26,6 +26,7 @@ html, body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;    
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 @font-face {
@@ -42,7 +43,7 @@ div {
    display: inline-block;
 }
 
-.logo img {
+#logo img {
     height: 50px;
     width: auto;
 	background-size:contain;
@@ -180,7 +181,6 @@ div {
 #game-images img {
   height:100%;
   width:100%;
-  background-image: cover;
 }
 
 
@@ -197,6 +197,12 @@ div {
   display: inline-block !important;
 }
 
+#game-text1, #game-text2, #game-text3 {
+  height: auto;
+  width: 100%;
+  font-size: 0.9em;
+  font-weight: 400;
+}
 
 #game-title {
   height: auto;
@@ -204,11 +210,17 @@ div {
   display: inline-block !important;
 }
 
+#game-title1 {
+  height: 2.1em;
+  width: 100%;
+  font-size: 30px;
+  font-family: "bernadette";
+}
 
 .text-content {
   max-height: 900px;
   width: 38.5%;
-  padding-top: 15%;
+  padding-top: 15vh;
   min-height: 300px;
   word-wrap: break-word;
   overflow: auto;
@@ -233,6 +245,9 @@ div {
 #game-input input {
   width: 60%;
   margin-left: 12%;
+  font-size: 0.7em;
+  height: 2.4em;
+  margin-top: 0.7em;
 }
 
 #game-buttonBox {

@@ -39,12 +39,16 @@ function prologue() {
   img[1].show();
   img[2].hide();
   img[3].hide();
+  // Show the prologue title
+  title1.show();
+  // Hide the past or future image, but let the present image to be shown
+  txt1.show();
+  txt2.hide();
+  txt3.hide();
   // A paper white background color
   background(245);
   // Display the text 'Prologue'
   text(title1);
-  // Display the text
-  text(text1);
   // Display the image
   image(img[1],0,0);
 }
@@ -55,6 +59,15 @@ function slide1() {
   img[1].hide();
   img[2].show();
   img[3].hide();
+  // Hide the prologue title
+  title1.hide();
+  // Hide the past or future image, but let the present image to be shown
+  txt1.hide();
+  txt2.show();
+  txt3.hide();
+  // Hide the prologue input and button
+  input.hide();
+  button.hide();
   // A paper white background color
   background(245);
   // Display the image

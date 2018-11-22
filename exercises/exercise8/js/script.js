@@ -20,6 +20,9 @@ var canvas;
 // Variable to contain the DIV IDs in the HTML page
 var titleCanvas;
 
+// Variable for the logo
+var logo;
+
 // Variable for the title screen content
 var title;
 // Variable for the music icon
@@ -72,7 +75,9 @@ var prologue;
 var slide1;
 var slide2;
 // Variables for the game content
-var text1;
+var txt1;
+var txt2;
+var txt3;
 var title1;
 var img = [];
 var input, button;
@@ -101,6 +106,10 @@ function setup() {
   // Creates the sun graphics
   sun = new Sun(width / 2, height / 2, mouseX, mouseY);
   game = new Game(width / 2, height / 2, mouseX, mouseY);
+
+  // Changed the gray logo to a white version when in game
+  logo = createImg("assets/images/p5js-logo-white.svg");
+
   // Selects the DIV ID named 'witch'
   title = select("#title-container");
   title.show();
@@ -120,17 +129,22 @@ function setup() {
     img[i] = createImg("assets/images/"+i+".png");
     img[i].parent('game-images');
   }
-  // Creates and selects the DIV named 'game-text' for placing the game content text
-  text1 = createP("Today is finally the time you have been waiting for, young wizard, your new master is waiting for you at the main district in the capital. What was his name again? Please type in the name below.");
-  text1.parent('game-text');
+  // Creates the text placed in the game content
+  // Hide them at the beginning of the program
+  txt1 = select("#game-text1");
+  txt1.hide();
+  txt2 = select("#game-text2");
+  txt2.hide();
+  txt3 = select("#game-text3");
+  txt3.hide();
   // Creates and selects the DIV named 'game-title' for placing the game content title
-  title1 = createP("Prologue");
-  title1.parent('game-title');
+  title1 = select("#game-title1");
+  title1.hide();
   // Creates and selects the DIV named 'game-input' for placing in the game
-  input = createInput();
+  input = createInput('(Input function coming soon in Project 3)');
   input.parent('game-input');
   // Creates and selects the DIV named 'game-button' for placing in the game
-  button = createButton('submit');
+  button = createButton('CONTINUE');
   button.parent('game-buttonBox');
   button.position(input.x + input.width);
   button.mousePressed(nextButton);
@@ -228,6 +242,7 @@ function keyPressed() {
   }
   // If the user is on the game screen, the startGame function will appear
   else if ((gameScreen = 1) && (keyCode == ENTER)) {
+    logo = logo.parent('logo');
     startGame();
   }
 }
