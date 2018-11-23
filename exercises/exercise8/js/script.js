@@ -19,6 +19,7 @@ var canvas;
 
 // Variable to contain the DIV IDs in the HTML page
 var titleCanvas;
+var gameCanvas;
 
 // Variable for the logo
 var logo;
@@ -71,17 +72,22 @@ var game;
 // Variable for making possible to show multiple game content
 var scenario = 0;
 // Variables for the differents game scenarios
-var prologue;
-var slide1;
-var slide2;
+var prologue, slide1, slide2, slide3;
 // Variables for the game content
-var txt1;
-var txt2;
-var txt3;
+// Variables for the game content texts
+var txt1, txt2, txt3;
+// Variables for the game content prologue title
 var title1;
+// Variables for the game content images
 var img = [];
+// Variables for the game content prologue input/continue button
 var input, button;
-var nextButton;
+// Variables for the in-game content choice buttons
+var button1, button2;
+// Variables for the in-game content choice button functions
+var nextButton, nextButton1, nextButton2;
+// Variables for the game content ending text
+var toContinue;
 
 // preload()
 //
@@ -125,7 +131,7 @@ function setup() {
 
   // Creates the images placed in the game content
   // Loads the game content images
-  for (var i=1; i<4; i++) {
+  for (var i=1; i<5; i++) {
     img[i] = createImg("assets/images/"+i+".png");
     img[i].parent('game-images');
   }
@@ -137,6 +143,8 @@ function setup() {
   txt2.hide();
   txt3 = select("#game-text3");
   txt3.hide();
+  txt4 = select("#game-text4");
+  txt4.hide();
   // Creates and selects the DIV named 'game-title' for placing the game content title
   title1 = select("#game-title1");
   title1.hide();
@@ -148,6 +156,25 @@ function setup() {
   button.parent('game-buttonBox');
   button.position(input.x + input.width);
   button.mousePressed(nextButton);
+
+  // Creates the choices buttons for slide1()
+  // Creates and selects the DIV named 'ingame1-button' for placing in the game
+  button1 = select("#ingame1-buttonBox");
+  button1.mousePressed(nextButton1);
+  // Creates and selects the DIV named 'ingame2-button' for placing in the game
+  button2 = select("#ingame2-buttonBox");
+  button2.mousePressed(nextButton2);
+
+  // Creates the choices button for slide2()
+  // Creates and selects the DIV named 'ingame3-button' for placing in the game
+  button3 = select("#ingame3-buttonBox");
+  button3.mousePressed(nextButton1);
+
+
+  // Creates and selects the DIV named 'soon-text' for placing the game soon ending content
+  toContinue = createP("(To Continue in Project 3...)");
+  toContinue.parent('soon-text');
+  toContinue.hide();
 }
 
 // draw()
@@ -188,16 +215,16 @@ function titleScreen() {
   noStroke();
   // Display the sun object
   sun.display();
-  // Hide the game content
-  img[1].hide();
-  img[2].hide();
-  img[3].hide();
 }
 
 // startGame()
 //
 // This method sets the necessary variables to start the game
 function startGame() {
+  // Creates the title canvas to windows size
+  gameCanvas = createCanvas(width, height);
+  // Loads the backgrounds to the DIV ID named title-container in the HTML page
+  gameCanvas.parent('game-container');
   // A paper white background color
   background(245);
   // Hides the witch DIV ID image
@@ -210,7 +237,7 @@ function startGame() {
 //
 // This method sets the necessary variables to end the game
 function endGame() {
-  // To fill in for exercise 8
+  // To fill in for project 3
 }
 
 // changeIcon()
@@ -231,18 +258,45 @@ var nextButton = function() {
   var i = i + 1;
 }
 
+// nextButton1()
+//
+// Changes the different scenarios and content in-game
+var nextButton1 = function() {
+  // Get the game to the next scenario page
+  scenario = scenario + 1;
+  // Get the images for the scenario pages
+  var i = i + 1;
+}
+
+// nextButton2()
+//
+// Changes the different scenarios and content in-game
+var nextButton2 = function() {
+  // Get the game to the next scenario page
+  scenario = scenario + 2;
+  // Get the images for the scenario pages
+  var i = i + 2;
+}
+
 // keyPressed()
 //
 // Give the option to restart the game by mouse cliking the screen
 function keyPressed() {
   // If the user is on the title screen and click, the title screen will clear
-  if ((gameScreen = 0) && (keyCode == ENTER)) {
+  if (gameScreen = 0) {
     // Remove whole sketch on mouse press
     remove();
   }
   // If the user is on the game screen, the startGame function will appear
-  else if ((gameScreen = 1) && (keyCode == ENTER)) {
+  else if (gameScreen = 1) {
     logo = logo.parent('logo');
     startGame();
   }
+}
+
+// windowResized()
+//
+// Resize the window when resized
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }

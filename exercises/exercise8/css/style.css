@@ -50,14 +50,14 @@ div {
 	position:fixed;
 	top:50px;
 	left:50px;
-	z-index:3;
+	z-index:6;
 }
 
 #more {
 	position:fixed;
 	top:50px;
 	right:50px;
-	z-index:3;
+	z-index:6;
 }
 
 #more img, #music img, #nomusic img {
@@ -71,20 +71,21 @@ div {
 	position:fixed;
 	top:50px;
 	right:100px;
-	z-index:3;
+	z-index:6;
 }
 
 #nomusic {
 	position:fixed;
 	top:50px;
 	right:100px;
-	z-index:3;
+	z-index:6;
 }
 
 #game-container {
   height: 100%;
   width: 100%;
   position:absolute;
+  z-index:4;
 }
 
 
@@ -94,7 +95,7 @@ div {
   position: absolute;
   align-items: center;
   display:flex;
-  z-index:2;
+  z-index:5;
 }
 
 .title {
@@ -197,7 +198,7 @@ div {
   display: inline-block !important;
 }
 
-#game-text1, #game-text2, #game-text3 {
+#game-text1, #game-text2, #game-text3, #game-text4 {
   height: auto;
   width: 100%;
   font-size: 0.9em;
@@ -218,15 +219,15 @@ div {
 }
 
 .text-content {
-  max-height: 900px;
   width: 38.5%;
   padding-top: 15vh;
-  min-height: 300px;
+  height:100%;
   word-wrap: break-word;
   overflow: auto;
   background: #f6f6f6;
   z-index: 1;
 }
+
 
 .text-content div p {
   width:80%;
@@ -248,6 +249,11 @@ div {
   font-size: 0.7em;
   height: 2.4em;
   margin-top: 0.7em;
+  background-color: white;
+  border-style:none;
+  border-bottom: 1px solid #ff8f00;
+  box-sizing: border-box;
+  text-align:center;
 }
 
 #game-buttonBox {
@@ -260,8 +266,51 @@ div {
   margin-left: auto;
   margin-right: auto;
   position: relative !important;
+  border-style: none;
+  height: 2em;
+  background-color: #ffa430;
+  border-bottom: 1px solid yellow;
+  letter-spacing: 1px;
+  color: white;
+  cursor: pointer;
 }
 
+#ingame1-buttonBox, #ingame3-buttonBox, #ingame5-buttonBox {
+    width: 80.1%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+    border-style: none;
+    height: auto;
+    background-color: #ffa430;
+    border-bottom: 1px solid #7e7e7e;
+    letter-spacing: 1px;
+    color: white;
+    min-height: 2em;
+    padding: 1em;
+    cursor: pointer;
+}
 
+#ingame2-buttonBox, #ingame4-buttonBox, #ingame6-buttonBox {
+    width: 80.1%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+    border-style: none;
+    height: auto;
+    background-color: #ffa430;
+    border-bottom: 1px solid #7e7e7e;
+    letter-spacing: 1px;
+    color: white;
+    min-height: 2em;
+    padding: 1em;
+    cursor: pointer;
+	margin-top: 2em;
+}
 
-
+#soon-text {
+  height: auto;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 800;
+}
