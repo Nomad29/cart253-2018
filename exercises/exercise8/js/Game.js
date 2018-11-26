@@ -7,7 +7,7 @@
 //
 // Sets the properties with the provided arguments
 function Game() {
-// Nothing for the moment
+  // Nothing for the moment
 }
 
 Game.prototype.display = function() {
@@ -63,7 +63,7 @@ function prologue() {
   // Display the text 'Prologue'
   text(title1);
   // Display the image
-  image(img[1],0,0);
+  image(img[1], 0, 0);
 }
 
 // slide1()
@@ -92,7 +92,7 @@ function slide1() {
   // A paper white background color
   background(245);
   // Display the image
-  image(img[2],0,0);
+  image(img[2], 0, 0);
 }
 
 // slide2()
@@ -121,7 +121,7 @@ function slide2() {
   // A paper white background color
   background(245);
   // Display the image
-  image(img[3],0,0);
+  image(img[3], 0, 0);
 }
 
 // slide3()
@@ -150,7 +150,7 @@ function slide3() {
   // A paper white background color
   background(245);
   // Display the image
-  image(img[4],0,0);
+  image(img[4], 0, 0);
   // Display the text '(To Continue in Project 3...)'
   text(toContinue);
 }

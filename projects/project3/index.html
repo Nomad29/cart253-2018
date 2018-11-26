@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>CART253 (Ex7): Misplaced Master</title>
+	<meta name="description" content="Project 2 for CART253 class, by Alexandra Melançon.">
+
+    <!-- CSS stylesheet(s) -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400" rel="stylesheet">
+    <!-- Library script(s) -->
+    <script src="js/libraries/p5.min.js"></script>
+	<script src="js/libraries/p5.dom.js"></script>
+    <!-- My script(s) -->
+    <script src="js/script.js"></script>
+	<script src="js/Sun.js"></script>
+	<script src="js/Game.js"></script>
+  </head>
+
+  <body>
+
+    <!-- HTML would go here if needed. -->
+	<audio id="theme"><source src="assets/sounds/forest-songs.wav" type="audio/wav" /></audio>
+	
+    <a href="index.html"><div id="logo"><img src="assets/images/p5js-logo.svg" alt="Logo"></div></a>
+	
+	<div id="more"><a href="https://www.alexandramelancon.com/cart/index.html#tab3" target="blank"><img src="assets/images/plus-icon.png" alt="More"></a></div>
+	<div id="audio">
+    <div id="music"><img src="assets/images/music-icon.png" alt="Music"></div>
+	<div id="nomusic"><img src="assets/images/nomusic-icon.png" alt="Music"></div>
+	</div>
+	
+	<div id="title-container">
+	   <div class="title">
+	     <div>
+	       <span class="title-name">Misplaced Master</span>
+	       <br />
+	       <span class="title-sub">A storytelling game &nbsp;</span>
+	       <br />
+	       <div class="title-line"></div>
+	       <br />
+	       <span class="title-text">Just another interactive storytelling game where you click what you feel most like doing to progress in the game.</span>
+	       <br /><br />
+	       <div class="title-button">PRESS ENTER</div>
+	     </div>
+	   
+	     <div class="witch"><img src="assets/images/witch.png"></div>
+	   </div>
+	</div>
+	
+	<div id="game-container">
+	
+	<div id="game-content">
+
+    <div id="game-images"></div>
+	<div class="text-content">
+	  <div id="game-title">
+	    <div id="game-title1">
+	      <p>Prologue</p>
+	    </div>
+	  </div>
+	
+	  <div id="game-text">
+	    <div id="game-text1">
+	      <p>Today is finally the time you have been waiting for, young wizard, your new master is waiting for you at the main district in the capital. <br /><br />What was his name again? Please type in  the name below.</p>
+	    </div>
+	    <div id="game-text2">
+	      <p>But first, Your master tasked you to acquire some reagents on your way to see him. <br /><br /> Now that you’re out of your house, you must choose where you will go.</p>
+	    </div>
+	    <div id="game-text3">
+	      <p>You have bought the reagents needed and decide to spare some more time in another shop. There is no one at the counter. <br /><br />  You choose to browse the items in store and decide to look at one item in particular. The item is in fact a beautiful stone surrounded by a strange force that compelling you to touch it.</p>
+	    </div>
+		<div id="game-text4">
+	      <p>You are now in a small patch of nature in the city. Gazing at the beautiful decor, you then confirm that you have every reagents Your master wanted asked for. <br /><br />  On your way through the tall grass you see from afar a gigantic six legged bear.</p>
+	    </div>
+		<div id="soon-text"></div>
+	  </div>
+	
+	  <div id="game-input"></div>
+      <div id="game-buttonBox"></div>
+	  
+	  <button id="ingame1-buttonBox">
+	    Take the main path to the marketplace
+	  </button>
+	  <button id="ingame2-buttonBox">
+	    Take the scenic route and gather the reagents by yourself in the parc
+	  </button>
+	  
+	  <button id="ingame3-buttonBox">
+	    Touch the mysterious stone 
+	  </button>
+	  <button id="ingame4-buttonBox" style="display: none;"></button>
+	  
+	</div>
+    </div>
+	
+    </div>
+	
+	<div id="end-container"></div>
+	
+	<script src="js/music.js"></script>
+	
+  </body>
+
+</html>

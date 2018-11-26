@@ -1,0 +1,316 @@
+/*********************************************
+
+Here is a description of any special CSS used.
+In this case it's just padding and margin to 0
+so the canvas is flush with the top left corner.
+
+**********************************************/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  margin: 0;
+  background-color: #f6f6f6;
+  display: flex;
+  position: relative;
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+  /* This centers our sketch vertically. */
+  align-items: center;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;    
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+@font-face {
+    font-family: "bernadette";
+    src:url("fonts/bernadette.ttf");
+}
+
+p {
+  position: unset !important;
+  padding: 2%;
+}
+
+div {
+   display: inline-block;
+}
+
+#logo img {
+    height: 50px;
+    width: auto;
+	background-size:contain;
+	position:fixed;
+	top:50px;
+	left:50px;
+	z-index:6;
+}
+
+#more {
+	position:fixed;
+	top:50px;
+	right:50px;
+	z-index:6;
+}
+
+#more img, #music img, #nomusic img {
+    height: 35px;
+    width: auto;
+	background-size:contain;
+	cursor: pointer;
+}
+
+#music {
+	position:fixed;
+	top:50px;
+	right:100px;
+	z-index:6;
+}
+
+#nomusic {
+	position:fixed;
+	top:50px;
+	right:100px;
+	z-index:6;
+}
+
+#game-container {
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  z-index:4;
+}
+
+
+#title-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  align-items: center;
+  display:flex;
+  z-index:5;
+}
+
+.title {
+  width: 70%;
+  left:15%;
+  height:100%;
+  display: inline-flex;
+  margin: 0;
+  align-items: center;
+  position: absolute;
+}
+
+.title div {
+  width: auto;
+  height:auto;
+  flex-grow: 1;
+  text-align:right;
+  margin: 4%;
+}
+
+.title-name {
+  color: orange;
+  font-size:3em;
+  font-family: "bernadette";
+  line-height:1em;
+}
+
+.title-sub {
+  color: #383838;
+  font-size:1.45em;
+  font-family: 'Poppins', sans-serif;
+}
+
+.title-line {
+  width: 95% !important;
+  height: 2px !important;
+  background-color: orange;
+  float:left;
+}
+
+.title-text {
+  width: 90%;
+  color: #383838;
+  font-size:0.87em;
+  font-family: 'Poppins', sans-serif;
+  font-weight:300;
+}
+
+.title-button {
+  padding-top: 12px;
+  padding-right: 30px;
+  padding-bottom: 12px;
+  padding-left: 30px;
+  border: 1.5px solid #7e7e7e;
+  color: #7e7e7e;
+  font-size:0.87em;
+  font-family: 'Poppins', sans-serif;
+}
+
+.witch img {
+  height: 500px;
+  width: auto;
+}
+
+
+#game-content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  margin: auto;
+  top: 0;
+  left: 0;
+  display: flex;
+  bottom: 0;
+  right: 0;
+  flex-flow: row wrap;
+}
+
+#game-images {
+  height: 100%;
+  width: 61.5%;
+}
+
+#game-images img {
+  height:100%;
+  width:100%;
+}
+
+
+#game-images canvas {
+  height: 100%;
+  width: 100%;
+  display:inline-block !important;
+  top:0;
+}
+
+#game-text {
+  height: auto;
+  width: 100%;
+  display: inline-block !important;
+}
+
+#game-text1, #game-text2, #game-text3, #game-text4 {
+  height: auto;
+  width: 100%;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+#game-title {
+  height: auto;
+  width: 100%;
+  display: inline-block !important;
+}
+
+#game-title1 {
+  height: 2.1em;
+  width: 100%;
+  font-size: 30px;
+  font-family: "bernadette";
+}
+
+.text-content {
+  width: 38.5%;
+  padding-top: 15vh;
+  height:100%;
+  word-wrap: break-word;
+  overflow: auto;
+  background: #f6f6f6;
+  z-index: 1;
+}
+
+
+.text-content div p {
+  width:80%;
+  height:80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#game-input {
+  height: auto;
+  width: 100%;
+  display: inline !important;
+}
+
+#game-input input {
+  width: 60%;
+  margin-left: 12%;
+  font-size: 0.7em;
+  height: 2.4em;
+  margin-top: 0.7em;
+  background-color: white;
+  border-style:none;
+  border-bottom: 1px solid #ff8f00;
+  box-sizing: border-box;
+  text-align:center;
+}
+
+#game-buttonBox {
+  height: auto;
+  display: inline-block !important;
+}
+
+#game-buttonBox button {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative !important;
+  border-style: none;
+  height: 2em;
+  background-color: #ffa430;
+  border-bottom: 1px solid yellow;
+  letter-spacing: 1px;
+  color: white;
+  cursor: pointer;
+}
+
+#ingame1-buttonBox, #ingame3-buttonBox, #ingame5-buttonBox {
+    width: 80.1%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+    border-style: none;
+    height: auto;
+    background-color: #ffa430;
+    border-bottom: 1px solid #7e7e7e;
+    letter-spacing: 1px;
+    color: white;
+    min-height: 2em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+#ingame2-buttonBox, #ingame4-buttonBox, #ingame6-buttonBox {
+    width: 80.1%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+    border-style: none;
+    height: auto;
+    background-color: #ffa430;
+    border-bottom: 1px solid #7e7e7e;
+    letter-spacing: 1px;
+    color: white;
+    min-height: 2em;
+    padding: 1em;
+    cursor: pointer;
+	margin-top: 2em;
+}
+
+#soon-text {
+  height: auto;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 800;
+}

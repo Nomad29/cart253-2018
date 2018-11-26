@@ -131,8 +131,8 @@ function setup() {
 
   // Creates the images placed in the game content
   // Loads the game content images
-  for (var i=1; i<5; i++) {
-    img[i] = createImg("assets/images/"+i+".png");
+  for (var i = 1; i < 5; i++) {
+    img[i] = createImg("assets/images/" + i + ".png");
     img[i].parent('game-images');
   }
   // Creates the text placed in the game content
