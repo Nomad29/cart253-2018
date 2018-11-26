@@ -81,14 +81,6 @@ div {
 	z-index:6;
 }
 
-#game-container {
-  height: 100%;
-  width: 100%;
-  position:absolute;
-  z-index:4;
-}
-
-
 #title-container {
   height: 100%;
   width: 100%;
@@ -96,6 +88,20 @@ div {
   align-items: center;
   display:flex;
   z-index:5;
+}
+
+#game-container {
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  z-index:4;
+}
+
+#end-container {
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  z-index:3;
 }
 
 .title {

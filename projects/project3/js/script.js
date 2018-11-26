@@ -20,12 +20,15 @@ var canvas;
 // Variable to contain the DIV IDs in the HTML page
 var titleCanvas;
 var gameCanvas;
+var endCanvas;
 
 // Variable for the logo
 var logo;
 
 // Variable for the title screen content
 var title;
+// Variable for the game screen content
+var inGame;
 // Variable for the music icon
 var music;
 var nomusic;
@@ -72,10 +75,10 @@ var game;
 // Variable for making possible to show multiple game content
 var scenario = 0;
 // Variables for the differents game scenarios
-var prologue, slide1, slide2, slide3;
+var prologue, slide1, slide2, slide3, slide4;
 // Variables for the game content
 // Variables for the game content texts
-var txt1, txt2, txt3;
+var txt1, txt2, txt3, txt4;
 // Variables for the game content prologue title
 var title1;
 // Variables for the game content images
@@ -116,9 +119,12 @@ function setup() {
   // Changed the gray logo to a white version when in game
   logo = createImg("assets/images/p5js-logo-white.svg");
 
-  // Selects the DIV ID named 'witch'
+  // Selects the DIV ID named 'title-container'
   title = select("#title-container");
   title.show();
+  // Selects the DIV ID named 'game-container'
+  inGame = select("#game-container");
+  inGame.hide();
   // Selects the DIV named 'music'
   music = select("#music");
   // Selects the DIV named 'nomusic'
@@ -227,8 +233,10 @@ function startGame() {
   gameCanvas.parent('game-container');
   // A paper white background color
   background(245);
-  // Hides the witch DIV ID image
+  // Hides the titleScreen
   title.hide();
+  // Show the game
+  inGame.show();
   // Display the game
   game.display();
 }
@@ -237,7 +245,16 @@ function startGame() {
 //
 // This method sets the necessary variables to end the game
 function endGame() {
-  // To fill in for project 3
+  // Creates the title canvas to windows size
+  endCanvas = createCanvas(width, height);
+  // Loads the backgrounds to the DIV ID named title-container in the HTML page
+  endCanvas.parent('end-container');
+  // A black background color
+  background(0);
+  // Hides the game
+  inGame.hide();
+  // Re-add the default gray logo
+  logo = logo.hide();
 }
 
 // changeIcon()
