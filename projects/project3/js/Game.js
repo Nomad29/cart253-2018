@@ -13,7 +13,6 @@ function Game() {
   this.txt2 = txt2;
   this.txt3 = txt3;
   this.txt4 = txt4;
-  this.toContinue = toContinue;
   this.input = input;
   this.button = button;
 }
@@ -69,8 +68,6 @@ function prologue() {
   button1.hide();
   button2.hide();
   button3.hide();
-  // Hide the text '(To Continue in Project 3...)'
-  this.toContinue.hide();
   // A paper white background color
   background(245);
   // Display the text 'Prologue'
@@ -100,8 +97,6 @@ function slide1() {
   button1.show();
   button2.show();
   button3.hide();
-  // Hide the text '(To Continue in Project 3...)'
-  this.toContinue.hide();
   // A paper white background color
   background(245);
   // Display the image
@@ -129,8 +124,6 @@ function slide2() {
   button1.hide();
   button2.hide();
   button3.show();
-  // Hide the text '(To Continue in Project 3...)'
-  this.toContinue.hide();
   // A paper white background color
   background(245);
   // Display the image
@@ -158,14 +151,10 @@ function slide3() {
   button1.show();
   button2.hide();
   button3.hide();
-  // Show the text '(To Continue in Project 3...)'
-  this.toContinue.show();
   // A paper white background color
   background(245);
   // Display the image
   image(this.img[4], 0, 0);
-  // Display the text '(To Continue in Project 3...)'
-  text(this.toContinue);
 }
 
 // slide4()

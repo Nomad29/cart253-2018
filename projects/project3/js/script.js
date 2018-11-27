@@ -89,8 +89,6 @@ var input, button;
 var button1, button2;
 // Variables for the in-game content choice button functions
 var nextButton, nextButton1, nextButton2;
-// Variables for the game content ending text
-var toContinue;
 
 // preload()
 //
@@ -175,12 +173,6 @@ function setup() {
   // Creates and selects the DIV named 'ingame3-button' for placing in the game
   button3 = select("#ingame3-buttonBox");
   button3.mousePressed(nextButton1);
-
-
-  // Creates and selects the DIV named 'soon-text' for placing the game soon ending content
-  toContinue = createP("(To Continue in Project 3...)");
-  toContinue.parent('soon-text');
-  toContinue.hide();
 }
 
 // draw()
