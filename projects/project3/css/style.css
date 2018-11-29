@@ -281,7 +281,7 @@ div {
   cursor: pointer;
 }
 
-#ingame1-buttonBox, #ingame3-buttonBox, #ingame5-buttonBox {
+#ingame1-buttonBox, #ingame3-buttonBox, #ingame5-buttonBox, #ingame7-buttonBox, #ingame8-buttonBox, #ingame10-buttonBox, #ingame11-buttonBox, #ingame12-buttonBox, #ingame13-buttonBox, #ingame14buttonBox {
     width: 80.1%;
     margin-left: auto;
     margin-right: auto;
@@ -297,7 +297,7 @@ div {
     cursor: pointer;
 }
 
-#ingame2-buttonBox, #ingame4-buttonBox, #ingame6-buttonBox {
+#ingame2-buttonBox, #ingame4-buttonBox, #ingame6-buttonBox, #ingame9-buttonBox {
     width: 80.1%;
     margin-left: auto;
     margin-right: auto;

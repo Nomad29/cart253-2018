@@ -75,10 +75,11 @@ var game;
 // Variable for making possible to show multiple game content
 var scenario = 0;
 // Variables for the differents game scenarios
-var prologue, slide1, slide2, slide3, slide4;
+var prologue, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8,
+slide9, slide10, ending;
 // Variables for the game content
 // Variables for the game content texts
-var txt1, txt2, txt3, txt4;
+var txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10, txt11;
 // Variables for the game content prologue title
 var title1;
 // Variables for the game content images
@@ -86,7 +87,8 @@ var img = [];
 // Variables for the game content prologue input/continue button
 var input, button;
 // Variables for the in-game content choice buttons
-var button1, button2;
+var button1, button2, button3, button5, button6, button7, button8,
+button9, button10, button11, button12, button13, button14;
 // Variables for the in-game content choice button functions
 var nextButton, nextButton1, nextButton2;
 
@@ -135,7 +137,7 @@ function setup() {
 
   // Creates the images placed in the game content
   // Loads the game content images
-  for (var i = 1; i < 5; i++) {
+  for (var i = 1; i < 10; i++) {
     img[i] = createImg("assets/images/" + i + ".png");
     img[i].parent('game-images');
   }
@@ -149,6 +151,20 @@ function setup() {
   txt3.hide();
   txt4 = select("#game-text4");
   txt4.hide();
+  txt5 = select("#game-text5");
+  txt5.hide();
+  txt6 = select("#game-text6");
+  txt6.hide();
+  txt7 = select("#game-text7");
+  txt7.hide();
+  txt8 = select("#game-text8");
+  txt8.hide();
+  txt9 = select("#game-text9");
+  txt9.hide();
+  txt10 = select("#game-text10");
+  txt10.hide();
+  txt11 = select("#game-text11");
+  txt11.hide();
   // Creates and selects the DIV named 'game-title' for placing the game content title
   title1 = select("#game-title1");
   title1.hide();
@@ -173,6 +189,52 @@ function setup() {
   // Creates and selects the DIV named 'ingame3-button' for placing in the game
   button3 = select("#ingame3-buttonBox");
   button3.mousePressed(nextButton1);
+
+  // Creates the choices button for slide3()
+  // Creates and selects the DIV named 'ingame5-button' for placing in the game
+  button5 = select("#ingame5-buttonBox");
+  button5.mousePressed(nextButton1);
+  // Creates and selects the DIV named 'ingame6-button' for placing in the game
+  button6 = select("#ingame6-buttonBox");
+  button6.mousePressed(nextButton2);
+
+  // Creates the choices button for slide4()
+  // Creates and selects the DIV named 'ingame7-button' for placing in the game
+  button7 = select("#ingame7-buttonBox");
+  button7.mousePressed(nextButton1);
+
+  // Creates the choices button for slide5()
+  // Creates and selects the DIV named 'ingame8-button' for placing in the game
+  button8 = select("#ingame8-buttonBox");
+  button8.mousePressed(nextButton1);
+  // Creates and selects the DIV named 'ingame9-button' for placing in the game
+  button9 = select("#ingame9-buttonBox");
+  button9.mousePressed(nextButton2);
+
+  // Creates the choices button for slide6()
+  // Creates and selects the DIV named 'ingame10-button' for placing in the game
+  button10 = select("#ingame10-buttonBox");
+  button10.mousePressed(nextButton2);
+
+  // Creates the choices button for slide7()
+  // Creates and selects the DIV named 'ingame11-button' for placing in the game
+  button11 = select("#ingame11-buttonBox");
+  button11.mousePressed(nextButton2);
+
+  // Creates the choices button for slide8()
+  // Creates and selects the DIV named 'ingame12-button' for placing in the game
+  button12 = select("#ingame12-buttonBox");
+  button12.mousePressed(nextButton2);
+
+  // Creates the choices button for slide9()
+  // Creates and selects the DIV named 'ingame13-button' for placing in the game
+  button13 = select("#ingame13-buttonBox");
+  button13.mousePressed(nextButton1);
+
+  // Creates the choices button for slide10()
+  // Creates and selects the DIV named 'ingame14-button' for placing in the game
+  button14 = select("#ingame14-buttonBox");
+  button14.mousePressed(nextButton1);
 }
 
 // draw()

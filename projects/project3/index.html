@@ -61,34 +61,138 @@
 	  </div>
 	
 	  <div id="game-text">
+	  <!-- Scenario 1 (Prologue) -->
 	    <div id="game-text1">
 	      <p>Today is finally the time you have been waiting for, young wizard, your new master is waiting for you at the main district in the capital. <br /><br />What was his name again? Please type in  the name below.</p>
 	    </div>
+		<!-- Scenario 2 -->
 	    <div id="game-text2">
 	      <p>But first, Your master tasked you to acquire some reagents on your way to see him. <br /><br /> Now that you’re out of your house, you must choose where you will go.</p>
 	    </div>
+		<!-- Scenario 3 -->
 	    <div id="game-text3">
 	      <p>You have bought the reagents needed and decide to spare some more time in another shop. There is no one at the counter. <br /><br />  You choose to browse the items in store and decide to look at one item in particular. The item is in fact a beautiful stone surrounded by a strange force that compelling you to touch it.</p>
 	    </div>
+		<!-- Scenario 4 -->
 		<div id="game-text4">
 	      <p>You are now in a small patch of nature in the city. Gazing at the beautiful decor, you then confirm that you have every reagents Your master wanted asked for. <br /><br />  On your way through the tall grass you see from afar a gigantic six legged bear.</p>
 	    </div>
+
+		<!-- Scenario 5 -->
+		<div id="game-text5">
+	      <p>After taking some distance from the bear, you turn around to see if it is chasing you. However, you realize that the bear is even bigger than before, but strangely, at the same location. <br /><br />  Intrigued by this curious phenomena, you decide to get closer look to the unmoving bear. You approach cautiously and notice the closer you approach the six legged gigantic bear, the more it really looks like a little ball of fur.</p>
+	    </div>
+		
+		<!-- Scenario 6 -->
+		<div id="game-text6">
+	      <p>Relieved by the discovery that the creature's large appearance was a magical defensive mechanism and is in fact closer to the size of a little chihuahua, you are surprised when it decides to charge you and grab your leg with its six clawed paws. It hurts you little more than paper cuts. <br /><br />  You decide against a violent solution.</p>
+	    </div>
+		
+		<!-- Scenario 7 -->
+		<!-- Same image 7.png than Scenario 8 -->
+		<div id="game-text7">
+	      <p>While you struggle with the tiny six legged bear, you conjure one t-bone and throw it at the base of a tree near you. It took seconds for the furry ball to smell the tempting scent of raw meat and unleash its hold on you. <br /><br />  Going for the bait, you seize the opportunity to get away from it.</p>
+	    </div>
+		
+		<!-- Scenario 8 -->
+		<!-- Same image 7.png than Scenario 7 -->
+		<div id="game-text8">
+	      <p>While the bear is still struggling to kill you and your leg, you quickly take off your magical hat and catch it with it. <br /><br />  Fortunately, the catch is successful. You decide to keep it as a pet.</p>
+	    </div>
+		
+		<!-- Scenario 9 -->
+		<!-- Same image 8.png than Scenario 10 -->
+		<div id="game-text9">
+	      <p>Arriving near the main district, you hear a buzzing sound coming from the area ahead. You decide to find the source of the sound, leading you toward an area where strangely you are supposed to meet your master Your master. <br /><br />  You didn’t notice, but the tiny bear has been following you all along, like your shadow.</p>
+	    </div>
+		
+		<!-- Scenario 10 -->
+		<!-- Same image 8.png than Scenario 9 -->
+		<div id="game-text10">
+	      <p>Arriving near the main district, you hear a buzzing sound coming from the area ahead. You decide to find the source of the sound, leading you toward an area where, strangely, you are supposed to meet your master Your master. <br /><br />  Nobody seems to notice your shaky and wiggly hat.</p>
+	    </div>
+		
+		<!-- Scenario 11 (Ending) -->
+		<div id="game-text11">
+	      <p>Finally in the main district, you are confronted to the most unspeakable event you have witnessed in your life. A large portal is currently floating in the center of the district, distorting the environment around it. <br /><br />  A few moments later, underneath it, your wizard master, Your master, has been transported by the portal when finally he, and the portal is nowhere to be found… <br /><br /> Your new quest now consists in the search and recovery of the master Wizard.</p>
+	    </div>
+		
+		
 	  </div>
-	
+	  <!-- Scenario 1 (Prologue) -->
 	  <div id="game-input"></div>
       <div id="game-buttonBox"></div>
-	  
+	  <!-- Scenario 2 -->
+	  <!-- Goes to scenario 3 -->
 	  <button id="ingame1-buttonBox">
 	    Take the main path to the marketplace
 	  </button>
+	  <!-- Goes to scenario 4 -->
 	  <button id="ingame2-buttonBox">
 	    Take the scenic route and gather the reagents by yourself in the parc
 	  </button>
 	  
+	  <!-- Scenario 3 -->
+	  <!-- Goes to scenario 4 -->
 	  <button id="ingame3-buttonBox">
 	    Touch the mysterious stone 
 	  </button>
-	  <button id="ingame4-buttonBox" style="display: none;"></button>
+	  
+	  <!-- Scenario 4 -->
+	   <!-- Goes to scenario 5 -->
+	  <button id="ingame5-buttonBox">
+	    Run away from the bear
+	  </button>
+	   <!-- Goes to scenario 6 -->
+	  <button id="ingame6-buttonBox">
+	    Stand your ground and prepare an attack spell
+	  </button>
+	  
+	  <!-- Scenario 5 -->
+	  <!-- Goes to scenario 6 -->
+	   <button id="ingame7-buttonBox">
+	    Smile because of the cuteness of the little bear
+	  </button>
+	  	  
+	  <!-- Scenario 6 -->
+	  <!-- Goes to scenario 7 -->
+	   <button id="ingame8-buttonBox">
+	    Create some conjured food
+	  </button>
+	  <!-- Goes to scenario 8 -->
+	   <button id="ingame9-buttonBox">
+	    Capture the bear with your magical hat
+	  </button>
+	  
+	  <!-- Scenario 7 -->
+	  <!-- Goes to scenario 9 -->
+	   <button id="ingame10-buttonBox">
+	    Leave subtly to return on your way
+	  </button>
+	  
+	  <!-- Scenario 8 -->
+	  <!-- Goes to scenario 10 -->
+	   <button id="ingame11-buttonBox">
+	    Return on your way with a shaky hat
+	  </button>
+	  
+	  <!-- Scenario 9 -->
+	  <!-- Goes to scenario 11 -->
+	   <button id="ingame12-buttonBox">
+	    Proceed further ahead
+	  </button>
+	  
+	  <!-- Scenario 10 -->
+	  <!-- Goes to scenario 11 -->
+	   <button id="ingame13-buttonBox">
+	    Proceed further ahead
+	  </button>
+	  
+	  <!-- Scenario 11 (Ending) -->
+	  <!-- Goes to scenario 11 -->
+	   <button id="ingame14-buttonBox" style="display: block;width: 80.1%;margin-left: auto;margin-right: auto;position: relative !important;border-style: none;height: auto;background-color:#ffa430;border-bottom: 1px solid #7e7e7e;letter-spacing: 1px;color: white;min-height: 2em;padding: 1em;cursor: pointer;">
+	    Play again
+	  </button>
 	  
 	</div>
 	
