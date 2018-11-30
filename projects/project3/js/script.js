@@ -1,23 +1,24 @@
-// Misplaced Master (Title screen)
+// Misplaced Master
 // by Alexandra Melançon
 
-// A simple title screen for an interactive storytelling game
-// where you choose your own fate.
+// A simple interactive storytelling game where you choose your own fate.
 //
-// Written with JavaScript P5.js and P5.DOM.js.
+// Written with JavaScript P5.js, P5.DOM.js and pure JavaScript.
 // Credits to Peter Hofmann, on OpenProcessing.org for helping me with creating
 // noise with the sun object.
+// Special thanks to snatti89 for the superb images
 
 // 0: Title Screen
 // 1: Game Screen
 // 2: End Screen
 // Variable for making possible to show the title screen, then the game screen
+// and ending screen
 var gameScreen = 0;
 
 // Variable for the P5.js sketch canvas
 var canvas;
 
-// Variable to contain the DIV IDs in the HTML page
+// Variable to contain the DIV IDs of the three gameScreen in the HTML page
 var titleCanvas;
 var gameCanvas;
 var endCanvas;
@@ -29,6 +30,7 @@ var logo;
 var title;
 // Variable for the game screen content
 var inGame;
+
 // Variable for the music icon
 var music;
 var nomusic;
@@ -76,7 +78,7 @@ var game;
 var scenario = 0;
 // Variables for the differents game scenarios
 var prologue, slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8,
-slide9, slide10, ending;
+  slide9, slide10, ending;
 // Variables for the game content
 // Variables for the game content texts
 var txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10, txt11;
@@ -88,7 +90,7 @@ var img = [];
 var input, button;
 // Variables for the in-game content choice buttons
 var button1, button2, button3, button5, button6, button7, button8,
-button9, button10, button11, button12, button13, button14;
+  button9, button10, button11, button12, button13, button14;
 // Variables for the in-game content choice button functions
 var nextButton1, nextButton2;
 
@@ -96,10 +98,7 @@ var nextButton1, nextButton2;
 //
 // Loads the target, fonts, decoy and frame images before the program starts
 function preload() {
-  // Load fonts
-  myFont1 = loadFont("assets/fonts/bernadette.ttf");
-  myFont2 = loadFont("assets/fonts/Poppins-Regular.ttf");
-  myFont3 = loadFont("assets/fonts/Poppins-Light.ttf");
+  // Nothing to preload
 }
 
 // setup()
@@ -125,6 +124,7 @@ function setup() {
   // Selects the DIV ID named 'game-container'
   inGame = select("#game-container");
   inGame.hide();
+
   // Selects the DIV named 'music'
   music = select("#music");
   // Selects the DIV named 'nomusic'
@@ -141,6 +141,7 @@ function setup() {
     img[i] = createImg("assets/images/" + i + ".png");
     img[i].parent('game-images');
   }
+
   // Creates the text placed in the game content
   // Hide them at the beginning of the program
   txt1 = select("#game-text1");
@@ -242,10 +243,10 @@ function setup() {
 
 // draw()
 //
-// Handles input, updates all the elements, checks for collisions
-// and displays everything.
+// Handles the display of everything and switching when called.
 function draw() {
-  // Let the user switch between the title screen, the game screen and the end game screen.
+  // Let the user switch between the title screen, the game screen and
+  // the end game screen.
   switch (gameScreen) {
     case 0:
       // Title screen
@@ -266,7 +267,7 @@ function draw() {
 
 // titleScreen()
 //
-// This method sets the necessary variables to start the game
+// This method sets the necessary variables to introduce the game
 function titleScreen() {
   // Creates the title canvas to windows size
   titleCanvas = createCanvas(width, height);
@@ -286,15 +287,17 @@ function titleScreen() {
 function startGame() {
   // Creates the title canvas to windows size
   gameCanvas = createCanvas(width, height);
-  // Loads the backgrounds to the DIV ID named title-container in the HTML page
+  // Loads the backgrounds to the DIV ID named game-container in the HTML page
   gameCanvas.parent('game-container');
   // A paper white background color
   background(245);
+  // Erase the default black stroke
+  noStroke();
   // Hides the titleScreen
   title.hide();
   // Show the game
   inGame.show();
-  // Display the game
+  // Display Game.js
   game.display();
 }
 
@@ -304,10 +307,12 @@ function startGame() {
 function endGame() {
   // Creates the title canvas to windows size
   endCanvas = createCanvas(width, height);
-  // Loads the backgrounds to the DIV ID named title-container in the HTML page
+  // Loads the backgrounds to the DIV ID named end-container in the HTML page
   endCanvas.parent('end-container');
-  // A black background color
+  // A paper white background color
   background(245);
+  // Erase the default black stroke
+  noStroke();
   // Hides the game
   inGame.hide();
   // Re-add the default gray logo
@@ -378,14 +383,15 @@ var nextButton2 = function() {
 
 // keyPressed()
 //
-// Give the option to restart the game by mouse cliking the screen
+// Give the option to start the game by pressing any key on the title screen
 function keyPressed() {
-  // If the user is on the title screen and click, the title screen will clear
+  // If the user is on the title screen and press a key, the title screen will clear
   if (gameScreen = 0) {
-    // Remove whole sketch on mouse press
+    // Remove whole sketch (title screen) on key press
     remove();
   }
   // If the user is on the game screen, the startGame function will appear
+  // and the logo will change to white instead of the default gray
   else if (gameScreen = 1) {
     logo = logo.parent('logo');
     startGame();

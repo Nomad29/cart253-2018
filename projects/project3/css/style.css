@@ -1,10 +1,25 @@
-/*********************************************
+@charset "utf-8";
+/*------------------------------------------------------------------
+[Table of contents]
 
-Here is a description of any special CSS used.
-In this case it's just padding and margin to 0
-so the canvas is flush with the top left corner.
+0. Common styles
+1. Header
+2. titleScreen
+3. gameScreen
+4. endingScreen
 
-**********************************************/
+/*------------------------------------------------------------------
+[Typography]
+
+Body: "Montserrat" sans-serif;
+Headers and Titles: "Bernadette";
+
+-------------------------------------------------------------------*/
+
+
+/* ==============================
+   0. Common styles
+   ============================== */
 
 html, body {
   height: 100%;
@@ -14,9 +29,7 @@ html, body {
   background-color: #f6f6f6;
   display: flex;
   position: relative;
-  /* This centers our sketch horizontally. */
   justify-content: center;
-  /* This centers our sketch vertically. */
   align-items: center;
 }
 
@@ -30,8 +43,8 @@ html, body {
 }
 
 @font-face {
-    font-family: "bernadette";
-    src:url("fonts/bernadette.ttf");
+  font-family: "bernadette";
+  src:url("fonts/bernadette.ttf");
 }
 
 p {
@@ -41,46 +54,56 @@ p {
 }
 
 div {
-   display: inline-block;
+  display: inline-block;
 }
 
+
+/* ==============================
+   1. Header
+   ============================== */
+
 #logo img {
-    height: 50px;
-    width: auto;
-	background-size:contain;
-	position:fixed;
-	top:50px;
-	left:50px;
-	z-index:6;
+  height: 50px;
+  width: auto;
+  background-size:contain;
+  position:fixed;
+  top:50px;
+  left:50px;
+  z-index:6;
 }
 
 #more {
-	position:fixed;
-	top:50px;
-	right:50px;
-	z-index:6;
+  position:fixed;
+  top:50px;
+  right:50px;
+  z-index:6;
 }
 
 #more img, #music img, #nomusic img {
-    height: 35px;
-    width: auto;
-	background-size:contain;
-	cursor: pointer;
+  height: 35px;
+  width: auto;
+  background-size:contain;
+  cursor: pointer;
 }
 
 #music {
-	position:fixed;
-	top:50px;
-	right:100px;
-	z-index:6;
+  position:fixed;
+  top:50px;
+  right:100px;
+  z-index:6;
 }
 
 #nomusic {
-	position:fixed;
-	top:50px;
-	right:100px;
-	z-index:6;
+  position:fixed;
+  top:50px;
+  right:100px;
+  z-index:6;
 }
+
+
+/* ==============================
+   2. titleScreen
+   ============================== */
 
 #title-container {
   height: 100%;
@@ -89,20 +112,6 @@ div {
   align-items: center;
   display:flex;
   z-index:5;
-}
-
-#game-container {
-  height: 100%;
-  width: 100%;
-  position:absolute;
-  z-index:4;
-}
-
-#end-container {
-  height: 100%;
-  width: 100%;
-  position:absolute;
-  z-index:3;
 }
 
 .title {
@@ -168,6 +177,17 @@ div {
 }
 
 
+/* ==============================
+   3. gameScreen
+   ============================== */
+
+#game-container {
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  z-index:4;
+}
+
 #game-content {
   height: 100%;
   width: 100%;
@@ -190,7 +210,6 @@ div {
   height:100%;
   width:100%;
 }
-
 
 #game-images canvas {
   height: 100%;
@@ -235,7 +254,6 @@ div {
   z-index: 1;
 }
 
-
 .text-content div p {
   width:80%;
   height:80%;
@@ -244,7 +262,6 @@ div {
   color: #393939;
 }
 
-
 #game-input {
   height: auto;
   width: 100%;
@@ -252,31 +269,30 @@ div {
 }
 
 #game-input input {
-    width: 60%;
-    margin-left: 12%;
-    font-size: 0.9vmax;
-    height: 3em;
-    margin-top: 0.7em;
-    background-color: white;
-    border-style: none;
-    border-bottom: 1px solid #ff8f00;
-    box-sizing: border-box;
-    text-align: center;
-	color:#7f7f7f;
+  width: 60%;
+  margin-left: 12%;
+  font-size: 0.9vmax;
+  height: 3em;
+  margin-top: 0.7em;
+  background-color: white;
+  border-style: none;
+  border-bottom: 1px solid #ff8f00;
+  box-sizing: border-box;
+  text-align: center;
+  color:#7f7f7f;
 }
 
-
 #masta, #masta2, #masta3, #masta4, #masta5 {
-    width: auto;
-    height: auto;
-    margin-bottom: -0.15em !important;
+  width: auto;
+  height: auto;
+  margin-bottom: -0.15em !important;
 }
 
 #masta p, #masta2 p, #masta3 p, #masta4 p, #masta5 p {
-    width: max-content;
-    height: max-content;
-    padding: 0px !important;
-    margin: 0 auto;
+  width: max-content;
+  height: max-content;
+  padding: 0px !important;
+  margin: 0 auto;
 }
 
 #game-buttonBox {
@@ -285,52 +301,64 @@ div {
 }
 
 #game-buttonBox button {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative !important;
-    border-style: none;
-    height: 3em;
-    background-color: #ffa430;
-    letter-spacing: 1px;
-    color: white;
-    font-size: 0.9vmax;
-    cursor: pointer;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative !important;
+  border-style: none;
+  height: 3em;
+  background-color: #ffa430;
+  letter-spacing: 1px;
+  color: white;
+  font-size: 0.9vmax;
+  cursor: pointer;
 }
 
 #ingame1-buttonBox, #ingame3-buttonBox, #ingame5-buttonBox, #ingame7-buttonBox, #ingame8-buttonBox, #ingame10-buttonBox, #ingame11-buttonBox, #ingame12-buttonBox, #ingame13-buttonBox, #ingame14buttonBox {
-    width: 80.1%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative !important;
-    border-style: none;
-    height: auto;
-    background-color: #ffa430;
-    border-bottom: 1px solid #7e7e7e;
-    letter-spacing: 1px;
-    color: white;
-    min-height: 2em;
-    padding: 1em;
-	font-size: 0.85vmax;
-    cursor: pointer;
+  width: 80.1%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative !important;
+  border-style: none;
+  height: auto;
+  background-color: #ffa430;
+  border-bottom: 1px solid #7e7e7e;
+  letter-spacing: 1px;
+  color: white;
+  min-height: 2em;
+  padding: 1em;
+  font-size: 0.85vmax;
+  cursor: pointer;
 }
 
 #ingame2-buttonBox, #ingame4-buttonBox, #ingame6-buttonBox, #ingame9-buttonBox {
-    width: 80.1%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative !important;
-    border-style: none;
-    height: auto;
-    background-color: #ffa430;
-    border-bottom: 1px solid #7e7e7e;
-    letter-spacing: 1px;
-    color: white;
-    min-height: 2em;
-	font-size: 0.85vmax;
-    padding: 1em;
-    cursor: pointer;
-	margin-top: 2em;
+  width: 80.1%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative !important;
+  border-style: none;
+  height: auto;
+  background-color: #ffa430;
+  border-bottom: 1px solid #7e7e7e;
+  letter-spacing: 1px;
+  color: white;
+  min-height: 2em;
+  font-size: 0.85vmax;
+  adding: 1em;
+  cursor: pointer;
+  margin-top: 2em;
+}
+
+
+/* ==============================
+   4. endingScreen
+   ============================== */
+
+#end-container {
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  z-index:3;
 }
 
 .title2 {

@@ -50,44 +50,44 @@ Game.prototype.display = function() {
       break;
 
     case 4:
-     // Game slide 4
-     slide4();
-     break;
+      // Game slide 4
+      slide4();
+      break;
 
     case 5:
-     // Game slide 5
-     slide5();
-     break;
+      // Game slide 5
+      slide5();
+      break;
 
     case 6:
-     // Game slide 6
-     slide6();
-     break;
+      // Game slide 6
+      slide6();
+      break;
 
     case 7:
-     // Game slide 7
-     slide7();
-     break;
+      // Game slide 7
+      slide7();
+      break;
 
     case 8:
-     // Game slide 8
-     slide8();
-     break;
+      // Game slide 8
+      slide8();
+      break;
 
     case 9:
-     // Game slide 9
-     slide9();
-     break;
+      // Game slide 9
+      slide9();
+      break;
 
     case 10:
-     // Game slide 10
-     slide10();
-     break;
+      // Game slide 10
+      slide10();
+      break;
 
     case 11:
-     // Ending screen
-     ending();
-     break;
+      // Ending screen
+      ending();
+      break;
   }
 
 }
@@ -632,6 +632,6 @@ function slide10() {
 
 // ending()
 function ending() {
-  // Redirect to the end-game screen
+  // Redirect to the end-game screen in script.js
   endGame();
 }
