@@ -37,6 +37,7 @@ html, body {
 p {
   position: unset !important;
   padding: 2%;
+  line-height: 2;
 }
 
 div {
@@ -204,7 +205,7 @@ div {
   display: inline-block !important;
 }
 
-#game-text1, #game-text2, #game-text3, #game-text4 {
+#game-text1, #game-text2, #game-text3, #game-text4, #game-text5, #game-text6, #game-text7, #game-text8, #game-text9, #game-text10, #game-text11 {
   height: auto;
   width: 100%;
   font-size: 0.9em;
@@ -260,6 +261,20 @@ div {
   border-bottom: 1px solid #ff8f00;
   box-sizing: border-box;
   text-align:center;
+}
+
+
+#masta, #masta2, #masta3, #masta4, #masta5 {
+    width: auto;
+    height: auto;
+    margin-bottom: -0.15em !important;
+}
+
+#masta p, #masta2 p, #masta3 p, #masta4 p, #masta5 p {
+    width: max-content;
+    height: max-content;
+    padding: 0px !important;
+    margin: 0 auto;
 }
 
 #game-buttonBox {

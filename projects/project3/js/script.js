@@ -90,7 +90,7 @@ var input, button;
 var button1, button2, button3, button5, button6, button7, button8,
 button9, button10, button11, button12, button13, button14;
 // Variables for the in-game content choice button functions
-var nextButton, nextButton1, nextButton2;
+var nextButton1, nextButton2;
 
 // preload()
 //
@@ -168,14 +168,17 @@ function setup() {
   // Creates and selects the DIV named 'game-title' for placing the game content title
   title1 = select("#game-title1");
   title1.hide();
+
   // Creates and selects the DIV named 'game-input' for placing in the game
-  input = createInput('(Input function coming soon in Project 3)');
+  input = createInput('(Enter the name of your master)');
+  input.changed(masterName);
   input.parent('game-input');
+
   // Creates and selects the DIV named 'game-button' for placing in the game
   button = createButton('CONTINUE');
   button.parent('game-buttonBox');
   button.position(input.x + input.width);
-  button.mousePressed(nextButton);
+  button.mousePressed(nextButton1);
 
   // Creates the choices buttons for slide1()
   // Creates and selects the DIV named 'ingame1-button' for placing in the game
@@ -319,15 +322,39 @@ var changeIcon = function() {
   nomusic.show();
 }
 
-// nextButton()
+// masterName()
 //
-// Changes the different scenarios and content in-game
-var nextButton = function() {
-  // Get the game to the next scenario page
-  scenario = scenario + 1;
-  // Get the images for the scenario pages
-  var i = i + 1;
+// Creates and changes the master's name the player gave troughout the game
+var masterName = function() {
+  var name = createP(input.value());
+  name.parent('masta');
+
+  // Makes visible the master's name on slide3()
+  if (scenario == 3 == false) {
+    var name = createP(input.value());
+    name.parent('masta2');
+    name = input.value();
+  }
+  // Makes visible the master's name on slide8()
+  if (scenario == 8 == false) {
+    var name = createP(input.value());
+    name.parent('masta3');
+    name = input.value();
+  }
+  // Makes visible the master's name on slide9()
+  if (scenario == 9 == false) {
+    var name = createP(input.value());
+    name.parent('masta4');
+    name = input.value();
+  }
+  // Makes visible the master's name on slide10()
+  if (scenario == 10 == false) {
+    var name = createP(input.value());
+    name.parent('masta5');
+    name = input.value();
+  }
 }
+
 
 // nextButton1()
 //
