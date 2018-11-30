@@ -344,7 +344,7 @@ div {
   color: white;
   min-height: 2em;
   font-size: 0.85vmax;
-  adding: 1em;
+  padding: 1em;
   cursor: pointer;
   margin-top: 2em;
 }
