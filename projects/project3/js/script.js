@@ -307,7 +307,7 @@ function endGame() {
   // Loads the backgrounds to the DIV ID named title-container in the HTML page
   endCanvas.parent('end-container');
   // A black background color
-  background(0);
+  background(245);
   // Hides the game
   inGame.hide();
   // Re-add the default gray logo
